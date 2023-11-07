@@ -3,14 +3,23 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WPF_Kiosk"
+        xmlns:WPF_Kiosk="clr-namespace:WPF_Kiosk"
+        xmlns:i ="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         WindowStyle="None"
         AllowsTransparency="True"
         SizeToContent="WidthAndHeight">
-    <Grid>
-        <Grid.HorizontalAlignment>Stretch</Grid.HorizontalAlignment>
-        <Grid.VerticalAlignment>Stretch</Grid.VerticalAlignment>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded" >
+            <i:InvokeCommandAction Command="{Binding WindowLoadedCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    
+    <Window.DataContext>
+        <WPF_Kiosk:MainWindowViewModel/>
+    </Window.DataContext>
+    
+    <Grid Width="{Binding }">
         <Button Content="sdfsdf"/>
     </Grid>
 </Window>
