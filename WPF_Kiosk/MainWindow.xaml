@@ -8,18 +8,46 @@
         mc:Ignorable="d"
         WindowStyle="None"
         AllowsTransparency="True"
-        SizeToContent="WidthAndHeight">
-    <i:Interaction.Triggers>
-        <i:EventTrigger EventName="Loaded" >
-            <i:InvokeCommandAction Command="{Binding WindowLoadedCommand}" />
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
-    
+        SizeToContent="WidthAndHeight"
+        WindowStartupLocation="Manual"
+        Left="0" Top="0">
+
     <Window.DataContext>
         <WPF_Kiosk:MainWindowViewModel/>
     </Window.DataContext>
-    
-    <Grid Width="{Binding }">
-        <Button Content="sdfsdf"/>
+
+    <Grid>
+        <!--대기화면-->
+        <Grid Width="{Binding WindowWidth}" Height="{Binding WindowHight}" Background="Blue" x:Name="KioskLock">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseUp" SourceObject="{Binding ElementName=KioskLock}">
+                    <i:InvokeCommandAction Command="{Binding KioskLockMouseUp}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="6*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+            <Button Grid.Column="1" Grid.Row="1" Content="Touch to order">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="20"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+        </Grid>
+
+        <!--메인화면-->
+        <Grid Width="{Binding WindowWidth}" Height="{Binding WindowHight}" Background="Beige" Visibility="Collapsed">
+            <Button Content="나 메인화면"/>
+        </Grid>
     </Grid>
+    
 </Window>
