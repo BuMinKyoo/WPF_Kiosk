@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Linq;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -19,6 +13,7 @@ namespace WPF_Kiosk
             WindowHight = SystemParameters.PrimaryScreenHeight;
         }
 
+        #region KioskLock
         private double _windowWidth;
         public double WindowWidth
         {
@@ -47,10 +42,34 @@ namespace WPF_Kiosk
             get { return _KioskLockMouseUp = new Command(OnKioskLockMouseUp); }
         }
 
+        private bool _kioskLockVisibility = true;
+        public bool KioskLockVisibility
+        {
+            get { return _kioskLockVisibility; }
+            set
+            {
+                _kioskLockVisibility = value;
+                Notify("KioskLockVisibility");
+            }
+        }
+
         private void OnKioskLockMouseUp(object obj)
         {
-            MessageBox.Show("클릭 이벤트 발생");
+            KioskLockVisibility = false;
         }
+
+        private Command _kioskLockBtnClick;
+        public ICommand KioskLockBtnClick
+        {
+            get { return _kioskLockBtnClick = new Command(OnKioskLockBtnClick); }
+        }
+
+        private void OnKioskLockBtnClick(object obj)
+        {
+            KioskLockVisibility = false;
+        }
+
+        #endregion
 
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler? PropertyChanged;
