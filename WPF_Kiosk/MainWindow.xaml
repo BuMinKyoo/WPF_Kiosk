@@ -18,48 +18,74 @@
 
     <Grid>
         <!--메인화면-->
-        <Grid Width="{Binding WindowWidth}" Height="{Binding WindowHight}" Background="Beige" Visibility="Visible">
+        <Grid Width="{Binding WindowWidth}" Height="{Binding WindowHight}" Visibility="Visible">
 
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
                 <RowDefinition Height="0.5*"/>
-                <RowDefinition Height="6*"/>
-                <RowDefinition Height="0.5*"/>
-                <RowDefinition Height="1*"/>
+                <RowDefinition Height="0.3*"/>
+                <RowDefinition Height="4*"/>
+                <RowDefinition Height="0.3*"/>
+                <RowDefinition Height="0.9*"/>
             </Grid.RowDefinitions>
 
-            <ItemsControl Grid.Row="2" ItemsSource="{Binding CustList}">
-                <ItemsControl.Style>
-                    <Style TargetType="{x:Type ItemsControl}">
-                        <Setter Property="BorderThickness" Value="{Binding Thkness}"/>
-                    </Style>
-                </ItemsControl.Style>
+            <TextBox Grid.Row="0" Text="asdfasdfsadf"/>
+            <TextBox Grid.Row="1" Text="asdfasdfsadf"/>
+
+            <ItemsControl Grid.Row="2" ItemsSource="{Binding GoodsItems}">
+                
+                <!--템플릿 외형-->
                 <ItemsControl.Template>
-                    <!--템플릿 외형-->
                     <ControlTemplate TargetType="{x:Type ItemsControl}">
-                        <StackPanel>
-                            <Border BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="Red">
-                                <ItemsPresenter/>
-                            </Border>
-                            <Button Content="버튼~" Width="100" Height="30"/>
-                        </StackPanel>
+                        <ItemsPresenter/>
                     </ControlTemplate>
                 </ItemsControl.Template>
 
+                <!--트리거-->
+                <ItemsControl.ItemContainerStyle>
+                    <Style>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding GoodsDisplay}" Value="True">
+                                <Setter Property="FrameworkElement.Visibility" Value="Visible"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding GoodsDisplay}" Value="False">
+                                <Setter Property="FrameworkElement.Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+
+                <!--데이터 외형-->
                 <ItemsControl.ItemTemplate>
-                    <!--데이터 외형-->
                     <DataTemplate>
-                        <local:UserControl1/>
+                        <Grid Height="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}, AncestorLevel=1}, Path=DataContext.GoodsItemsHight}" Background="Red" Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}, AncestorLevel=1}, Path=DataContext.GoodsItemsWidth}">
+                            <Border Margin="10px" Background="Aqua">
+                                <StackPanel>
+                                    <Rectangle Fill="AliceBlue" Margin="10px"/>
+
+                                    <TextBlock Text="{Binding GoodsName}"/>
+                                    <TextBlock Text="line2"/>
+                                    <TextBlock Text="$Price"/>
+                                </StackPanel>
+                            </Border>
+                        </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
 
+                <!--패널 정렬-->
                 <ItemsControl.ItemsPanel>
-                    <!--패널 정렬-->
                     <ItemsPanelTemplate>
-                        <StackPanel/>
+                        <WrapPanel/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
+
+            <Grid Grid.Row="3">
+                <StackPanel Orientation="Horizontal">
+                    <Button Width="100" Height="30" Content="아이템버튼" Command="{Binding GoodsPageClickLeft}"/>
+                    <Button Width="100" Height="30" Content="아이템버튼" Command="{Binding GoodsPageClickRight}"/>
+                </StackPanel>
+            </Grid>
+            <TextBox Grid.Row="4" Text="asdfasdfsadf"/>
         </Grid>
 
         <!--대기화면-->
