@@ -16,28 +16,67 @@ namespace WPF_Kiosk
             WindowWidth = SystemParameters.PrimaryScreenWidth;
             WindowHight = SystemParameters.PrimaryScreenHeight;
 
-            // 상품의 크기를 비율에 따라 조절
+            // 상품의 크기를 화면 비율에 따라 조절
             GoodsItemsWidth = WindowWidth / 4;
             GoodsItemsHight = (WindowHight * 4/6) / 4; // Grid비율에 따라 변경 되는 값
 
-            GoodsItems.Add(new GoodsItems() { GoodsName = "햄버거", Discount = "0", GoodsPrice = 5000});
-            GoodsItems.Add(new GoodsItems() { GoodsName = "피자", Discount = "0", GoodsPrice = 10000});
-            GoodsItems.Add(new GoodsItems() { GoodsName = "치킨", Discount = "0", GoodsPrice = 15000});
-            GoodsItems.Add(new GoodsItems() { GoodsName = "콜라", Discount = "0", GoodsPrice = 2000});
-            GoodsItems.Add(new GoodsItems() { GoodsName = "사이다", Discount = "0", GoodsPrice = 2000});
-            GoodsItems.Add(new GoodsItems() { GoodsName = "환타", Discount = "0", GoodsPrice = 2000});
-            GoodsItems.Add(new GoodsItems() { GoodsName = "커피", Discount = "0", GoodsPrice = 3000});
-            GoodsItems.Add(new GoodsItems() { GoodsName = "주스", Discount = "0", GoodsPrice = 3000});
-            GoodsItems.Add(new GoodsItems() { GoodsName = "맥주", Discount = "0", GoodsPrice = 4000});
-            GoodsItems.Add(new GoodsItems() { GoodsName = "소주", Discount = "0", GoodsPrice = 4000});
-            GoodsItems.Add(new GoodsItems() { GoodsName = "막걸리", Discount = "0", GoodsPrice = 4000});
-            GoodsItems.Add(new GoodsItems() { GoodsName = "과자", Discount = "0", GoodsPrice = 1000});
-            GoodsItems.Add(new GoodsItems() { GoodsName = "아이스크림", Discount = "0", GoodsPrice = 2000});
-            GoodsItems.Add(new GoodsItems() { GoodsName = "초콜릿", Discount = "0", GoodsPrice = 3000});
-            GoodsItems.Add(new GoodsItems() { GoodsName = "과일", Discount = "0", GoodsPrice = 4000});
-            GoodsItems.Add(new GoodsItems() { GoodsName = "컵라면", Discount = "0", GoodsPrice = 5000});
-            GoodsItems.Add(new GoodsItems() { GoodsName = "라면", Discount = "0", GoodsPrice = 5000});
-            GoodsItems.Add(new GoodsItems() { GoodsName = "김밥", Discount = "0", GoodsPrice = 5000});
+            // 카테고리 크기를 화면 비율에 따라 조절
+            CategoryWidth = WindowWidth / 5;
+            CategoryHight = (WindowHight * 0.3 / 6); // Grid비율에 따라 변경 되는 값
+
+
+            #region GoodsItems테스트
+            GoodsItems.Add(new GoodsItems() { GoodsName = "1", Discount = "0", GoodsPrice = 5000});
+            GoodsItems.Add(new GoodsItems() { GoodsName = "2", Discount = "0", GoodsPrice = 10000});
+            GoodsItems.Add(new GoodsItems() { GoodsName = "3", Discount = "0", GoodsPrice = 15000});
+            GoodsItems.Add(new GoodsItems() { GoodsName = "4", Discount = "0", GoodsPrice = 2000});
+            GoodsItems.Add(new GoodsItems() { GoodsName = "5", Discount = "0", GoodsPrice = 2000});
+            GoodsItems.Add(new GoodsItems() { GoodsName = "6", Discount = "0", GoodsPrice = 2000});
+            GoodsItems.Add(new GoodsItems() { GoodsName = "7", Discount = "0", GoodsPrice = 3000});
+            GoodsItems.Add(new GoodsItems() { GoodsName = "8", Discount = "0", GoodsPrice = 3000});
+            GoodsItems.Add(new GoodsItems() { GoodsName = "9", Discount = "0", GoodsPrice = 4000});
+            GoodsItems.Add(new GoodsItems() { GoodsName = "10", Discount = "0", GoodsPrice = 4000});
+            GoodsItems.Add(new GoodsItems() { GoodsName = "11", Discount = "0", GoodsPrice = 4000});
+            GoodsItems.Add(new GoodsItems() { GoodsName = "12", Discount = "0", GoodsPrice = 1000});
+            GoodsItems.Add(new GoodsItems() { GoodsName = "13", Discount = "0", GoodsPrice = 2000});
+            GoodsItems.Add(new GoodsItems() { GoodsName = "14", Discount = "0", GoodsPrice = 3000});
+            GoodsItems.Add(new GoodsItems() { GoodsName = "15", Discount = "0", GoodsPrice = 4000});
+            GoodsItems.Add(new GoodsItems() { GoodsName = "16", Discount = "0", GoodsPrice = 5000});
+            GoodsItems.Add(new GoodsItems() { GoodsName = "17", Discount = "0", GoodsPrice = 5000});
+            GoodsItems.Add(new GoodsItems() { GoodsName = "18", Discount = "0", GoodsPrice = 5000});
+            GoodsItems.Add(new GoodsItems() { GoodsName = "19", Discount = "0", GoodsPrice = 5000});
+            GoodsItems.Add(new GoodsItems() { GoodsName = "20", Discount = "0", GoodsPrice = 5000});
+            GoodsItems.Add(new GoodsItems() { GoodsName = "21", Discount = "0", GoodsPrice = 5000});
+            GoodsItems.Add(new GoodsItems() { GoodsName = "22", Discount = "0", GoodsPrice = 5000});
+            GoodsItems.Add(new GoodsItems() { GoodsName = "23", Discount = "0", GoodsPrice = 5000});
+            GoodsItems.Add(new GoodsItems() { GoodsName = "24", Discount = "0", GoodsPrice = 5000});
+            GoodsItems.Add(new GoodsItems() { GoodsName = "25", Discount = "0", GoodsPrice = 5000 });
+            GoodsItems.Add(new GoodsItems() { GoodsName = "26", Discount = "0", GoodsPrice = 10000 });
+            GoodsItems.Add(new GoodsItems() { GoodsName = "27", Discount = "0", GoodsPrice = 15000 });
+            GoodsItems.Add(new GoodsItems() { GoodsName = "28", Discount = "0", GoodsPrice = 2000 });
+            GoodsItems.Add(new GoodsItems() { GoodsName = "29", Discount = "0", GoodsPrice = 2000 });
+            GoodsItems.Add(new GoodsItems() { GoodsName = "30", Discount = "0", GoodsPrice = 2000 });
+            GoodsItems.Add(new GoodsItems() { GoodsName = "31", Discount = "0", GoodsPrice = 3000 });
+            GoodsItems.Add(new GoodsItems() { GoodsName = "32", Discount = "0", GoodsPrice = 3000 });
+            GoodsItems.Add(new GoodsItems() { GoodsName = "33", Discount = "0", GoodsPrice = 4000 });
+            GoodsItems.Add(new GoodsItems() { GoodsName = "34", Discount = "0", GoodsPrice = 4000 });
+            GoodsItems.Add(new GoodsItems() { GoodsName = "35", Discount = "0", GoodsPrice = 4000 });
+            GoodsItems.Add(new GoodsItems() { GoodsName = "36", Discount = "0", GoodsPrice = 1000 });
+            GoodsItems.Add(new GoodsItems() { GoodsName = "37", Discount = "0", GoodsPrice = 2000 });
+            GoodsItems.Add(new GoodsItems() { GoodsName = "38", Discount = "0", GoodsPrice = 3000 });
+            GoodsItems.Add(new GoodsItems() { GoodsName = "39", Discount = "0", GoodsPrice = 4000 });
+            GoodsItems.Add(new GoodsItems() { GoodsName = "40", Discount = "0", GoodsPrice = 5000 });
+            GoodsItems.Add(new GoodsItems() { GoodsName = "41", Discount = "0", GoodsPrice = 5000 });
+            GoodsItems.Add(new GoodsItems() { GoodsName = "42", Discount = "0", GoodsPrice = 5000 });
+            GoodsItems.Add(new GoodsItems() { GoodsName = "43", Discount = "0", GoodsPrice = 5000 });
+            GoodsItems.Add(new GoodsItems() { GoodsName = "44", Discount = "0", GoodsPrice = 5000 });
+            GoodsItems.Add(new GoodsItems() { GoodsName = "45", Discount = "0", GoodsPrice = 5000 });
+            GoodsItems.Add(new GoodsItems() { GoodsName = "46", Discount = "0", GoodsPrice = 5000 });
+            GoodsItems.Add(new GoodsItems() { GoodsName = "47", Discount = "0", GoodsPrice = 5000 });
+            GoodsItems.Add(new GoodsItems() { GoodsName = "48", Discount = "0", GoodsPrice = 5000 });
+            GoodsItems.Add(new GoodsItems() { GoodsName = "49", Discount = "0", GoodsPrice = 5000 });
+            GoodsItems.Add(new GoodsItems() { GoodsName = "50", Discount = "0", GoodsPrice = 10000 });
+            #endregion
 
             // 초기에 보여지는 상품 16개
             for (int i = 0; i < 16; i++)
@@ -45,6 +84,26 @@ namespace WPF_Kiosk
                 GoodsItems[i].GoodsDisplay = true;
                 CurrentIndex++;
             }
+
+            #region Category테스트
+            Categorys.Add(new Category() { CategoryNum = 1, CategoryName = "1" });
+            Categorys.Add(new Category() { CategoryNum = 2, CategoryName = "2" });
+            Categorys.Add(new Category() { CategoryNum = 3, CategoryName = "3" });
+            Categorys.Add(new Category() { CategoryNum = 4, CategoryName = "4" });
+            Categorys.Add(new Category() { CategoryNum = 5, CategoryName = "5" });
+            Categorys.Add(new Category() { CategoryNum = 6, CategoryName = "6" });
+            Categorys.Add(new Category() { CategoryNum = 7, CategoryName = "7" });
+            Categorys.Add(new Category() { CategoryNum = 8, CategoryName = "8" });
+            Categorys.Add(new Category() { CategoryNum = 9, CategoryName = "9" });
+            Categorys.Add(new Category() { CategoryNum = 10, CategoryName = "10" });
+            Categorys.Add(new Category() { CategoryNum = 11, CategoryName = "11" });
+            Categorys.Add(new Category() { CategoryNum = 12, CategoryName = "12" });
+            #endregion
+
+           
+
+
+
         }
 
         #region KioskLock
@@ -105,7 +164,7 @@ namespace WPF_Kiosk
 
         #endregion
 
-        #region KioskMain
+        #region KioskGoods
         private ObservableCollection<GoodsItems> _goodsItems = new ObservableCollection<GoodsItems>();
         public ObservableCollection<GoodsItems> GoodsItems
         {
@@ -159,22 +218,22 @@ namespace WPF_Kiosk
         private void OnGoodsPageClickLeft(object obj)
         {
             // 첫 페이지가 아닐 경우
-            //if (CurrentIndex != 0)
-            //{
-            //    // 전체 GoodsItems의 Visible을 false로 변경
-            //    foreach (var item in GoodsItems)
-            //    {
-            //        item.GoodsDisplay = false;
-            //    }
+            if (CurrentIndex != 16)
+            {
+                // 전체 GoodsItems의 Visible을 false로 변경
+                foreach (var item in GoodsItems)
+                {
+                    item.GoodsDisplay = false;
+                }
 
-            //    // GoodsItems의 Visible을 16개 단위로 true로 변경
-            //    for (int i = CurrentIndex; i < Math.Min(CurrentIndex - 16, GoodsItems.Count); i++)
-            //    {
-            //        GoodsItems[i].GoodsDisplay = true;
-            //    }
+                CurrentIndex -= 16;
 
-            //    CurrentIndex -= 16;
-            //}
+                // GoodsItems의 Visible을 16개 단위로 true로 변경
+                for (int i = CurrentIndex - 1; i > CurrentIndex - 16 - 1; i--)
+                {
+                    GoodsItems[i].GoodsDisplay = true;
+                }
+            }
         }
 
         private Command _goodsPageClickRight;
@@ -202,6 +261,42 @@ namespace WPF_Kiosk
                 }
             
                 CurrentIndex += 16;
+            }
+        }
+
+        #endregion
+
+        #region KioskCategory
+        private ObservableCollection<Category> _categorys = new ObservableCollection<Category>();
+        public ObservableCollection<Category> Categorys
+        {
+            get { return _categorys; }
+            set
+            {
+                _categorys = value;
+                Notify("Categorys");
+            }
+        }
+
+        private double _categoryWidth;
+        public double CategoryWidth
+        {
+            get { return _categoryWidth; }
+            set
+            {
+                _categoryWidth = value;
+                Notify("CategoryWidth");
+            }
+        }
+
+        private double _categoryHight;
+        public double CategoryHight
+        {
+            get { return _categoryHight; }
+            set
+            {
+                _categoryHight = value;
+                Notify("CategoryHight");
             }
         }
 

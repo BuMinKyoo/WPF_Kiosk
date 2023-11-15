@@ -29,17 +29,48 @@
             </Grid.RowDefinitions>
 
             <TextBox Grid.Row="0" Text="asdfasdfsadf"/>
-            <TextBox Grid.Row="1" Text="asdfasdfsadf"/>
 
+            
+            <!--KioskGategory-->
+            <ItemsControl Grid.Row="1" ItemsSource="{Binding Categorys}">
+                <!--템플릿 외형-->
+                <ItemsControl.Template>
+                    <ControlTemplate TargetType="{x:Type ItemsControl}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="asdfa"/>
+                            <ItemsPresenter/>
+                            <TextBlock Text="asdfa"/>
+                        </StackPanel>
+                    </ControlTemplate>
+                </ItemsControl.Template>
+                <!--데이터 외형-->
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Height="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}, AncestorLevel=1}, Path=DataContext.CategoryHight}" Background="Blue" Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}, AncestorLevel=1}, Path=DataContext.CategoryWidth}">
+                            <Border Margin="10px" Background="Aqua">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding CategoryName}"/>
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <!--패널 정렬-->
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+
+            <!--KioskGoods-->
             <ItemsControl Grid.Row="2" ItemsSource="{Binding GoodsItems}">
-                
                 <!--템플릿 외형-->
                 <ItemsControl.Template>
                     <ControlTemplate TargetType="{x:Type ItemsControl}">
                         <ItemsPresenter/>
                     </ControlTemplate>
                 </ItemsControl.Template>
-
                 <!--트리거-->
                 <ItemsControl.ItemContainerStyle>
                     <Style>
@@ -53,7 +84,6 @@
                         </Style.Triggers>
                     </Style>
                 </ItemsControl.ItemContainerStyle>
-
                 <!--데이터 외형-->
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
@@ -70,7 +100,6 @@
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
-
                 <!--패널 정렬-->
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
