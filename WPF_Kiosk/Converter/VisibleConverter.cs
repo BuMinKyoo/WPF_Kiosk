@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 
-namespace WPF_Kiosk
+namespace WPF_Kiosk.Converter
 {
     public class VisibleConverter : IValueConverter
     {

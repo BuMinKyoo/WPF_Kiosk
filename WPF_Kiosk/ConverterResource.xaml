@@ -1,5 +1,5 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:WPF_Kiosk="clr-namespace:WPF_Kiosk">
-    <WPF_Kiosk:VisibleConverter x:Key="VisibleConverter" />
+                    xmlns:WPF_Kiosk_Converter="clr-namespace:WPF_Kiosk.Converter">
+    <WPF_Kiosk_Converter:VisibleConverter x:Key="VisibleConverter" />
 </ResourceDictionary>

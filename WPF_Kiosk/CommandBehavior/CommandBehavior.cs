@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Windows.Input;
 using System.Windows;
 
-namespace WPF_Kiosk
+namespace WPF_Kiosk.CommandBehavior
 {
     public class CommandBehavior
     {

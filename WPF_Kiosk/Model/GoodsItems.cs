@@ -60,6 +60,20 @@ namespace WPF_Kiosk.Model
             }
         }
 
+        private int _goodsCategoryNum;
+        public int GoodsCategoryNum
+        {
+            get { return _goodsCategoryNum; }
+            set
+            {
+                if (_goodsCategoryNum != value)
+                {
+                    _goodsCategoryNum = value;
+                    Notify("GoodsCategoryNum");
+                }
+            }
+        }
+
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler? PropertyChanged;
         protected void Notify([CallerMemberName] string propertyName = null)
