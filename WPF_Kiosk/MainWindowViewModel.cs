@@ -21,7 +21,7 @@ namespace WPF_Kiosk
             GoodsItemsHight = (WindowHight * 4/6) / 4; // Grid비율에 따라 변경 되는 값
 
             // 카테고리 크기를 화면 비율에 따라 조절
-            CategoryWidth = WindowWidth / 5;
+            CategoryWidth = (WindowWidth - 200) / 5; // 양 옆 < > 버튼을 제외한것
             CategoryHight = (WindowHight * 0.3 / 6); // Grid비율에 따라 변경 되는 값
 
 
@@ -82,7 +82,7 @@ namespace WPF_Kiosk
             for (int i = 0; i < 16; i++)
             {
                 GoodsItems[i].GoodsDisplay = true;
-                CurrentIndex++;
+                GoodsItemCurrentIndex++;
             }
 
             #region Category테스트
@@ -100,9 +100,12 @@ namespace WPF_Kiosk
             Categorys.Add(new Category() { CategoryNum = 12, CategoryName = "12" });
             #endregion
 
-           
-
-
+            // 초기에 보여지는 카테고리 5개
+            for (int i = 0; i < 5; i++)
+            {
+                Categorys[i].CategoryDisplay = true;
+                CatecoryCurrentIndex++;
+            }
 
         }
 
@@ -135,11 +138,13 @@ namespace WPF_Kiosk
             get { return _KioskLockMouseUp = new Command(OnKioskLockMouseUp); }
         }
 
+        // KioskLock화면에 마우스 업 클릭시 작동
         private void OnKioskLockMouseUp(object obj)
         {
             KioskLockVisibility = false;
         }
 
+        // OnKioskLockMouseUp과 같은 기능이지만, 버튼으로 command연결
         private Command _kioskLockBtnClick;
         public ICommand KioskLockBtnClick
         {
@@ -198,14 +203,14 @@ namespace WPF_Kiosk
             }
         }
 
-        private int _currentIndex = 0;
-        public int CurrentIndex
+        private int _goodsItemCurrentIndex = 0;
+        public int GoodsItemCurrentIndex
         {
-            get { return _currentIndex; }
+            get { return _goodsItemCurrentIndex; }
             set
             {
-                _currentIndex = value;
-                Notify("CurrentIndex");
+                _goodsItemCurrentIndex = value;
+                Notify("GoodsItemCurrentIndex");
             }
         }
 
@@ -218,7 +223,7 @@ namespace WPF_Kiosk
         private void OnGoodsPageClickLeft(object obj)
         {
             // 첫 페이지가 아닐 경우
-            if (CurrentIndex != 16)
+            if (GoodsItemCurrentIndex != 16)
             {
                 // 전체 GoodsItems의 Visible을 false로 변경
                 foreach (var item in GoodsItems)
@@ -226,10 +231,10 @@ namespace WPF_Kiosk
                     item.GoodsDisplay = false;
                 }
 
-                CurrentIndex -= 16;
+                GoodsItemCurrentIndex -= 16;
 
                 // GoodsItems의 Visible을 16개 단위로 true로 변경
-                for (int i = CurrentIndex - 1; i > CurrentIndex - 16 - 1; i--)
+                for (int i = GoodsItemCurrentIndex - 1; i > GoodsItemCurrentIndex - 16 - 1; i--)
                 {
                     GoodsItems[i].GoodsDisplay = true;
                 }
@@ -245,7 +250,7 @@ namespace WPF_Kiosk
         private void OnGoodsPageClickRight(object obj)
         {
             // 마지막 페이지가 아닐 경우
-            if (CurrentIndex < GoodsItems.Count)
+            if (GoodsItemCurrentIndex < GoodsItems.Count)
             {
                 // 전체 GoodsItems의 Visible을 false로 변경
                 foreach (var item in GoodsItems)
@@ -255,12 +260,12 @@ namespace WPF_Kiosk
             
 
                 // GoodsItems의 Visible을 16개 단위로 true로 변경
-                for (int i = CurrentIndex; i < Math.Min(CurrentIndex + 16, GoodsItems.Count); i++)
+                for (int i = GoodsItemCurrentIndex; i < Math.Min(GoodsItemCurrentIndex + 16, GoodsItems.Count); i++)
                 {
                     GoodsItems[i].GoodsDisplay = true;
                 }
-            
-                CurrentIndex += 16;
+
+                GoodsItemCurrentIndex += 16;
             }
         }
 
@@ -298,6 +303,53 @@ namespace WPF_Kiosk
                 _categoryHight = value;
                 Notify("CategoryHight");
             }
+        }
+
+        private int _catecoryCurrentIndex = 0;
+        public int CatecoryCurrentIndex
+        {
+            get { return _catecoryCurrentIndex; }
+            set
+            {
+                _catecoryCurrentIndex = value;
+                Notify("CatecoryCurrentIndex");
+            }
+        }
+
+        private Command _categoryClkLeft;
+        public ICommand CategoryClkLeft
+        {
+            get { return _categoryClkLeft = new Command(OnCategoryClkLeft); }
+        }
+
+        private void OnCategoryClkLeft(object obj)
+        {
+            if (CatecoryCurrentIndex == 5)
+            {
+                return;
+            }
+
+            Categorys[CatecoryCurrentIndex - 1].CategoryDisplay = false;
+            Categorys[CatecoryCurrentIndex - 6].CategoryDisplay = true;
+            CatecoryCurrentIndex--;
+        }
+
+        private Command _categoryClkRight;
+        public ICommand CategoryClkRight
+        {
+            get { return _categoryClkRight = new Command(OnCategoryClkRight); }
+        }
+
+        private void OnCategoryClkRight(object obj)
+        {
+            if (CatecoryCurrentIndex == Categorys.Count)
+            {
+                return;
+            }
+
+            Categorys[CatecoryCurrentIndex].CategoryDisplay = true;
+            Categorys[CatecoryCurrentIndex-5].CategoryDisplay = false;
+            CatecoryCurrentIndex++;
         }
 
         #endregion

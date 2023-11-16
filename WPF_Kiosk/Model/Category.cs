@@ -38,6 +38,20 @@ namespace WPF_Kiosk.Model
             }
         }
 
+        private bool _categoryDisplay = false;
+        public bool CategoryDisplay
+        {
+            get { return _categoryDisplay; }
+            set
+            {
+                if (_categoryDisplay != value)
+                {
+                    _categoryDisplay = value;
+                    Notify("CategoryDisplay");
+                }
+            }
+        }
+
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler? PropertyChanged;
         protected void Notify([CallerMemberName] string propertyName = null)

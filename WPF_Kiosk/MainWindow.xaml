@@ -37,12 +37,25 @@
                 <ItemsControl.Template>
                     <ControlTemplate TargetType="{x:Type ItemsControl}">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="asdfa"/>
+                            <Button Width="100" Content="&lt;" HorizontalAlignment="Center" VerticalAlignment="Center" Height="{Binding CategoryHight}" Command="{Binding CategoryClkLeft}"/>
                             <ItemsPresenter/>
-                            <TextBlock Text="asdfa"/>
+                            <Button Width="100" Content="&gt;" HorizontalAlignment="Center" VerticalAlignment="Center" Height="{Binding CategoryHight}" Command="{Binding CategoryClkRight}"/>
                         </StackPanel>
                     </ControlTemplate>
                 </ItemsControl.Template>
+                <!--트리거-->
+                <ItemsControl.ItemContainerStyle>
+                    <Style>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding CategoryDisplay}" Value="True">
+                                <Setter Property="FrameworkElement.Visibility" Value="Visible"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding CategoryDisplay}" Value="False">
+                                <Setter Property="FrameworkElement.Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
                 <!--데이터 외형-->
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
