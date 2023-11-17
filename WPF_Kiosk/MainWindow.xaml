@@ -124,7 +124,7 @@
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
 
-            <!--KioskGoodsSelectDisplay-->
+            <!--KioskGoodsShortDisplay-->
             <Grid Grid.Row="3">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -132,16 +132,51 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 
-                <Button Grid.Column="0" Width="70" Height="{Binding GoodsSelectDisplayHight}" HorizontalAlignment="Left" VerticalAlignment="Center" Content="&lt;" Command="{Binding GoodsPageClickLeft}" Margin="30,0,0,0"/>
+                <Button Grid.Column="0" Width="70" Height="{Binding GoodsShortDisplayHight}" HorizontalAlignment="Left" VerticalAlignment="Center" Content="&lt;" Command="{Binding GoodsPageClickLeft}" Margin="30,0,0,0"/>
 
-                <Grid Grid.Column="1">
-                    <StackPanel Orientation="Horizontal">
-                        
-                    </StackPanel>
-                </Grid>
-                
-                
-                <Button Grid.Column="2" Width="70" Height="{Binding GoodsSelectDisplayHight}" HorizontalAlignment="Right" VerticalAlignment="Center" Content="&gt;" Command="{Binding GoodsPageClickRight}" Margin="0, 0, 30, 0"/>
+                <ItemsControl Grid.Column="1" HorizontalAlignment="Center" ItemsSource="{Binding GoodsShortDisplayBtns}">
+                    <!--템플릿 외형-->
+                    <ItemsControl.Template>
+                        <ControlTemplate TargetType="{x:Type ItemsControl}">
+                            <ItemsPresenter/>
+                        </ControlTemplate>
+                    </ItemsControl.Template>
+
+                    <!--데이터 외형-->
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Width="30" Height="30" Background="Aqua" Margin="10,0,10,0">
+                                <RadioButton Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}, AncestorLevel=1}, Path=DataContext.OnEvent}"
+                        CommandParameter="{Binding BtnNum}" IsChecked="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}, AncestorLevel=1}, Path=DataContext.GoodsShortDisplayBtnState}">
+                                    <RadioButton.Template>
+                                        <ControlTemplate TargetType="{x:Type RadioButton}">
+                                            <Ellipse Stroke="Black">
+                                                <Ellipse.Style>
+                                                    <Style TargetType="Ellipse">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}, AncestorLevel=1}, Path=DataContext.GoodsShortDisplayBtnState}" Value="False">
+                                                                <!--데이터외형변경-->
+                                                                <Setter Property="Fill" Value="fram"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Ellipse.Style>
+                                            </Ellipse>
+                                        </ControlTemplate>
+                                    </RadioButton.Template>
+                                </RadioButton>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <!--패널 정렬-->
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+
+                <Button Grid.Column="2" Width="70" Height="{Binding GoodsShortDisplayHight}" HorizontalAlignment="Right" VerticalAlignment="Center" Content="&gt;" Command="{Binding GoodsPageClickRight}" Margin="0, 0, 30, 0"/>
             </Grid>
                 
             <TextBox Grid.Row="4" Text="asdfasdfsadf"/>

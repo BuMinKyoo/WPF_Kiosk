@@ -119,6 +119,8 @@ namespace WPF_Kiosk
                 CatecoryCurrentIndex++;
             }
 
+            GetGoodsShortDisplayBtns();
+
         }
 
         // 컴포넌트 들의 모든 사이즈 조절
@@ -134,7 +136,7 @@ namespace WPF_Kiosk
             CategoryHight = (WindowHight * 0.3 / 6); // Grid비율에 따라 변경 되는 값
 
             // KioskGoodsSelectDisplay의 크기를 화면 비율에 따라 조절
-            GoodsSelectDisplayHight = WindowHight * 0.3;
+            GoodsShortDisplayHight = (int)(WindowHight * 0.3);
 
         }
 
@@ -461,30 +463,80 @@ namespace WPF_Kiosk
                 GoodsItems[i].GoodsDisplay = true;
                 GoodsItemCurrentIndex++;
             }
+
+            GetGoodsShortDisplayBtns();
+        }
+
+        // 카테고리 클릭시, short 상품 버튼도 다시 생성
+        private void GetGoodsShortDisplayBtns()
+        {
+            GoodsShortDisplayBtns.Clear();
+            int quotient = GoodsItems.Count / 16;  // 몫
+            int remainder = GoodsItems.Count % 16; // 나머지
+
+            // Short버튼 수 구하기
+            int GoodsShortDisplayBtnsCnt = 0;
+            if (remainder > 0)
+            {
+                GoodsShortDisplayBtnsCnt = quotient + 1; // 나머지가 있다면 Short버튼 한개를 더 만들어야됨
+            }
+            else
+            {
+                GoodsShortDisplayBtnsCnt = quotient; // 나머지가 없다면 Short버튼은 정확히 페이지 수많큼 있으면 됨
+            }
+
+            for (int i = 0; i < GoodsShortDisplayBtnsCnt; i++)
+            {
+                GoodsShortDisplayBtns.Add(new GoodsShortDisplayBtn() { BtnNum = i });
+            }
         }
 
         #endregion
 
-        #region KioskGoodsSelectDisplay
-        private double _goodsSelectDisplayWidth;
-        public double GoodsSelectDisplayWidth
-        {
-            get { return _goodsSelectDisplayWidth; }
-            set
-            {
-                _goodsSelectDisplayWidth = value;
-                Notify("GoodsSelectDisplayWidth");
-            }
-        }
+        #region KioskGoodsShortDisplay
 
-        private double _goodsSelectDisplayHight;
-        public double GoodsSelectDisplayHight
+        private int _goodsSelectDisplayHight;
+        public int GoodsShortDisplayHight
         {
             get { return _goodsSelectDisplayHight; }
             set
             {
                 _goodsSelectDisplayHight = value;
-                Notify("GoodsSelectDisplayHight");
+                Notify("GoodsShortDisplayHight");
+            }
+        }
+
+        private ObservableCollection<GoodsShortDisplayBtn> _goodsShortDisplayBtns = new ObservableCollection<GoodsShortDisplayBtn>();
+        public ObservableCollection<GoodsShortDisplayBtn> GoodsShortDisplayBtns
+        {
+            get { return _goodsShortDisplayBtns; }
+            set
+            {
+                _goodsShortDisplayBtns = value;
+                Notify("GoodsShortDisplayBtns");
+            }
+        }
+
+        private Command _onEvent;
+        public ICommand OnEvent
+        {
+            get { return _onEvent = new Command(OnOnEvent); }
+        }
+
+        private void OnOnEvent(object obj)
+        {
+
+            MessageBox.Show("sfsdf");
+        }
+
+        private bool _goodsShortDisplayBtnState = false;
+        public bool GoodsShortDisplayBtnState
+        {
+            get { return _goodsShortDisplayBtnState; }
+            set
+            {
+                _goodsShortDisplayBtnState = value;
+                Notify("GoodsShortDisplayBtnState");
             }
         }
 
