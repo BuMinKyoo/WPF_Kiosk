@@ -147,16 +147,24 @@
                         <DataTemplate>
                             <Border Width="30" Height="30" Background="Aqua" Margin="10,0,10,0">
                                 <RadioButton Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}, AncestorLevel=1}, Path=DataContext.OnEvent}"
-                        CommandParameter="{Binding BtnNum}" IsChecked="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}, AncestorLevel=1}, Path=DataContext.GoodsShortDisplayBtnState}">
+                        CommandParameter="{Binding BtnNum}"
+                                             IsChecked="{Binding BtnChecked}"
+                                             GroupName="GoodsShortDisplay">
                                     <RadioButton.Template>
                                         <ControlTemplate TargetType="{x:Type RadioButton}">
                                             <Ellipse Stroke="Black">
                                                 <Ellipse.Style>
                                                     <Style TargetType="Ellipse">
                                                         <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}, AncestorLevel=1}, Path=DataContext.GoodsShortDisplayBtnState}" Value="False">
+                                                            <DataTrigger Binding="{Binding BtnChecked}" 
+                                                                         Value="False">
                                                                 <!--데이터외형변경-->
-                                                                <Setter Property="Fill" Value="fram"/>
+                                                                <Setter Property="Fill" Value="White"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding BtnChecked}" 
+                                                                         Value="True">
+                                                                <!--데이터외형변경-->
+                                                                <Setter Property="Fill" Value="Gray"/>
                                                             </DataTrigger>
                                                         </Style.Triggers>
                                                     </Style>

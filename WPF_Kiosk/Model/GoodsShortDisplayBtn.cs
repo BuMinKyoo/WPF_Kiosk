@@ -19,6 +19,20 @@ namespace WPF_Kiosk.Model
             }
         }
 
+        private bool _btnChecked;
+        public bool BtnChecked
+        {
+            get { return _btnChecked; }
+            set
+            {
+                if (_btnChecked != value)
+                {
+                    _btnChecked = value;
+                    Notify("BtnChecked");
+                }
+            }
+        }
+
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler? PropertyChanged;
         protected void Notify([CallerMemberName] string propertyName = null)
