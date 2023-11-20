@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace WPF_Kiosk.Model
@@ -18,16 +19,16 @@ namespace WPF_Kiosk.Model
                 }
             }
         }
-        private string _discount;
-        public string Discount
+        private int _goodsDiscount;
+        public int GoodsDiscount
         {
-            get { return _discount; }
+            get { return _goodsDiscount; }
             set
             {
-                if (_discount != value)
+                if (_goodsDiscount != value)
                 {
-                    _discount = value;
-                    Notify("Discount");
+                    _goodsDiscount = value;
+                    Notify("GoodsDiscount");
                 }
             }
         }
@@ -73,6 +74,20 @@ namespace WPF_Kiosk.Model
                 }
             }
         }
+
+        private ObservableCollection<GoodsDetail> _goodsDetails;
+        public ObservableCollection<GoodsDetail> GoodsDetails
+        {
+            get { return _goodsDetails; }
+            set
+            {
+                if (_goodsDetails != value)
+                {
+                    _goodsDetails = value;
+                    Notify("GoodsDetails");
+                }
+            }
+        }   
 
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler? PropertyChanged;

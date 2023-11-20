@@ -294,12 +294,12 @@
         </Grid>
 
         <!--GoodsDetail-->
-        <Grid Width="{Binding WindowWidth}" Height="{Binding WindowHight}" Background="#80000000">
+        <!--<Grid Width="{Binding WindowWidth}" Height="{Binding WindowHight}" Background="#80000000">
             <Grid Width="{Binding GoodsDetailGridWidth}"
                   Height="{Binding GoodsDetailGridHight}"
                   Background="White">
             </Grid>
-        </Grid>
+        </Grid>-->
         
         <!--대기화면-->
        <!--<Grid Width="{Binding WindowWidth}" Height="{Binding WindowHight}" Background="Blue" x:Name="KioskLock" Visibility="{Binding KioskLockVisibility, Converter={StaticResource VisibleConverter}}">

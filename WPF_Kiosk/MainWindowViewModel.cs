@@ -41,70 +41,20 @@ namespace WPF_Kiosk
             #endregion
 
             #region AllGoodsItems, GoodsItems 테스트 담기
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 1, GoodsName = "상품1", Discount = "0", GoodsPrice = 5000 });
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 1, GoodsName = "상품2", Discount = "0", GoodsPrice = 10000 });
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 1, GoodsName = "상품3", Discount = "0", GoodsPrice = 15000 });
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 1, GoodsName = "상품4", Discount = "0", GoodsPrice = 2000 });
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 1, GoodsName = "상품5", Discount = "0", GoodsPrice = 2000 });
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 1, GoodsName = "상품13", Discount = "0", GoodsPrice = 2000 });
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 1, GoodsName = "상품14", Discount = "0", GoodsPrice = 3000 });
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 1, GoodsName = "상품15", Discount = "0", GoodsPrice = 4000 });
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 1, GoodsName = "상품16", Discount = "0", GoodsPrice = 5000 });
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 1, GoodsName = "상품17", Discount = "0", GoodsPrice = 5000 });
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 2, GoodsName = "상품18", Discount = "0", GoodsPrice = 5000 });
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 2, GoodsName = "상품19", Discount = "0", GoodsPrice = 5000 });
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 2, GoodsName = "상품20", Discount = "0", GoodsPrice = 5000 });
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 2, GoodsName = "상품21", Discount = "0", GoodsPrice = 5000 });
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 2, GoodsName = "상품22", Discount = "0", GoodsPrice = 5000 });
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 2, GoodsName = "상품23", Discount = "0", GoodsPrice = 5000 });
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 2, GoodsName = "상품24", Discount = "0", GoodsPrice = 5000 });
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 2, GoodsName = "상품25", Discount = "0", GoodsPrice = 5000 });
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 2, GoodsName = "상품26", Discount = "0", GoodsPrice = 10000 });
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 2, GoodsName = "상품27", Discount = "0", GoodsPrice = 15000 });
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 2, GoodsName = "상품28", Discount = "0", GoodsPrice = 2000 });
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 2, GoodsName = "상품29", Discount = "0", GoodsPrice = 2000 });
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 2, GoodsName = "상품30", Discount = "0", GoodsPrice = 2000 });
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 2, GoodsName = "상품31", Discount = "0", GoodsPrice = 3000 });
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 2, GoodsName = "상품32", Discount = "0", GoodsPrice = 3000 });
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 2, GoodsName = "상품33", Discount = "0", GoodsPrice = 4000 });
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 2, GoodsName = "상품34", Discount = "0", GoodsPrice = 4000 });
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 2, GoodsName = "상품35", Discount = "0", GoodsPrice = 4000 });
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 2, GoodsName = "상품36", Discount = "0", GoodsPrice = 1000 });
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 2, GoodsName = "상품37", Discount = "0", GoodsPrice = 2000 });
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 3, GoodsName = "상품38", Discount = "0", GoodsPrice = 3000 });
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 3, GoodsName = "상품39", Discount = "0", GoodsPrice = 4000 });
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 3, GoodsName = "상품40", Discount = "0", GoodsPrice = 5000 });
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 3, GoodsName = "상품41", Discount = "0", GoodsPrice = 5000 });
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 3, GoodsName = "상품42", Discount = "0", GoodsPrice = 5000 });
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 3, GoodsName = "상품43", Discount = "0", GoodsPrice = 5000 });
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 3, GoodsName = "상품44", Discount = "0", GoodsPrice = 5000 });
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 3, GoodsName = "상품45", Discount = "0", GoodsPrice = 5000 });
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 3, GoodsName = "상품46", Discount = "0", GoodsPrice = 5000 });
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 3, GoodsName = "상품47", Discount = "0", GoodsPrice = 5000 });
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 3, GoodsName = "상품48", Discount = "0", GoodsPrice = 5000 });
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 3, GoodsName = "상품49", Discount = "0", GoodsPrice = 5000 });
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 3, GoodsName = "상품50", Discount = "0", GoodsPrice = 10000 });
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 3, GoodsName = "상품51", Discount = "0", GoodsPrice = 15000 });
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 3, GoodsName = "상품52", Discount = "0", GoodsPrice = 2000 });
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 3, GoodsName = "상품53", Discount = "0", GoodsPrice = 2000 });
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 3, GoodsName = "상품54", Discount = "0", GoodsPrice = 2000 });
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 3, GoodsName = "상품55", Discount = "0", GoodsPrice = 3000 });
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 3, GoodsName = "상품56", Discount = "0", GoodsPrice = 3000 });
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 3, GoodsName = "상품57", Discount = "0", GoodsPrice = 4000 });
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 3, GoodsName = "상품58", Discount = "0", GoodsPrice = 4000 });
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 3, GoodsName = "상품59", Discount = "0", GoodsPrice = 4000 });
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 3, GoodsName = "상품60", Discount = "0", GoodsPrice = 1000 });
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 3, GoodsName = "상품61", Discount = "0", GoodsPrice = 2000 });
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 3, GoodsName = "상품62", Discount = "0", GoodsPrice = 3000 });
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 3, GoodsName = "상품63", Discount = "0", GoodsPrice = 4000 });
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 3, GoodsName = "상품64", Discount = "0", GoodsPrice = 5000 });
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 3, GoodsName = "상품65", Discount = "0", GoodsPrice = 5000 });
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 3, GoodsName = "상품66", Discount = "0", GoodsPrice = 5000 });
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 3, GoodsName = "상품67", Discount = "0", GoodsPrice = 5000 });
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 3, GoodsName = "상품68", Discount = "0", GoodsPrice = 5000 });
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 3, GoodsName = "상품69", Discount = "0", GoodsPrice = 5000 });
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 3, GoodsName = "상품70", Discount = "0", GoodsPrice = 5000 });
-            AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 3, GoodsName = "상품71", Discount = "0", GoodsPrice = 5000 });
+            for (int i = 0; i < 10; i++)
+            {
+                AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 1, GoodsName = "카테1상품" + i.ToString(), GoodsDiscount = 0, GoodsPrice = 1000 + 1000 * i, });
+            }
+
+            for (int i = 0; i < 20; i++)
+            {
+                AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 2, GoodsName = "카테2상품" + i.ToString(), GoodsDiscount = 0, GoodsPrice = 1000 + 1000 * i, });
+            }
+
+            for (int i = 0; i < 40; i++)
+            {
+                AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 3, GoodsName = "카테3상품" + i.ToString(), GoodsDiscount = 0, GoodsPrice = 1000 + 1000 * i, });
+            }
 
             // 초기에 보여지는 상품 StaticGoodsItemsWidthCnt* StaticGoodsItemsHightCnt개(카테고리 1번)
             foreach (var allGoodsItem in AllGoodsItems)
@@ -123,18 +73,10 @@ namespace WPF_Kiosk
             #endregion
 
             #region Category테스트
-            Categorys.Add(new Category() { CategoryNum = 1, CategoryName = "1" });
-            Categorys.Add(new Category() { CategoryNum = 2, CategoryName = "2" });
-            Categorys.Add(new Category() { CategoryNum = 3, CategoryName = "3" });
-            Categorys.Add(new Category() { CategoryNum = 4, CategoryName = "4" });
-            Categorys.Add(new Category() { CategoryNum = 5, CategoryName = "5" });
-            Categorys.Add(new Category() { CategoryNum = 6, CategoryName = "6" });
-            Categorys.Add(new Category() { CategoryNum = 7, CategoryName = "7" });
-            Categorys.Add(new Category() { CategoryNum = 8, CategoryName = "8" });
-            Categorys.Add(new Category() { CategoryNum = 9, CategoryName = "9" });
-            Categorys.Add(new Category() { CategoryNum = 10, CategoryName = "10" });
-            Categorys.Add(new Category() { CategoryNum = 11, CategoryName = "11" });
-            Categorys.Add(new Category() { CategoryNum = 12, CategoryName = "12" });
+            for (int i = 1; i < 12; i++)
+            {
+                Categorys.Add(new Category() { CategoryNum = i, CategoryName = i.ToString() });
+            }
 
             // 초기에 보여지는 카테고리 StaticCategoryItemCnt개
             for (int i = 0; i < StaticCategoryItemCnt; i++)
