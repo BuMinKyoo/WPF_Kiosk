@@ -40,17 +40,49 @@ namespace WPF_Kiosk
 
             #endregion
 
-            #region AllGoodsItems, GoodsItems 테스트 담기
+            #region AllGoodsItems, GoodsItems, GoodsDetail 테스트 담기
+
+            // 카테고리1상품
             for (int i = 0; i < 10; i++)
             {
                 AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 1, GoodsName = "카테1상품" + i.ToString(), GoodsDiscount = 0, GoodsPrice = 1000 + 1000 * i, });
+
+                if (i == 1)
+                {
+                    // 카테고리 1상품의 1번째 디테일
+                    for (int j = 0; j < 4; j++)
+                    {
+                        AllGoodsItems[i].GoodsDetails.Add(new GoodsDetail() { GoodsDtailName = "디테일" + j.ToString(), GoodsDtailPrice = 100 + 100 * j, GoodsDtailDiscount = 0, GoodsDtailCategoryNum = 1 });
+                    }
+
+                    // 카테고리 1상품의 2번째 디테일
+                    for (int j = 0; j < 5; j++)
+                    {
+                        AllGoodsItems[i].GoodsDetails.Add(new GoodsDetail() { GoodsDtailName = "디테일" + j.ToString(), GoodsDtailPrice = 100 + 100 * j, GoodsDtailDiscount = 0, GoodsDtailCategoryNum = 2 });
+                    }
+
+                    // 카테고리 1상품의 3번째 디테일
+                    for (int j = 0; j < 6; j++)
+                    {
+                        AllGoodsItems[i].GoodsDetails.Add(new GoodsDetail() { GoodsDtailName = "디테일" + j.ToString(), GoodsDtailPrice = 100 + 100 * j, GoodsDtailDiscount = 0, GoodsDtailCategoryNum = 3 });
+                    }
+
+                    // 카테고리 1상품의 4번째 디테일
+                    for (int j = 0; j < 10; j++)
+                    {
+                        AllGoodsItems[i].GoodsDetails.Add(new GoodsDetail() { GoodsDtailName = "디테일" + j.ToString(), GoodsDtailPrice = 100 + 100 * j, GoodsDtailDiscount = 0, GoodsDtailCategoryNum = 4 });
+
+                    }
+                }
             }
 
+            // 카테고리2상품
             for (int i = 0; i < 20; i++)
             {
                 AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 2, GoodsName = "카테2상품" + i.ToString(), GoodsDiscount = 0, GoodsPrice = 1000 + 1000 * i, });
             }
 
+            // 카테고리3상품
             for (int i = 0; i < 40; i++)
             {
                 AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 3, GoodsName = "카테3상품" + i.ToString(), GoodsDiscount = 0, GoodsPrice = 1000 + 1000 * i, });

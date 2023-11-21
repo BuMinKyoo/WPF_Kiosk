@@ -64,11 +64,15 @@
                 <ItemsControl.ItemContainerStyle>
                     <Style>
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding CategoryDisplay}" Value="True">
-                                <Setter Property="FrameworkElement.Visibility" Value="Visible"/>
+                            <DataTrigger Binding="{Binding CategoryDisplay}"
+                                         Value="True">
+                                <Setter Property="FrameworkElement.Visibility"
+                                        Value="Visible"/>
                             </DataTrigger>
-                            <DataTrigger Binding="{Binding CategoryDisplay}" Value="False">
-                                <Setter Property="FrameworkElement.Visibility" Value="Collapsed"/>
+                            <DataTrigger Binding="{Binding CategoryDisplay}"
+                                         Value="False">
+                                <Setter Property="FrameworkElement.Visibility"
+                                        Value="Collapsed"/>
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
@@ -294,12 +298,115 @@
         </Grid>
 
         <!--GoodsDetail-->
-        <!--<Grid Width="{Binding WindowWidth}" Height="{Binding WindowHight}" Background="#80000000">
+        <Grid Width="{Binding WindowWidth}"
+              Height="{Binding WindowHight}"
+              Background="#80000000">
             <Grid Width="{Binding GoodsDetailGridWidth}"
                   Height="{Binding GoodsDetailGridHight}"
                   Background="White">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="5"/>
+                    <RowDefinition Height="8*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="2*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Rectangle Grid.Column="0" Grid.RowSpan="2" Fill="Blue" Margin="10"/>
+                    <TextBlock Grid.Column="1" Grid.Row="0" Text="GoodsNme"/>
+                    <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
+                        <Button Width="20" Height="20" Content="-"/>
+                        <TextBlock Text="Num"/>
+                        <Button Width="20" Height="20" Content="+"/>
+                    </StackPanel>
+                    <TextBlock Grid.Column="2" Grid.Row="1" Text="Total Price"/>
+                </Grid>
+                <Line Grid.Row="1"  X1="0" Y1="0" X2="1080" Y2="0" Stroke="Black" StrokeThickness="2"/>
+
+                <!--<ContentControl Grid.Row="2" Content="{Binding ClickedGoodsItem}">
+                    --><!--템플릿 외형--><!--
+                    <ContentControl.Template>
+                        <ControlTemplate TargetType="{x:Type ContentControl}">
+                            <ContentPresenter ContentSource="Content"/>
+                        </ControlTemplate>
+                    </ContentControl.Template>
+
+                    --><!--데이터 외형--><!--
+                    <ContentControl.ContentTemplate>
+                        <DataTemplate>
+
+                            <ItemsControl Grid.Row="2" ItemsSource="{Binding GoodsDetails}">
+                                --><!--템플릿 외형--><!--
+                                <ItemsControl.Template>
+                                    <ControlTemplate TargetType="{x:Type ItemsControl}">
+                                        <ItemsPresenter/>
+                                    </ControlTemplate>
+                                </ItemsControl.Template>
+                                --><!--트리거-->
+                                <!--<ItemsControl.ItemContainerStyle>
+                                    <Style>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding GoodsDisplay}" Value="True">
+                                                <Setter Property="FrameworkElement.Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding GoodsDisplay}" Value="False">
+                                                <Setter Property="FrameworkElement.Visibility" Value="Collapsed"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ItemsControl.ItemContainerStyle>-->
+                                <!--데이터 외형--><!--
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid 
+                Height="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}, AncestorLevel=1}, Path=DataContext.GoodsItemsHight}" 
+                  Background="Red" 
+                  Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}, AncestorLevel=1}, Path=DataContext.GoodsItemsWidth}">
+                                            <Button
+                    Margin="10px"
+                    Background="Aqua"
+                    Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}, AncestorLevel=1}, Path=DataContext.GoodsItemClick}">
+                                                <Button.CommandParameter>
+                                                    <MultiBinding Converter="{StaticResource MultiValueConverter}">
+                                                        <Binding Path="GoodsName"/>
+                                                        <Binding Path="GoodsPrice"/>
+                                                        <Binding Path="GoodsCategoryNum"/>
+                                                    </MultiBinding>
+                                                </Button.CommandParameter>
+                                                <StackPanel>
+                                                    <Rectangle Fill="AliceBlue" Margin="10px"/>
+                                                    <TextBlock Text="{Binding GoodsName}"/>
+                                                    <TextBlock Text="{Binding GoodsPrice}"/>
+                                                    <TextBlock Text="{Binding GoodsCategoryNum}"/>
+                                                </StackPanel>
+                                            </Button>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                                --><!--패널 정렬--><!--
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                            </ItemsControl>
+
+                        </DataTemplate>
+                    </ContentControl.ContentTemplate>
+                </ContentControl>-->
             </Grid>
-        </Grid>-->
+        </Grid>
         
         <!--대기화면-->
        <!--<Grid Width="{Binding WindowWidth}" Height="{Binding WindowHight}" Background="Blue" x:Name="KioskLock" Visibility="{Binding KioskLockVisibility, Converter={StaticResource VisibleConverter}}">

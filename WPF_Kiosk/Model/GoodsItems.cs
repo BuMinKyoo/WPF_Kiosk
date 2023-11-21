@@ -75,19 +75,19 @@ namespace WPF_Kiosk.Model
             }
         }
 
-        private ObservableCollection<GoodsDetail> _goodsDetails;
-        public ObservableCollection<GoodsDetail> GoodsDetails
+        private ObservableCollection<GoodsDetailCategory> _goodsDetailCategorys = new ObservableCollection<GoodsDetailCategory>();
+        public ObservableCollection<GoodsDetailCategory> GoodsDetailCategorys
         {
-            get { return _goodsDetails; }
+            get { return _goodsDetailCategorys; }
             set
             {
-                if (_goodsDetails != value)
+                if (_goodsDetailCategorys != value)
                 {
-                    _goodsDetails = value;
-                    Notify("GoodsDetails");
+                    _goodsDetailCategorys = value;
+                    Notify("GoodsDetailCategorys");
                 }
             }
-        }   
+        }
 
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler? PropertyChanged;
