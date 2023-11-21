@@ -9,21 +9,49 @@ using System.Threading.Tasks;
 
 namespace WPF_Kiosk.Model
 {
-    public class GoodsDetailCategory : INotifyPropertyChanged
+    public class DetailCategory : INotifyPropertyChanged
     {
-        private int _goodsDetailCategoryNum;
-        public int GoodsDetailCategoryNum
+        private int _detailCategoryNum;
+        public int DetailCategoryNum
         {
-            get { return _goodsDetailCategoryNum; }
+            get { return _detailCategoryNum; }
             set
             {
-                if (_goodsDetailCategoryNum != value)
+                if (_detailCategoryNum != value)
                 {
-                    _goodsDetailCategoryNum = value;
-                    Notify("GoodsDetailCategoryNum");
+                    _detailCategoryNum = value;
+                    Notify("DetailCategoryNum");
                 }
             }
         }
+
+        private string _detailCategoryName;
+        public string DetailCategoryName
+        {
+            get { return _detailCategoryName; }
+            set
+            {
+                if (_detailCategoryName != value)
+                {
+                    _detailCategoryName = value;
+                    Notify("DetailCategoryName");
+                }
+            }
+        }
+
+        private bool _detailCategoryDisplay = false;
+        public bool DetailCategoryDisplay
+        {
+            get { return _detailCategoryDisplay; }
+            set
+            {
+                if (_detailCategoryDisplay != value)
+                {
+                    _detailCategoryDisplay = value;
+                    Notify("DetailCategoryDisplay");
+                }
+            }
+        }   
 
         private ObservableCollection<GoodsDetail> _goodsDetails = new ObservableCollection<GoodsDetail>();
         public ObservableCollection<GoodsDetail> GoodsDetails

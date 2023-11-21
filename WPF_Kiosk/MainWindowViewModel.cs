@@ -45,33 +45,42 @@ namespace WPF_Kiosk
             // 카테고리1상품
             for (int i = 0; i < 10; i++)
             {
-                AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 1, GoodsName = "카테1상품" + i.ToString(), GoodsDiscount = 0, GoodsPrice = 1000 + 1000 * i, });
+                AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 0, GoodsName = "카테0상품" + i.ToString(), GoodsDiscount = 0, GoodsPrice = 1000 + 1000 * i, });
 
-                if (i == 1)
+                // 카테고리1상품의 디테일 카테고리 개수
+                for (int j = 0; j < 4; j++)
                 {
-                    // 카테고리 1상품의 1번째 디테일
-                    for (int j = 0; j < 4; j++)
+                    AllGoodsItems[i].DetailCategorys.Add(new DetailCategory() { DetailCategoryNum = j, DetailCategoryDisplay = true, DetailCategoryName = AllGoodsItems[i].GoodsName + "디테일" + j.ToString() });
+
+
+                    // 카데고리 디테일 n번의 디테일 개수
+                    if (j == 0)
                     {
-                        AllGoodsItems[i].GoodsDetails.Add(new GoodsDetail() { GoodsDtailName = "디테일" + j.ToString(), GoodsDtailPrice = 100 + 100 * j, GoodsDtailDiscount = 0, GoodsDtailCategoryNum = 1 });
+                        for (int k = 0; k < 3; k++)
+                        {
+                            AllGoodsItems[i].DetailCategorys[j].GoodsDetails.Add(new GoodsDetail() { GoodsDtailName = AllGoodsItems[i].DetailCategorys[j].DetailCategoryName + "상품" + k.ToString(), GoodsDtailDiscount = 0, GoodsDtailPrice = 100 + 100 * k, GoodsDtailCategoryNum = j , GoodsDtailNum = k});
+                        }
                     }
-
-                    // 카테고리 1상품의 2번째 디테일
-                    for (int j = 0; j < 5; j++)
+                    else if (j == 1)
                     {
-                        AllGoodsItems[i].GoodsDetails.Add(new GoodsDetail() { GoodsDtailName = "디테일" + j.ToString(), GoodsDtailPrice = 100 + 100 * j, GoodsDtailDiscount = 0, GoodsDtailCategoryNum = 2 });
+                        for (int k = 0; k < 4; k++)
+                        {
+                            AllGoodsItems[i].DetailCategorys[j].GoodsDetails.Add(new GoodsDetail() { GoodsDtailName = AllGoodsItems[i].DetailCategorys[j].DetailCategoryName + "상품" + k.ToString(), GoodsDtailDiscount = 0, GoodsDtailPrice = 100 + 100 * k, GoodsDtailCategoryNum = j, GoodsDtailNum = k });
+                        }
                     }
-
-                    // 카테고리 1상품의 3번째 디테일
-                    for (int j = 0; j < 6; j++)
+                    else if (j == 2)
                     {
-                        AllGoodsItems[i].GoodsDetails.Add(new GoodsDetail() { GoodsDtailName = "디테일" + j.ToString(), GoodsDtailPrice = 100 + 100 * j, GoodsDtailDiscount = 0, GoodsDtailCategoryNum = 3 });
+                        for (int k = 0; k < 5; k++)
+                        {
+                            AllGoodsItems[i].DetailCategorys[j].GoodsDetails.Add(new GoodsDetail() { GoodsDtailName = AllGoodsItems[i].DetailCategorys[j].DetailCategoryName + "상품" + k.ToString(), GoodsDtailDiscount = 0, GoodsDtailPrice = 100 + 100 * k, GoodsDtailCategoryNum = j, GoodsDtailNum = k });
+                        }
                     }
-
-                    // 카테고리 1상품의 4번째 디테일
-                    for (int j = 0; j < 10; j++)
+                    else if (j == 3)
                     {
-                        AllGoodsItems[i].GoodsDetails.Add(new GoodsDetail() { GoodsDtailName = "디테일" + j.ToString(), GoodsDtailPrice = 100 + 100 * j, GoodsDtailDiscount = 0, GoodsDtailCategoryNum = 4 });
-
+                        for (int k = 0; k < 6; k++)
+                        {
+                            AllGoodsItems[i].DetailCategorys[j].GoodsDetails.Add(new GoodsDetail() { GoodsDtailName = AllGoodsItems[i].DetailCategorys[j].DetailCategoryName + "상품" + k.ToString(), GoodsDtailDiscount = 0, GoodsDtailPrice = 100 + 100 * k, GoodsDtailCategoryNum = j, GoodsDtailNum = k });
+                        }
                     }
                 }
             }
@@ -79,19 +88,19 @@ namespace WPF_Kiosk
             // 카테고리2상품
             for (int i = 0; i < 20; i++)
             {
-                AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 2, GoodsName = "카테2상품" + i.ToString(), GoodsDiscount = 0, GoodsPrice = 1000 + 1000 * i, });
+                AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 1, GoodsName = "카테1상품" + i.ToString(), GoodsDiscount = 0, GoodsPrice = 1000 + 1000 * i, });
             }
 
             // 카테고리3상품
             for (int i = 0; i < 40; i++)
             {
-                AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 3, GoodsName = "카테3상품" + i.ToString(), GoodsDiscount = 0, GoodsPrice = 1000 + 1000 * i, });
+                AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 2, GoodsName = "카테2상품" + i.ToString(), GoodsDiscount = 0, GoodsPrice = 1000 + 1000 * i, });
             }
 
-            // 초기에 보여지는 상품 StaticGoodsItemsWidthCnt* StaticGoodsItemsHightCnt개(카테고리 1번)
+            // 초기에 보여지는 상품 StaticGoodsItemsWidthCnt* StaticGoodsItemsHightCnt개(카테고리 0번)
             foreach (var allGoodsItem in AllGoodsItems)
             {
-                if (allGoodsItem.GoodsCategoryNum == 1)
+                if (allGoodsItem.GoodsCategoryNum == 0)
                 {
                     GoodsItems.Add(allGoodsItem);
                 }
@@ -105,7 +114,7 @@ namespace WPF_Kiosk
             #endregion
 
             #region Category테스트
-            for (int i = 1; i < 12; i++)
+            for (int i = 0; i < 12; i++)
             {
                 Categorys.Add(new Category() { CategoryNum = i, CategoryName = i.ToString() });
             }
@@ -467,8 +476,20 @@ namespace WPF_Kiosk
         // 클릭한 상품의 데이터를 받아서 상품 담기
         private void OnGoodsItemClick(object GoodsSelectItem)
         {
-            var GoodsArray = GoodsSelectItem as object[];
-            GoodsSelects.Add(new GoodsItems() { GoodsName = (string)GoodsArray[0], GoodsPrice = (int)GoodsArray[1], GoodsCategoryNum = (int)GoodsArray[2], GoodsDisplay =  true});
+            //var GoodsArray = GoodsSelectItem as object[];
+
+            // 클릭한 상품을 클릭한 상품으로 잡기
+            ClickedGoodsItem = (GoodsItems)GoodsSelectItem;
+
+            // 클릭한 상품이 디테일 상품을 가지고 있는 경우
+            if (ClickedGoodsItem.DetailCategorys.Count > 0)
+            {
+                GoodsDetailGridVisibility = true;
+            }
+            else // 클릭한 상품이 디테일 상품을 가지고 있지 않는 경우
+            {
+                GoodsSelects.Add(ClickedGoodsItem);
+            }
 
             // 상품을 클릭한 후 담고난 뒤, 선택된 상품의 display의 true, false를 조절
             GoodsSelectDisplay();
@@ -747,6 +768,28 @@ namespace WPF_Kiosk
             {
                 _goodsDetailGridHight = value;
                 Notify("GoodsDetailGridHight");
+            }
+        }
+
+        private bool _goodsDetailGridVisibility = false;
+        public bool GoodsDetailGridVisibility
+        {
+            get { return _goodsDetailGridVisibility; }
+            set
+            {
+                _goodsDetailGridVisibility = value;
+                Notify("GoodsDetailGridVisibility");
+            }
+        }
+
+        private GoodsItems _clickedGoodsItem = new GoodsItems();
+        public GoodsItems ClickedGoodsItem
+        {
+            get { return _clickedGoodsItem; }
+            set
+            {
+                _clickedGoodsItem = value;
+                Notify("ClickedGoodsItem");
             }
         }
 

@@ -46,6 +46,21 @@ namespace WPF_Kiosk.Model
             }
         }
 
+        private int _goodsDtailNum;
+        public int GoodsDtailNum
+        {
+            get { return _goodsDtailNum; }
+            set
+            {
+                if (_goodsDtailNum != value)
+                {
+                    _goodsDtailNum = value;
+                    Notify("GoodsDtailNum");
+                }
+            }
+        }
+
+
         private int _goodsDtailCategoryNum;
         public int GoodsDtailCategoryNum
         {
@@ -56,6 +71,20 @@ namespace WPF_Kiosk.Model
                 {
                     _goodsDtailCategoryNum = value;
                     Notify("GoodsDtailCategoryNum");
+                }
+            }
+        }
+
+        private bool _goodsDtailDisplay = false;
+        public bool GoodsDtailDisplay
+        {
+            get { return _goodsDtailDisplay; }
+            set
+            {
+                if (_goodsDtailDisplay != value)
+                {
+                    _goodsDtailDisplay = value;
+                    Notify("GoodsDtailDisplay");
                 }
             }
         }
