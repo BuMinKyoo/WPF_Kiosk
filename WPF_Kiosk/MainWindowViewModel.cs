@@ -27,7 +27,9 @@ namespace WPF_Kiosk
         public static int StaticGoodsSelectWidthCnt = 4;
 
         // GoodsDetailCategory 세로 개수
-        //public static int StaticGoodsDetailCategoryHightCnt = 4;
+        public static int StaticGoodsDetailCategoryHightCnt = 4;
+
+        public static int StaticGoodsDetailItemWidthCnt = 5;
 
         #endregion
 
@@ -43,7 +45,13 @@ namespace WPF_Kiosk
 
             #endregion
 
-            #region AllGoodsItems, GoodsItems, GoodsDetail 테스트 담기
+            #region 테스트 담기
+            
+            // 카테고리 담기
+            for (int i = 0; i < 12; i++)
+            {
+                Categorys.Add(new Category() { CategoryNum = i, CategoryName = i.ToString() });
+            }
 
             // 카테고리1상품
             for (int i = 0; i < 10; i++)
@@ -51,9 +59,9 @@ namespace WPF_Kiosk
                 AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 0, GoodsName = "카테0상품" + i.ToString(), GoodsDiscount = 0, GoodsPrice = 1000 + 1000 * i, });
 
                 // 카테고리1상품의 디테일 카테고리 개수
-                for (int j = 0; j < 4; j++)
+                for (int j = 0; j < 6; j++)
                 {
-                    AllGoodsItems[i].DetailCategorys.Add(new DetailCategory() { DetailCategoryNum = j, DetailCategoryDisplay = true, DetailCategoryName = AllGoodsItems[i].GoodsName + "디테일" + j.ToString() });
+                    AllGoodsItems[i].DetailCategorys.Add(new DetailCategory() { DetailCategoryNum = j, DetailCategoryName = AllGoodsItems[i].GoodsName + "디테일" + j.ToString() });
 
 
                     // 카데고리 디테일 n번의 디테일 개수
@@ -61,28 +69,42 @@ namespace WPF_Kiosk
                     {
                         for (int k = 0; k < 3; k++)
                         {
-                            AllGoodsItems[i].DetailCategorys[j].GoodsDetails.Add(new GoodsDetail() { GoodsDtailName = AllGoodsItems[i].DetailCategorys[j].DetailCategoryName + "상품" + k.ToString(), GoodsDtailDiscount = 0, GoodsDtailPrice = 100 + 100 * k, GoodsDtailCategoryNum = j , GoodsDtailNum = k, GoodsDtailDisplay = true});
+                            AllGoodsItems[i].DetailCategorys[j].GoodsDetails.Add(new GoodsDetail() { GoodsDtailName = AllGoodsItems[i].DetailCategorys[j].DetailCategoryName + "상품" + k.ToString(), GoodsDtailDiscount = 0, GoodsDtailPrice = 100 + 100 * k, GoodsDtailCategoryNum = j , GoodsDtailNum = k});
                         }
                     }
                     else if (j == 1)
                     {
                         for (int k = 0; k < 4; k++)
                         {
-                            AllGoodsItems[i].DetailCategorys[j].GoodsDetails.Add(new GoodsDetail() { GoodsDtailName = AllGoodsItems[i].DetailCategorys[j].DetailCategoryName + "상품" + k.ToString(), GoodsDtailDiscount = 0, GoodsDtailPrice = 100 + 100 * k, GoodsDtailCategoryNum = j, GoodsDtailNum = k, GoodsDtailDisplay = true });
+                            AllGoodsItems[i].DetailCategorys[j].GoodsDetails.Add(new GoodsDetail() { GoodsDtailName = AllGoodsItems[i].DetailCategorys[j].DetailCategoryName + "상품" + k.ToString(), GoodsDtailDiscount = 0, GoodsDtailPrice = 100 + 100 * k, GoodsDtailCategoryNum = j, GoodsDtailNum = k});
                         }
                     }
                     else if (j == 2)
                     {
                         for (int k = 0; k < 5; k++)
                         {
-                            AllGoodsItems[i].DetailCategorys[j].GoodsDetails.Add(new GoodsDetail() { GoodsDtailName = AllGoodsItems[i].DetailCategorys[j].DetailCategoryName + "상품" + k.ToString(), GoodsDtailDiscount = 0, GoodsDtailPrice = 100 + 100 * k, GoodsDtailCategoryNum = j, GoodsDtailNum = k, GoodsDtailDisplay = true });
+                            AllGoodsItems[i].DetailCategorys[j].GoodsDetails.Add(new GoodsDetail() { GoodsDtailName = AllGoodsItems[i].DetailCategorys[j].DetailCategoryName + "상품" + k.ToString(), GoodsDtailDiscount = 0, GoodsDtailPrice = 100 + 100 * k, GoodsDtailCategoryNum = j, GoodsDtailNum = k});
                         }
                     }
                     else if (j == 3)
                     {
                         for (int k = 0; k < 6; k++)
                         {
-                            AllGoodsItems[i].DetailCategorys[j].GoodsDetails.Add(new GoodsDetail() { GoodsDtailName = AllGoodsItems[i].DetailCategorys[j].DetailCategoryName + "상품" + k.ToString(), GoodsDtailDiscount = 0, GoodsDtailPrice = 100 + 100 * k, GoodsDtailCategoryNum = j, GoodsDtailNum = k, GoodsDtailDisplay = true });
+                            AllGoodsItems[i].DetailCategorys[j].GoodsDetails.Add(new GoodsDetail() { GoodsDtailName = AllGoodsItems[i].DetailCategorys[j].DetailCategoryName + "상품" + k.ToString(), GoodsDtailDiscount = 0, GoodsDtailPrice = 100 + 100 * k, GoodsDtailCategoryNum = j, GoodsDtailNum = k});
+                        }
+                    }
+                    else if (j == 4)
+                    {
+                        for (int k = 0; k < 3; k++)
+                        {
+                            AllGoodsItems[i].DetailCategorys[j].GoodsDetails.Add(new GoodsDetail() { GoodsDtailName = AllGoodsItems[i].DetailCategorys[j].DetailCategoryName + "상품" + k.ToString(), GoodsDtailDiscount = 0, GoodsDtailPrice = 100 + 100 * k, GoodsDtailCategoryNum = j, GoodsDtailNum = k});
+                        }
+                    }
+                    else if (j == 5)
+                    {
+                        for (int k = 0; k < 2; k++)
+                        {
+                            AllGoodsItems[i].DetailCategorys[j].GoodsDetails.Add(new GoodsDetail() { GoodsDtailName = AllGoodsItems[i].DetailCategorys[j].DetailCategoryName + "상품" + k.ToString(), GoodsDtailDiscount = 0, GoodsDtailPrice = 100 + 100 * k, GoodsDtailCategoryNum = j, GoodsDtailNum = k});
                         }
                     }
                 }
@@ -99,6 +121,17 @@ namespace WPF_Kiosk
             {
                 AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 2, GoodsName = "카테2상품" + i.ToString(), GoodsDiscount = 0, GoodsPrice = 1000 + 1000 * i, });
             }
+            
+            #endregion
+
+
+            #region 초기에 보여지는 데이터들
+            // 초기에 보여지는 카테고리 StaticCategoryItemCnt개
+            for (int i = 0; i < StaticCategoryItemCnt; i++)
+            {
+                Categorys[i].CategoryDisplay = true;
+                CatecoryCurrentIndex++;
+            }
 
             // 초기에 보여지는 상품 StaticGoodsItemsWidthCnt* StaticGoodsItemsHightCnt개(카테고리 0번)
             foreach (var allGoodsItem in AllGoodsItems)
@@ -108,27 +141,26 @@ namespace WPF_Kiosk
                     GoodsItems.Add(allGoodsItem);
                 }
             }
-           
+
             for (int i = 0; i < Math.Min(StaticGoodsItemsWidthCnt * StaticGoodsItemsHightCnt, GoodsItems.Count); i++)
             {
                 GoodsItems[i].GoodsDisplay = true;
                 GoodsItemCurrentIndex++;
             }
+
+            // 초기에 보여질 카테고리1상품의 디테일 카테고리 개수
+            // 상품10개 전체에 디테일카테고리는 4개씩만 보이도록 세팅
+            for (int i = 0; i < 10; i++)
+            {
+                for (int j = 0; j < StaticGoodsDetailCategoryHightCnt; j++)
+                {
+                    AllGoodsItems[i].DetailCategorys[j].DetailCategoryDisplay = true;
+                }
+            }
+            GoodsCategoryCurrentIndex = StaticGoodsDetailCategoryHightCnt;
+
             #endregion
 
-            #region Category테스트
-            for (int i = 0; i < 12; i++)
-            {
-                Categorys.Add(new Category() { CategoryNum = i, CategoryName = i.ToString() });
-            }
-
-            // 초기에 보여지는 카테고리 StaticCategoryItemCnt개
-            for (int i = 0; i < StaticCategoryItemCnt; i++)
-            {
-                Categorys[i].CategoryDisplay = true;
-                CatecoryCurrentIndex++;
-            }
-            #endregion
 
             // 초기에 보여지는 Short버튼 생성
             GetGoodsShortDisplayBtns();
@@ -150,7 +182,7 @@ namespace WPF_Kiosk
             // 합해서 6이기 때문
 
             // 카테고리 크기를 화면 비율에 따라 조절
-            CategoryWidth = (WindowWidth - 200) / StaticCategoryItemCnt; // 양 옆 < > 버튼을 제외한것
+            CategoryWidth = (WindowWidth * 0.8) / StaticCategoryItemCnt; // 0.8 = 8/10
             CategoryHight = (WindowHight * 0.3 / 6); // Grid비율에 따라 변경 되는 값
 
             // 상품의 크기를 화면 비율에 따라 조절
@@ -170,9 +202,9 @@ namespace WPF_Kiosk
 
             // GoodsDetailCategory의 각 크기를 화면 비율에 따라 조절
             GoodsDetailCategoryWidth = GoodsDetailGridWidth;
-            GoodsDetailCategoryHight = GoodsDetailGridHight * (0.6 / 4);  // 0.6 = 12/20
+            GoodsDetailCategoryHight = GoodsDetailGridHight * (0.6 / StaticGoodsDetailCategoryHightCnt);  // 0.6 = 12/20
 
-            GoodsDetailItemBtnWidth = GoodsDetailCategoryWidth * (0.83 / 5); // 0.83 = 10/12
+            GoodsDetailItemBtnWidth = GoodsDetailCategoryWidth * (0.8 / StaticGoodsDetailItemWidthCnt); // 0.8 = 8/10
             GoodsDetailItemBtnHight = GoodsDetailCategoryHight * 0.75; // 0.75 = 3/4
         }
 
@@ -845,6 +877,122 @@ namespace WPF_Kiosk
             {
                 _goodsDetailItemBtnHight = value;
                 Notify("GoodsDetailItemBtnHight");
+            }
+        }
+
+        private int _goodsCategoryCurrentIndex = 0;
+        public int GoodsCategoryCurrentIndex
+        {
+            get { return _goodsCategoryCurrentIndex; }
+            set
+            {
+                _goodsCategoryCurrentIndex = value;
+                Notify("GoodsCategoryCurrentIndex");
+            }
+        }
+
+        private Command _goodsDetailItemsPageClickLeft;
+        public ICommand GoodsDetailItemsPageClickLeft
+        {
+            get { return _goodsDetailItemsPageClickLeft = new Command(OnGoodsDetailItemsPageClickLeft); }
+        }
+
+        private void OnGoodsDetailItemsPageClickLeft(object obj)
+        {
+
+        }
+
+        private Command _goodsDetailItemsPageClickRight;
+        public ICommand GoodsDetailItemsPageClickRight
+        {
+            get { return _goodsDetailItemsPageClickRight = new Command(OnGoodsDetailItemsPageClickRight); }
+        }
+
+        private void OnGoodsDetailItemsPageClickRight(object obj)
+        {
+
+        }
+
+        private Command _goodsDetailCategoryPageClickLeft;
+        public ICommand GoodsDetailCategoryPageClickLeft
+        {
+            get { return _goodsDetailCategoryPageClickLeft = new Command(OnGoodsDetailCategoryPageClickLeft); }
+        }
+
+        private void OnGoodsDetailCategoryPageClickLeft(object obj)
+        {
+            // 첫 페이지가 아닐 경우
+            if (GoodsCategoryCurrentIndex > StaticGoodsDetailCategoryHightCnt)
+            {
+                // 전체 GoodsItems의 Visible을 false로 변경
+                foreach (var item in ClickedGoodsItem.DetailCategorys)
+                {
+                    item.DetailCategoryDisplay = false;
+                }
+
+                GoodsCategoryCurrentIndex -= StaticGoodsDetailCategoryHightCnt;
+
+                // GoodsItems의 Visible을 StaticGoodsItemsWidthCnt* StaticGoodsItemsHightCnt개 단위로 true로 변경
+                for (int i = GoodsCategoryCurrentIndex - 1; i > GoodsCategoryCurrentIndex - StaticGoodsDetailCategoryHightCnt - 1; i--)
+                {
+                    ClickedGoodsItem.DetailCategorys[i].DetailCategoryDisplay = true;
+                }
+
+                // 상품 넘기는 버튼 클릭후에는, short버튼도 같이 변경
+                // Short버튼의 체크를 하나 왼쪽으로 옮김
+                //int index = 0;
+                //for (int i = 0; i < GoodsShortDisplayBtns.Count; i++)
+                //{
+                //    if (GoodsShortDisplayBtns[i].BtnChecked == true)
+                //    {
+                //        index = i;
+                //        break;
+                //    }
+                //}
+                //GoodsShortDisplayBtns[index].BtnChecked = false;
+                //GoodsShortDisplayBtns[index - 1].BtnChecked = true;
+            }
+        }
+
+        private Command _goodsDetailCategoryPageClickRight;
+        public ICommand GoodsDetailCategoryPageClickRight
+        {
+            get { return _goodsDetailCategoryPageClickRight = new Command(OnGoodsDetailCategoryPageClickRight); }
+        }
+
+        private void OnGoodsDetailCategoryPageClickRight(object obj)
+        {
+            // 마지막 페이지가 아닐 경우
+            if (GoodsCategoryCurrentIndex < ClickedGoodsItem.DetailCategorys.Count)
+            {
+                // 전체 ClickedGoodsItem.DetailCategorys의 Visible을 false로 변경
+                foreach (var item in ClickedGoodsItem.DetailCategorys)
+                {
+                    item.DetailCategoryDisplay = false;
+                }
+
+
+                // GoodsItems의 Visible을 StaticGoodsItemsWidthCnt* StaticGoodsItemsHightCnt개 단위로 true로 변경
+                for (int i = GoodsCategoryCurrentIndex; i < Math.Min(GoodsCategoryCurrentIndex + StaticGoodsDetailCategoryHightCnt, ClickedGoodsItem.DetailCategorys.Count); i++)
+                {
+                    ClickedGoodsItem.DetailCategorys[i].DetailCategoryDisplay = true;
+                }
+
+                GoodsCategoryCurrentIndex += StaticGoodsDetailCategoryHightCnt;
+
+                // 상품 넘기는 버튼 클릭후에는, short버튼도 같이 변경
+                // Short버튼의 체크를 하나 오른쪽으로 옮김
+                //int index = 0;
+                //for (int i = 0; i < GoodsShortDisplayBtns.Count; i++)
+                //{
+                //    if (GoodsShortDisplayBtns[i].BtnChecked == true)
+                //    {
+                //        index = i;
+                //        break;
+                //    }
+                //}
+                //GoodsShortDisplayBtns[index].BtnChecked = false;
+                //GoodsShortDisplayBtns[index + 1].BtnChecked = true;
             }
         }
 
