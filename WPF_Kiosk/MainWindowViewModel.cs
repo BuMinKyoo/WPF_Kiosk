@@ -26,6 +26,9 @@ namespace WPF_Kiosk
         // 장바구니 가로 개수
         public static int StaticGoodsSelectWidthCnt = 4;
 
+        // GoodsDetailCategory 세로 개수
+        //public static int StaticGoodsDetailCategoryHightCnt = 4;
+
         #endregion
 
         public MainWindowViewModel()
@@ -58,28 +61,28 @@ namespace WPF_Kiosk
                     {
                         for (int k = 0; k < 3; k++)
                         {
-                            AllGoodsItems[i].DetailCategorys[j].GoodsDetails.Add(new GoodsDetail() { GoodsDtailName = AllGoodsItems[i].DetailCategorys[j].DetailCategoryName + "상품" + k.ToString(), GoodsDtailDiscount = 0, GoodsDtailPrice = 100 + 100 * k, GoodsDtailCategoryNum = j , GoodsDtailNum = k});
+                            AllGoodsItems[i].DetailCategorys[j].GoodsDetails.Add(new GoodsDetail() { GoodsDtailName = AllGoodsItems[i].DetailCategorys[j].DetailCategoryName + "상품" + k.ToString(), GoodsDtailDiscount = 0, GoodsDtailPrice = 100 + 100 * k, GoodsDtailCategoryNum = j , GoodsDtailNum = k, GoodsDtailDisplay = true});
                         }
                     }
                     else if (j == 1)
                     {
                         for (int k = 0; k < 4; k++)
                         {
-                            AllGoodsItems[i].DetailCategorys[j].GoodsDetails.Add(new GoodsDetail() { GoodsDtailName = AllGoodsItems[i].DetailCategorys[j].DetailCategoryName + "상품" + k.ToString(), GoodsDtailDiscount = 0, GoodsDtailPrice = 100 + 100 * k, GoodsDtailCategoryNum = j, GoodsDtailNum = k });
+                            AllGoodsItems[i].DetailCategorys[j].GoodsDetails.Add(new GoodsDetail() { GoodsDtailName = AllGoodsItems[i].DetailCategorys[j].DetailCategoryName + "상품" + k.ToString(), GoodsDtailDiscount = 0, GoodsDtailPrice = 100 + 100 * k, GoodsDtailCategoryNum = j, GoodsDtailNum = k, GoodsDtailDisplay = true });
                         }
                     }
                     else if (j == 2)
                     {
                         for (int k = 0; k < 5; k++)
                         {
-                            AllGoodsItems[i].DetailCategorys[j].GoodsDetails.Add(new GoodsDetail() { GoodsDtailName = AllGoodsItems[i].DetailCategorys[j].DetailCategoryName + "상품" + k.ToString(), GoodsDtailDiscount = 0, GoodsDtailPrice = 100 + 100 * k, GoodsDtailCategoryNum = j, GoodsDtailNum = k });
+                            AllGoodsItems[i].DetailCategorys[j].GoodsDetails.Add(new GoodsDetail() { GoodsDtailName = AllGoodsItems[i].DetailCategorys[j].DetailCategoryName + "상품" + k.ToString(), GoodsDtailDiscount = 0, GoodsDtailPrice = 100 + 100 * k, GoodsDtailCategoryNum = j, GoodsDtailNum = k, GoodsDtailDisplay = true });
                         }
                     }
                     else if (j == 3)
                     {
                         for (int k = 0; k < 6; k++)
                         {
-                            AllGoodsItems[i].DetailCategorys[j].GoodsDetails.Add(new GoodsDetail() { GoodsDtailName = AllGoodsItems[i].DetailCategorys[j].DetailCategoryName + "상품" + k.ToString(), GoodsDtailDiscount = 0, GoodsDtailPrice = 100 + 100 * k, GoodsDtailCategoryNum = j, GoodsDtailNum = k });
+                            AllGoodsItems[i].DetailCategorys[j].GoodsDetails.Add(new GoodsDetail() { GoodsDtailName = AllGoodsItems[i].DetailCategorys[j].DetailCategoryName + "상품" + k.ToString(), GoodsDtailDiscount = 0, GoodsDtailPrice = 100 + 100 * k, GoodsDtailCategoryNum = j, GoodsDtailNum = k, GoodsDtailDisplay = true });
                         }
                     }
                 }
@@ -161,8 +164,16 @@ namespace WPF_Kiosk
             GoodsSelectsWidth = (WindowWidth - (30 * 2)) * 0.6 / StaticGoodsSelectWidthCnt; // 0.6 = 6/10
             GoodsSelectsHight = ((WindowHight * 0.9 / 6) - (30 * 2)) * 0.83 ;  // 0.83 = 5/6
 
+            // GoodsDetail 전체 grid의 크기를 화면 비율에 따라 조절
             GoodsDetailGridWidth = WindowWidth * 0.8;
             GoodsDetailGridHight = WindowHight * 0.8;
+
+            // GoodsDetailCategory의 각 크기를 화면 비율에 따라 조절
+            GoodsDetailCategoryWidth = GoodsDetailGridWidth;
+            GoodsDetailCategoryHight = GoodsDetailGridHight * (0.6 / 4);  // 0.6 = 12/20
+
+            GoodsDetailItemBtnWidth = GoodsDetailCategoryWidth * (0.83 / 5); // 0.83 = 10/12
+            GoodsDetailItemBtnHight = GoodsDetailCategoryHight * 0.75; // 0.75 = 3/4
         }
 
         private Command _windowSizeEvent;
@@ -790,6 +801,50 @@ namespace WPF_Kiosk
             {
                 _clickedGoodsItem = value;
                 Notify("ClickedGoodsItem");
+            }
+        }
+
+        private double _goodsDetailCategoryWidth;
+        public double GoodsDetailCategoryWidth
+        {
+            get { return _goodsDetailCategoryWidth; }
+            set
+            {
+                _goodsDetailCategoryWidth = value;
+                Notify("GoodsDetailCategoryWidth");
+            }
+        }
+
+        private double _goodsDetailCategoryHight;
+        public double GoodsDetailCategoryHight
+        {
+            get { return _goodsDetailCategoryHight; }
+            set
+            {
+                _goodsDetailCategoryHight = value;
+                Notify("GoodsDetailCategoryHight");
+            }
+        }
+
+        private double _goodsDetailItemBtnWidth;
+        public double GoodsDetailItemBtnWidth
+        {
+            get { return _goodsDetailItemBtnWidth; }
+            set
+            {
+                _goodsDetailItemBtnWidth = value;
+                Notify("GoodsDetailItemBtnWidth");
+            }
+        }
+
+        private double _goodsDetailItemBtnHight;
+        public double GoodsDetailItemBtnHight
+        {
+            get { return _goodsDetailItemBtnHight; }
+            set
+            {
+                _goodsDetailItemBtnHight = value;
+                Notify("GoodsDetailItemBtnHight");
             }
         }
 
