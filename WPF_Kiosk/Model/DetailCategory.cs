@@ -51,7 +51,18 @@ namespace WPF_Kiosk.Model
                     Notify("DetailCategoryDisplay");
                 }
             }
-        }   
+        }
+
+        private int _goodsDetailItemCurrentIndex = 0;
+        public int GoodsDetailItemCurrentIndex
+        {
+            get { return _goodsDetailItemCurrentIndex; }
+            set
+            {
+                _goodsDetailItemCurrentIndex = value;
+                Notify("GoodsDetailItemCurrentIndex");
+            }
+        }
 
         private ObservableCollection<GoodsDetail> _goodsDetails = new ObservableCollection<GoodsDetail>();
         public ObservableCollection<GoodsDetail> GoodsDetails

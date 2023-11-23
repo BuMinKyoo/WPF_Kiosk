@@ -75,16 +75,16 @@ namespace WPF_Kiosk.Model
             }
         }
 
-        private bool _goodsDtailDisplay = false;
-        public bool GoodsDtailDisplay
+        private bool _goodsDetailDisplay = false;
+        public bool GoodsDetailDisplay
         {
-            get { return _goodsDtailDisplay; }
+            get { return _goodsDetailDisplay; }
             set
             {
-                if (_goodsDtailDisplay != value)
+                if (_goodsDetailDisplay != value)
                 {
-                    _goodsDtailDisplay = value;
-                    Notify("GoodsDtailDisplay");
+                    _goodsDetailDisplay = value;
+                    Notify("GoodsDetailDisplay");
                 }
             }
         }

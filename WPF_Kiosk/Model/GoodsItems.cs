@@ -6,6 +6,20 @@ namespace WPF_Kiosk.Model
 {
     public class GoodsItems : INotifyPropertyChanged
     {
+        public GoodsItems()
+        {
+
+        }
+        public GoodsItems(GoodsItems other)
+        {
+            GoodsName = other.GoodsName;
+            GoodsDiscount = other.GoodsDiscount;
+            GoodsPrice = other.GoodsPrice;
+            GoodsDisplay = other.GoodsDisplay;
+            GoodsCategoryNum = other.GoodsCategoryNum;
+            DetailCategorys = new ObservableCollection<DetailCategory>(other.DetailCategorys);
+        }
+
         private string _goodsName;
         public string GoodsName
         {

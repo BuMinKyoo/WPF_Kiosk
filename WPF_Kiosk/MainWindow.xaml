@@ -176,7 +176,7 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Border Width="30" Height="30" Background="Aqua" Margin="10,0,10,0">
-                                <RadioButton Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}, AncestorLevel=1}, Path=DataContext.OnEvent}"
+                                <RadioButton Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}, AncestorLevel=1}, Path=DataContext.GoodsShortDisplayBtnsClick}"
                         CommandParameter="{Binding BtnNum}"
                                              IsChecked="{Binding BtnChecked}"
                                              GroupName="GoodsShortDisplay">
@@ -379,7 +379,8 @@
                                             </Grid.ColumnDefinitions>
 
                                             <TextBlock Grid.Row="0" Grid.ColumnSpan="3" Text="{Binding DetailCategoryName}" VerticalAlignment="Bottom"/>
-                                            <Button Grid.Row="1" Grid.Column="0" Content="&lt;" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}, AncestorLevel=1}, Path=DataContext.GoodsDetailSelectsPageClickLeft}"/>
+                                            <Button Grid.Row="1" Grid.Column="0" Content="&lt;" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}, AncestorLevel=1}, Path=DataContext.GoodsDetailItemsPageClickLeft}"
+                                                    CommandParameter="{Binding DetailCategoryNum}"/>
 
                                             
                                             <!--상품 디테일 카테고리 아이템-->
@@ -395,15 +396,19 @@
                                                 <ItemsControl.ItemContainerStyle>
                                                     <Style>
                                                         <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding GoodsDtailDisplay}" 
-                                                                         Value="True">
-                                                                <Setter Property="FrameworkElement.Visibility" 
-                                                                        Value="Visible"/>
+                                                            <DataTrigger 
+                                                                Binding="{Binding GoodsDetailDisplay}" 
+                                                                Value="True">
+                                                                <Setter 
+                                                                 Property="FrameworkElement.Visibility" 
+                                                                 Value="Visible"/>
                                                             </DataTrigger>
-                                                            <DataTrigger Binding="{Binding GoodsDtailDisplay}" 
-                                                                         Value="False">
-                                                                <Setter Property="FrameworkElement.Visibility" 
-                                                                        Value="Collapsed"/>
+                                                            <DataTrigger 
+                                                                Binding="{Binding GoodsDetailDisplay}" 
+                                                                Value="False">
+                                                                <Setter 
+                                                                   Property="FrameworkElement.Visibility"
+                                                                   Value="Collapsed"/>
                                                             </DataTrigger>
                                                         </Style.Triggers>
                                                     </Style>
@@ -415,7 +420,7 @@
                                                         <!--상품 디테일 카테고리 아이템 버튼-->
                                                         <Button Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}, AncestorLevel=1}, Path=DataContext.GoodsDetailItemBtnWidth}"
                                                                 Height="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}, AncestorLevel=1}, Path=DataContext.GoodsDetailItemBtnHight}"
-                                                                Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}, AncestorLevel=1}, Path=DataContext.GoodsDetailItemsPageClickLeft}"
+                                                                Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}, AncestorLevel=1}, Path=DataContext.GoodsDetailItemClick}"
                                                                 CommandParameter="{Binding}">
                                                             <StackPanel Background="Purple">
                                                                 <TextBlock Text="{Binding GoodsDtailName}"/>
@@ -437,7 +442,8 @@
                                             </ItemsControl>
 
                                             
-                                            <Button Grid.Row="1" Grid.Column="2" Content="&gt;" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}, AncestorLevel=1}, Path=DataContext.GoodsDetailItemsPageClickRight}"/>
+                                            <Button Grid.Row="1" Grid.Column="2" Content="&gt;" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}, AncestorLevel=1}, Path=DataContext.GoodsDetailItemsPageClickRight}"
+                                                     CommandParameter="{Binding DetailCategoryNum}"/>
                                         </Grid>
 
                                     </DataTemplate>
@@ -464,7 +470,7 @@
 
                     <Button Grid.Column="0" Width="70" HorizontalAlignment="Left" VerticalAlignment="Center" Content="&lt;" Command="{Binding GoodsDetailCategoryPageClickLeft}" Margin="30,0,0,0"/>
 
-                    <ItemsControl Grid.Column="1" HorizontalAlignment="Center" ItemsSource="{Binding GoodsShortDisplayBtns}">
+                    <ItemsControl Grid.Column="1" HorizontalAlignment="Center" ItemsSource="{Binding GoodsDetailShortDisplayBtns}">
                         <!--템플릿 외형-->
                         <ItemsControl.Template>
                             <ControlTemplate TargetType="{x:Type ItemsControl}">
@@ -476,10 +482,10 @@
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <Border Width="30" Height="30" Background="Aqua" Margin="10,0,10,0">
-                                    <RadioButton Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}, AncestorLevel=1}, Path=DataContext.OnEvent}"
+                                    <RadioButton Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}, AncestorLevel=1}, Path=DataContext.GoodsDetailShortDisplayBtnsClick}"
              CommandParameter="{Binding BtnNum}"
                                   IsChecked="{Binding BtnChecked}"
-                                  GroupName="GoodsShortDisplay">
+                                  GroupName="GoodsDetailShortDisplay">
                                         <RadioButton.Template>
                                             <ControlTemplate TargetType="{x:Type RadioButton}">
                                                 <Ellipse Stroke="Black">
