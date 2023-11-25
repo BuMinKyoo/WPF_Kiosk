@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media.Media3D;
 using WPF_Kiosk.Model;
 
 namespace WPF_Kiosk
@@ -19,22 +16,17 @@ namespace WPF_Kiosk
     public class MainWindowViewModel : INotifyPropertyChanged
     {
         #region 전역변수
-        // 카테고리의 전체 개수
-        public static int StaticCategoryItemCnt = 6;
+        public static int Stc_InMainCategoryWCnt = 6;
 
-        // 상품 가로 개수
-        public static int StaticGoodsItemsWidthCnt = 4;
+        public static int Stc_InMainGoodsWCnt = 4;
 
-        // 상품 세로 개수
-        public static int StaticGoodsItemsHightCnt = 4;
+        public static int Stc_InMainGoodsHCnt = 4;
 
-        // 장바구니 가로 개수
-        public static int StaticGoodsSelectWidthCnt = 4;
+        public static int Stc_InGoodsCartWCnt = 4;
 
-        // GoodsDetailCategory 세로 개수
-        public static int StaticGoodsDetailCategoryHightCnt = 4;
+        public static int Stc_InDetailCategoryHCnt = 4;
 
-        public static int StaticGoodsDetailItemWidthCnt = 5;
+        public static int Stc_InDetailGoodsWCnt = 5;
 
         #endregion
 
@@ -43,10 +35,10 @@ namespace WPF_Kiosk
             // 펼칠 필요 X
             #region Size
             // 윈도우 화면을 가져와서 비율에 따라 크기를 조절
-            WindowWidth = SystemParameters.PrimaryScreenWidth;
-            WindowHight = SystemParameters.PrimaryScreenHeight;
+            DblLockWinW = SystemParameters.PrimaryScreenWidth;
+            DblLockWinH = SystemParameters.PrimaryScreenHeight;
 
-            ConponentSizeChange();
+            SetConponentSizeChange();
 
             #endregion
 
@@ -55,18 +47,18 @@ namespace WPF_Kiosk
             // 카테고리 담기
             for (int i = 0; i < 12; i++)
             {
-                Categorys.Add(new Category() { CategoryNum = i, CategoryName = i.ToString() });
+                ObcMainCategoryList.Add(new MainCategory() { InMainCategoryNum = i, StrMainCategoryName = i.ToString() });
             }
 
             // 카테고리1상품
             for (int i = 0; i < 10; i++)
             {
-                AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 0, GoodsName = "카테0상품" + i.ToString(), GoodsDiscount = 0, GoodsPrice = 1000 + 1000 * i, });
+                ObcAllMainGoodsList.Add(new MainGoods() { InMainGoodsMainCategoryNum = 0, StrMainGoodsName = "카테0상품" + i.ToString(), InMainGoodsDiscount = 0, InMainGoodsPrice = 1000 + 1000 * i, });
 
                 // 카테고리1상품의 디테일 카테고리 개수
                 for (int j = 0; j < 6; j++)
                 {
-                    AllGoodsItems[i].DetailCategorys.Add(new DetailCategory() { DetailCategoryNum = j, DetailCategoryName = AllGoodsItems[i].GoodsName + "디테일" + j.ToString() });
+                    ObcAllMainGoodsList[i].ObcDetailCategoryList.Add(new DetailCategory() { InDetailCategoryNum = j, StrDetailCategoryName = ObcAllMainGoodsList[i].StrMainGoodsName + "디테일" + j.ToString() });
 
 
                     // 카데고리 디테일 n번의 디테일 개수
@@ -74,128 +66,128 @@ namespace WPF_Kiosk
                     {
                         for (int k = 0; k < 3; k++)
                         {
-                            AllGoodsItems[i].DetailCategorys[j].GoodsDetails.Add(new GoodsDetail() { GoodsDtailName = AllGoodsItems[i].DetailCategorys[j].DetailCategoryName + "상품" + k.ToString(), GoodsDtailDiscount = 0, GoodsDtailPrice = 100 + 100 * k, GoodsDtailCategoryNum = j , GoodsDtailNum = k});
+                            ObcAllMainGoodsList[i].ObcDetailCategoryList[j].ObcDetailGoodsList.Add(new DetailGoods() { StrDetailGoodsName = ObcAllMainGoodsList[i].ObcDetailCategoryList[j].StrDetailCategoryName + "상품" + k.ToString(), InDetailGoodsDiscount = 0, InDetailGoodsPrice = 100 + 100 * k, InDetailGoodsDetailCategoryNum = j , InDetailGoodsNum = k});
                         }
                     }
                     else if (j == 1)
                     {
                         for (int k = 0; k < 4; k++)
                         {
-                            AllGoodsItems[i].DetailCategorys[j].GoodsDetails.Add(new GoodsDetail() { GoodsDtailName = AllGoodsItems[i].DetailCategorys[j].DetailCategoryName + "상품" + k.ToString(), GoodsDtailDiscount = 0, GoodsDtailPrice = 100 + 100 * k, GoodsDtailCategoryNum = j, GoodsDtailNum = k});
+                            ObcAllMainGoodsList[i].ObcDetailCategoryList[j].ObcDetailGoodsList.Add(new DetailGoods() { StrDetailGoodsName = ObcAllMainGoodsList[i].ObcDetailCategoryList[j].StrDetailCategoryName + "상품" + k.ToString(), InDetailGoodsDiscount = 0, InDetailGoodsPrice = 100 + 100 * k, InDetailGoodsDetailCategoryNum = j, InDetailGoodsNum = k});
                         }
                     }
                     else if (j == 2)
                     {
                         for (int k = 0; k < 5; k++)
                         {
-                            AllGoodsItems[i].DetailCategorys[j].GoodsDetails.Add(new GoodsDetail() { GoodsDtailName = AllGoodsItems[i].DetailCategorys[j].DetailCategoryName + "상품" + k.ToString(), GoodsDtailDiscount = 0, GoodsDtailPrice = 100 + 100 * k, GoodsDtailCategoryNum = j, GoodsDtailNum = k});
+                            ObcAllMainGoodsList[i].ObcDetailCategoryList[j].ObcDetailGoodsList.Add(new DetailGoods() { StrDetailGoodsName = ObcAllMainGoodsList[i].ObcDetailCategoryList[j].StrDetailCategoryName + "상품" + k.ToString(), InDetailGoodsDiscount = 0, InDetailGoodsPrice = 100 + 100 * k, InDetailGoodsDetailCategoryNum = j, InDetailGoodsNum = k});
                         }
                     }
                     else if (j == 3)
                     {
                         for (int k = 0; k < 6; k++)
                         {
-                            AllGoodsItems[i].DetailCategorys[j].GoodsDetails.Add(new GoodsDetail() { GoodsDtailName = AllGoodsItems[i].DetailCategorys[j].DetailCategoryName + "상품" + k.ToString(), GoodsDtailDiscount = 0, GoodsDtailPrice = 100 + 100 * k, GoodsDtailCategoryNum = j, GoodsDtailNum = k});
+                            ObcAllMainGoodsList[i].ObcDetailCategoryList[j].ObcDetailGoodsList.Add(new DetailGoods() { StrDetailGoodsName = ObcAllMainGoodsList[i].ObcDetailCategoryList[j].StrDetailCategoryName + "상품" + k.ToString(), InDetailGoodsDiscount = 0, InDetailGoodsPrice = 100 + 100 * k, InDetailGoodsDetailCategoryNum = j, InDetailGoodsNum = k});
                         }
                     }
                     else if (j == 4)
                     {
                         for (int k = 0; k < 5; k++)
                         {
-                            AllGoodsItems[i].DetailCategorys[j].GoodsDetails.Add(new GoodsDetail() { GoodsDtailName = AllGoodsItems[i].DetailCategorys[j].DetailCategoryName + "상품" + k.ToString(), GoodsDtailDiscount = 0, GoodsDtailPrice = 100 + 100 * k, GoodsDtailCategoryNum = j, GoodsDtailNum = k});
+                            ObcAllMainGoodsList[i].ObcDetailCategoryList[j].ObcDetailGoodsList.Add(new DetailGoods() { StrDetailGoodsName = ObcAllMainGoodsList[i].ObcDetailCategoryList[j].StrDetailCategoryName + "상품" + k.ToString(), InDetailGoodsDiscount = 0, InDetailGoodsPrice = 100 + 100 * k, InDetailGoodsDetailCategoryNum = j, InDetailGoodsNum = k});
                         }
                     }
                     else if (j == 5)
                     {
                         for (int k = 0; k < 4; k++)
                         {
-                            AllGoodsItems[i].DetailCategorys[j].GoodsDetails.Add(new GoodsDetail() { GoodsDtailName = AllGoodsItems[i].DetailCategorys[j].DetailCategoryName + "상품" + k.ToString(), GoodsDtailDiscount = 0, GoodsDtailPrice = 100 + 100 * k, GoodsDtailCategoryNum = j, GoodsDtailNum = k});
+                            ObcAllMainGoodsList[i].ObcDetailCategoryList[j].ObcDetailGoodsList.Add(new DetailGoods() { StrDetailGoodsName = ObcAllMainGoodsList[i].ObcDetailCategoryList[j].StrDetailCategoryName + "상품" + k.ToString(), InDetailGoodsDiscount = 0, InDetailGoodsPrice = 100 + 100 * k, InDetailGoodsDetailCategoryNum = j, InDetailGoodsNum = k});
                         }
                     }
 
                     // 디테일 카테고리안에 디테일이 표시되는 인덱스
-                    int index = Math.Min(StaticGoodsDetailItemWidthCnt, AllGoodsItems[i].DetailCategorys[j].GoodsDetailItemCurrentIndex = AllGoodsItems[i].DetailCategorys[j].GoodsDetails.Count);
-                    AllGoodsItems[i].DetailCategorys[j].GoodsDetailItemCurrentIndex = index;
+                    int index = Math.Min(Stc_InDetailGoodsWCnt, ObcAllMainGoodsList[i].ObcDetailCategoryList[j].InDetailGoodsCurrentIndex = ObcAllMainGoodsList[i].ObcDetailCategoryList[j].ObcDetailGoodsList.Count);
+                    ObcAllMainGoodsList[i].ObcDetailCategoryList[j].InDetailGoodsCurrentIndex = index;
                 }
             }
 
             // 카테고리2상품
             for (int i = 0; i < 20; i++)
             {
-                AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 1, GoodsName = "카테1상품" + i.ToString(), GoodsDiscount = 0, GoodsPrice = 1000 + 1000 * i, });
+                ObcAllMainGoodsList.Add(new MainGoods() { InMainGoodsMainCategoryNum = 1, StrMainGoodsName = "카테1상품" + i.ToString(), InMainGoodsDiscount = 0, InMainGoodsPrice = 1000 + 1000 * i, });
             }
 
             // 카테고리3상품
             for (int i = 0; i < 40; i++)
             {
-                AllGoodsItems.Add(new GoodsItems() { GoodsCategoryNum = 2, GoodsName = "카테2상품" + i.ToString(), GoodsDiscount = 0, GoodsPrice = 1000 + 1000 * i, });
+                ObcAllMainGoodsList.Add(new MainGoods() { InMainGoodsMainCategoryNum = 2, StrMainGoodsName = "카테2상품" + i.ToString(), InMainGoodsDiscount = 0, InMainGoodsPrice = 1000 + 1000 * i, });
             }
             
             #endregion
 
 
             #region 초기에 보여지는 데이터들
-            // 초기에 보여지는 카테고리 StaticCategoryItemCnt개
-            for (int i = 0; i < Math.Min(StaticCategoryItemCnt, Categorys.Count); i++)
+            // 초기에 보여지는 카테고리 Stc_InMainCategoryWCnt개
+            for (int i = 0; i < Math.Min(Stc_InMainCategoryWCnt, ObcMainCategoryList.Count); i++)
             {
-                Categorys[i].CategoryDisplay = true;
+                ObcMainCategoryList[i].BlMainCategoryVis = true;
             }
-            CatecoryCurrentIndex = StaticCategoryItemCnt;
+            InMainCatecoryCurrentIndex = Stc_InMainCategoryWCnt;
 
-            // 초기에 보여지는 상품 StaticGoodsItemsWidthCnt* StaticGoodsItemsHightCnt개(카테고리 0번)
-            foreach (var allGoodsItem in AllGoodsItems)
+            // 초기에 보여지는 상품 Stc_InMainGoodsWCnt* Stc_InMainGoodsHCnt개(카테고리 0번)
+            foreach (var allGoodsItem in ObcAllMainGoodsList)
             {
-                if (allGoodsItem.GoodsCategoryNum == 0)
+                if (allGoodsItem.InMainGoodsMainCategoryNum == 0)
                 {
-                    GoodsItems.Add(allGoodsItem);
+                    ObcMainGoodsList.Add(allGoodsItem);
                 }
             }
 
-            for (int i = 0; i < Math.Min(StaticGoodsItemsWidthCnt * StaticGoodsItemsHightCnt, GoodsItems.Count); i++)
+            for (int i = 0; i < Math.Min(Stc_InMainGoodsWCnt * Stc_InMainGoodsHCnt, ObcMainGoodsList.Count); i++)
             {
-                GoodsItems[i].GoodsDisplay = true;
+                ObcMainGoodsList[i].BlMainGoodsVis = true;
 
-                for (int j = 0; j < GoodsItems[i].DetailCategorys.Count; j++)
+                for (int j = 0; j < ObcMainGoodsList[i].ObcDetailCategoryList.Count; j++)
                 {
                     // 디테일 카테고리는 전부 돌리면서, 담아야지, 디테일 상품의 display를 전체적으로 돌릴 수 있음
-                    if (j < StaticGoodsDetailCategoryHightCnt)
+                    if (j < Stc_InDetailCategoryHCnt)
                     {
-                        GoodsItems[i].DetailCategorys[j].DetailCategoryDisplay = true;
+                        ObcMainGoodsList[i].ObcDetailCategoryList[j].BlDetailCategoryVis = true;
                     }
                     else
                     {
-                        GoodsItems[i].DetailCategorys[j].DetailCategoryDisplay = false;
+                        ObcMainGoodsList[i].ObcDetailCategoryList[j].BlDetailCategoryVis = false;
                     }
 
                     // 카데고리 디테일 n번의 디테일 개수
-                    for (int k = 0; k < Math.Min(StaticGoodsDetailItemWidthCnt, AllGoodsItems[i].DetailCategorys[j].GoodsDetails.Count); k++)
+                    for (int k = 0; k < Math.Min(Stc_InDetailGoodsWCnt, ObcAllMainGoodsList[i].ObcDetailCategoryList[j].ObcDetailGoodsList.Count); k++)
                     {
                         if (j == 4)
                         {
 
                         }
-                        AllGoodsItems[i].DetailCategorys[j].GoodsDetails[k].GoodsDetailDisplay = true;
+                        ObcAllMainGoodsList[i].ObcDetailCategoryList[j].ObcDetailGoodsList[k].BlDetailGoodsVis = true;
 
                         
                     }
                 }
             }
-            GoodsItemCurrentIndex = StaticGoodsItemsHightCnt * StaticGoodsItemsWidthCnt;
-            GoodsDetailCategoryCurrentIndex = StaticGoodsDetailCategoryHightCnt;
+            InMainGoodsCurrentIndex = Stc_InMainGoodsHCnt * Stc_InMainGoodsWCnt;
+            InDetailCategoryCurrentIndex = Stc_InDetailCategoryHCnt;
 
             // 초기에 보여지는 Short버튼 생성
-            GetGoodsShortDisplayBtns();
+            SetMainGoodsQuickBtns();
 
             // 초기에 보여지는 DetailShort버튼 생성
-            GetGoodsDetailShortDisplayBtns();
+            SetDetailGoodsQuickBtns();
 
             #endregion
 
         }
 
         // 컴포넌트 들의 모든 사이즈 조절
-        #region ConponentSizeChange
-        private void ConponentSizeChange()
+        #region SetConponentSizeChange
+        private void SetConponentSizeChange()
         {
             // 6으로 나누는 이유는, 전체 크기가
             //< Grid.RowDefinitions >
@@ -208,39 +200,39 @@ namespace WPF_Kiosk
             // 합해서 6이기 때문
 
             // 카테고리 크기를 화면 비율에 따라 조절
-            CategoryWidth = (WindowWidth * 0.8) / StaticCategoryItemCnt; // 0.8 = 8/10
-            CategoryHight = (WindowHight * 0.3 / 6); // Grid비율에 따라 변경 되는 값
+            DblMainCategoryW = (DblLockWinW * 0.8) / Stc_InMainCategoryWCnt; // 0.8 = 8/10
+            DblMainCategoryH = (DblLockWinH * 0.3 / 6); // Grid비율에 따라 변경 되는 값
 
             // 상품의 크기를 화면 비율에 따라 조절
-            GoodsItemsWidth = WindowWidth / StaticGoodsItemsWidthCnt;
-            GoodsItemsHight = (WindowHight * 4 / 6) / StaticGoodsItemsHightCnt; // Grid비율에 따라 변경 되는 값
+            DblMainGoodsW = DblLockWinW / Stc_InMainGoodsWCnt;
+            DblMainGoodsH = (DblLockWinH * 4 / 6) / Stc_InMainGoodsHCnt; // Grid비율에 따라 변경 되는 값
 
-            // KioskGoodsSelectDisplay의 크기를 화면 비율에 따라 조절
-            GoodsShortDisplayHight = WindowHight * 0.3 / 6;
+            // MainGoodsQuickBtn의 크기를 화면 비율에 따라 조절
+            DblMainGoodsQuickBtnH = DblLockWinH * 0.3 / 6;
 
-            // KioskGoodsSelects의 크기를 화면 비율에 따라 조절
-            GoodsSelectsWidth = (WindowWidth - (30 * 2)) * 0.6 / StaticGoodsSelectWidthCnt; // 0.6 = 6/10
-            GoodsSelectsHight = ((WindowHight * 0.9 / 6) - (30 * 2)) * 0.83 ;  // 0.83 = 5/6
+            // MainGoodsCar의 크기를 화면 비율에 따라 조절
+            DblMainGoodsCartW = (DblLockWinW - (30 * 2)) * 0.6 / Stc_InGoodsCartWCnt; // 0.6 = 6/10
+            DblMainGoodsCartH = ((DblLockWinH * 0.9 / 6) - (30 * 2)) * 0.83 ;  // 0.83 = 5/6
 
-            // GoodsDetail 전체 grid의 크기를 화면 비율에 따라 조절
-            GoodsDetailGridWidth = WindowWidth * 0.8;
-            GoodsDetailGridHight = WindowHight * 0.8;
+            // DetailGoods 전체 grid의 크기를 화면 비율에 따라 조절
+            DblDetailGoodsGridW = DblLockWinW * 0.8;
+            DblDetailGoodsGridH = DblLockWinH * 0.8;
 
-            // GoodsDetailCategory의 각 크기를 화면 비율에 따라 조절
-            GoodsDetailCategoryWidth = GoodsDetailGridWidth;
-            GoodsDetailCategoryHight = GoodsDetailGridHight * (0.6 / StaticGoodsDetailCategoryHightCnt);  // 0.6 = 12/20
+            // DetailCategory의 각 크기를 화면 비율에 따라 조절
+            DblDetailCategoryW = DblDetailGoodsGridW;
+            DblDetailCategoryH = DblDetailGoodsGridH * (0.6 / Stc_InDetailCategoryHCnt);  // 0.6 = 12/20
 
-            GoodsDetailItemBtnWidth = GoodsDetailCategoryWidth * (0.8 / StaticGoodsDetailItemWidthCnt); // 0.8 = 8/10
-            GoodsDetailItemBtnHight = GoodsDetailCategoryHight * 0.75; // 0.75 = 3/4
+            DblDetailGoodsBtnW = DblDetailCategoryW * (0.8 / Stc_InDetailGoodsWCnt); // 0.8 = 8/10
+            DblDetailGoodsBtnH = DblDetailCategoryH * 0.75; // 0.75 = 3/4
         }
 
-        private Command _windowSizeEvent;
-        public ICommand WindowSizeEvent
+        private Command _icmdWindowSizeEvent;
+        public ICommand IcmdWindowSizeEvent
         {
-            get { return _windowSizeEvent = new Command(OnWindowSizeEvent); }
+            get { return _icmdWindowSizeEvent = new Command(OnIcmdWindowSizeEvent); }
         }
 
-        private void OnWindowSizeEvent(object obj)
+        private void OnIcmdWindowSizeEvent(object obj)
         {
             var arg = obj as SizeChangedEventArgs;
             if (arg == null)
@@ -250,897 +242,896 @@ namespace WPF_Kiosk
 
             #region Size
             // 윈도우 화면을 가져와서 비율에 따라 크기를 조절
-            WindowWidth = arg.NewSize.Width;
-            WindowHight = arg.NewSize.Height;
+            DblLockWinW = arg.NewSize.Width;
+            DblLockWinH = arg.NewSize.Height;
 
-            ConponentSizeChange();
+            SetConponentSizeChange();
 
             #endregion
         }
 
         #endregion
 
-        #region KioskLock
-        private double _windowWidth;
-        public double WindowWidth
+
+        #region Lock
+        private double _dblLockWinW;
+        public double DblLockWinW
         {
-            get { return _windowWidth; }
+            get { return _dblLockWinW; }
             set
             {
-                _windowWidth = value;
-                Notify("WindowWidth");
+                _dblLockWinW = value;
+                Notify("DblLockWinW");
             }
         }
 
-        private double _windowHight;
-        public double WindowHight
+        private double _dblLockWinH;
+        public double DblLockWinH
         {
-            get { return _windowHight; }
+            get { return _dblLockWinH; }
             set
             {
-                _windowHight = value;
-                Notify("WindowHight");
+                _dblLockWinH = value;
+                Notify("DblLockWinH");
             }
         }
 
-        private Command _KioskLockMouseUp;
-        public ICommand KioskLockMouseUp
+        private Command _icmdLockMouseLeftUp;
+        public ICommand IcmdLockMouseLeftUp
         {
-            get { return _KioskLockMouseUp = new Command(OnKioskLockMouseUp); }
+            get { return _icmdLockMouseLeftUp = new Command(OnIcmdLockMouseLeftUp); }
         }
 
         // KioskLock화면에 마우스 업 클릭시 작동
-        private void OnKioskLockMouseUp(object obj)
+        private void OnIcmdLockMouseLeftUp(object obj)
         {
-            KioskLockVisibility = false;
+            BlLockVis = false;
         }
 
-        // OnKioskLockMouseUp과 같은 기능이지만, 버튼으로 command연결
-        private Command _kioskLockBtnClick;
-        public ICommand KioskLockBtnClick
+        // OnIcmdKioskLockMouseLeftUp과 같은 기능이지만, 버튼으로 command연결
+        private Command _icmdLockBtnClick;
+        public ICommand IcmdLockBtnClick
         {
-            get { return _kioskLockBtnClick = new Command(OnKioskLockBtnClick); }
+            get { return _icmdLockBtnClick = new Command(OnIcmdLockBtnClick); }
         }
 
-        private void OnKioskLockBtnClick(object obj)
+        private void OnIcmdLockBtnClick(object obj)
         {
-            KioskLockVisibility = false;
+            BlLockVis = false;
         }
 
-        private bool _kioskLockVisibility = true;
-        public bool KioskLockVisibility
+        private bool _blLockVis = true;
+        public bool BlLockVis
         {
-            get { return _kioskLockVisibility; }
+            get { return _blLockVis; }
             set
             {
-                _kioskLockVisibility = value;
-                Notify("KioskLockVisibility");
+                _blLockVis = value;
+                Notify("BlLockVis");
             }
         }
 
         #endregion
 
-        #region KioskCategory
-        private ObservableCollection<Category> _categorys = new ObservableCollection<Category>();
-        public ObservableCollection<Category> Categorys
+        #region MainCategory
+        private ObservableCollection<MainCategory> _obcMainCategoryList = new ObservableCollection<MainCategory>();
+        public ObservableCollection<MainCategory> ObcMainCategoryList
         {
-            get { return _categorys; }
+            get { return _obcMainCategoryList; }
             set
             {
-                _categorys = value;
-                Notify("Categorys");
+                _obcMainCategoryList = value;
+                Notify("ObcMainCategoryList");
             }
         }
 
-        private double _categoryWidth;
-        public double CategoryWidth
+        private double _dblMainCategoryW;
+        public double DblMainCategoryW
         {
-            get { return _categoryWidth; }
+            get { return _dblMainCategoryW; }
             set
             {
-                _categoryWidth = value;
-                Notify("CategoryWidth");
+                _dblMainCategoryW = value;
+                Notify("DblMainCategoryW");
             }
         }
 
-        private double _categoryHight;
-        public double CategoryHight
+        private double _dblMainCategoryH;
+        public double DblMainCategoryH
         {
-            get { return _categoryHight; }
+            get { return _dblMainCategoryH; }
             set
             {
-                _categoryHight = value;
-                Notify("CategoryHight");
+                _dblMainCategoryH = value;
+                Notify("DblMainCategoryH");
             }
         }
 
-        private int _catecoryCurrentIndex = 0;
-        public int CatecoryCurrentIndex
+        private int _inMainCatecoryCurrentIndex = 0;
+        public int InMainCatecoryCurrentIndex
         {
-            get { return _catecoryCurrentIndex; }
+            get { return _inMainCatecoryCurrentIndex; }
             set
             {
-                _catecoryCurrentIndex = value;
-                Notify("CatecoryCurrentIndex");
+                _inMainCatecoryCurrentIndex = value;
+                Notify("InMainCatecoryCurrentIndex");
             }
         }
 
-        private Command _categoryClkLeft;
-        public ICommand CategoryClkLeft
+        private Command _icmdMainCategoryPageClkL;
+        public ICommand IcmdMainCategoryPageClkL
         {
-            get { return _categoryClkLeft = new Command(OnCategoryClkLeft); }
+            get { return _icmdMainCategoryPageClkL = new Command(OnIcmdMainCategoryPageClkL); }
         }
 
-        private void OnCategoryClkLeft(object obj)
+        private void OnIcmdMainCategoryPageClkL(object obj)
         {
-            if (CatecoryCurrentIndex <= StaticCategoryItemCnt)
+            if (InMainCatecoryCurrentIndex <= Stc_InMainCategoryWCnt)
             {
                 return;
             }
 
-            Categorys[CatecoryCurrentIndex - 1].CategoryDisplay = false;
-            Categorys[CatecoryCurrentIndex - (StaticCategoryItemCnt + 1)].CategoryDisplay = true;
-            CatecoryCurrentIndex--;
+            ObcMainCategoryList[InMainCatecoryCurrentIndex - 1].BlMainCategoryVis = false;
+            ObcMainCategoryList[InMainCatecoryCurrentIndex - (Stc_InMainCategoryWCnt + 1)].BlMainCategoryVis = true;
+            InMainCatecoryCurrentIndex--;
         }
 
-        private Command _categoryClkRight;
-        public ICommand CategoryClkRight
+        private Command _icmdMainCategoryPageClkR;
+        public ICommand IcmdMainCategoryPageClkR
         {
-            get { return _categoryClkRight = new Command(OnCategoryClkRight); }
+            get { return _icmdMainCategoryPageClkR = new Command(OnIcmdMainCategoryPageClkR); }
         }
 
-        private void OnCategoryClkRight(object obj)
+        private void OnIcmdMainCategoryPageClkR(object obj)
         {
-            if (CatecoryCurrentIndex == Categorys.Count)
+            if (InMainCatecoryCurrentIndex == ObcMainCategoryList.Count)
             {
                 return;
             }
 
-            Categorys[CatecoryCurrentIndex].CategoryDisplay = true;
-            Categorys[CatecoryCurrentIndex - StaticCategoryItemCnt].CategoryDisplay = false;
-            CatecoryCurrentIndex++;
+            ObcMainCategoryList[InMainCatecoryCurrentIndex].BlMainCategoryVis = true;
+            ObcMainCategoryList[InMainCatecoryCurrentIndex - Stc_InMainCategoryWCnt].BlMainCategoryVis = false;
+            InMainCatecoryCurrentIndex++;
         }
 
 
-        private Command _categoryClick;
-        public ICommand CategoryClick
+        private Command _icmdMainCategoryClk;
+        public ICommand IcmdMainCategoryClk
         {
-            get { return _categoryClick = new Command(OnCategoryClick); }
+            get { return _icmdMainCategoryClk = new Command(OnIcmdMainCategoryClk); }
         }
 
-        private void OnCategoryClick(object obj)
+        private void OnIcmdMainCategoryClk(object obj)
         {
-            //선택된 Category에 해당되는 GoodsItem담기
-            GoodsItems.Clear();
+            //선택된 MainCategory에 해당되는 MainGoods담기
+            ObcMainGoodsList.Clear();
             if (obj is string categoryStr) // obj가 string인 경우
             {
-                foreach (var allGoodsItem in AllGoodsItems)
+                foreach (var allGoodsItem in ObcAllMainGoodsList)
                 {
-                    if (int.TryParse(categoryStr, out int categoryNum))
+                    if (int.TryParse(categoryStr, out int InMainCategoryNum))
                     {
-                        if (allGoodsItem.GoodsCategoryNum == categoryNum)
+                        if (allGoodsItem.InMainGoodsMainCategoryNum == InMainCategoryNum)
                         {
-                            GoodsItems.Add(allGoodsItem);
+                            ObcMainGoodsList.Add(allGoodsItem);
                         }
                     }
                     // 변환 실패 시 처리할 로직 필요하면 추가
                 }
             }
-            else if (obj is int categoryNum) // obj가 이미 int인 경우
+            else if (obj is int InMainCategoryNum) // obj가 이미 int인 경우
             {
-                foreach (var allGoodsItem in AllGoodsItems)
+                foreach (var allGoodsItem in ObcAllMainGoodsList)
                 {
-                    if (allGoodsItem.GoodsCategoryNum == categoryNum)
+                    if (allGoodsItem.InMainGoodsMainCategoryNum == InMainCategoryNum)
                     {
-                        GoodsItems.Add(allGoodsItem);
+                        ObcMainGoodsList.Add(allGoodsItem);
                     }
                 }
             }
 
             // 인덱스 초기화 작업 및 상품 display
-            GoodsItemCurrentIndex = 0;
-            for (int i = 0; i < Math.Min(StaticGoodsItemsWidthCnt* StaticGoodsItemsHightCnt, GoodsItems.Count); i++)
+            InMainGoodsCurrentIndex = 0;
+            for (int i = 0; i < Math.Min(Stc_InMainGoodsWCnt* Stc_InMainGoodsHCnt, ObcMainGoodsList.Count); i++)
             {
-                GoodsItems[i].GoodsDisplay = true;
-                GoodsItemCurrentIndex++;
+                ObcMainGoodsList[i].BlMainGoodsVis = true;
+                InMainGoodsCurrentIndex++;
             }
 
-            GetGoodsShortDisplayBtns();
+            SetMainGoodsQuickBtns();
         }
 
-        // 카테고리 클릭시, short 상품 버튼도 다시 생성
-        private void GetGoodsShortDisplayBtns()
+        // MainCategory 클릭시, Quick상품 버튼도 다시 생성
+        private void SetMainGoodsQuickBtns()
         {
-            GoodsShortDisplayBtns.Clear();
-            int quotient = GoodsItems.Count / (StaticGoodsItemsWidthCnt * StaticGoodsItemsHightCnt);  // 몫
-            int remainder = GoodsItems.Count % (StaticGoodsItemsWidthCnt * StaticGoodsItemsHightCnt); // 나머지
+            ObcMainGoodsQuickBtnList.Clear();
+            int quotient = ObcMainGoodsList.Count / (Stc_InMainGoodsWCnt * Stc_InMainGoodsHCnt);  // 몫
+            int remainder = ObcMainGoodsList.Count % (Stc_InMainGoodsWCnt * Stc_InMainGoodsHCnt); // 나머지
 
-            // Short버튼 수 구하기
+            // Quick버튼 수 구하기
             int GoodsShortDisplayBtnsCnt = 0;
             if (remainder > 0)
             {
-                GoodsShortDisplayBtnsCnt = quotient + 1; // 나머지가 있다면 Short버튼 한개를 더 만들어야됨
+                GoodsShortDisplayBtnsCnt = quotient + 1; // 나머지가 있다면 Quick버튼 한개를 더 만들어야됨
             }
             else
             {
-                GoodsShortDisplayBtnsCnt = quotient; // 나머지가 없다면 Short버튼은 정확히 페이지 수많큼 있으면 됨
+                GoodsShortDisplayBtnsCnt = quotient; // 나머지가 없다면 Quick버튼은 정확히 페이지 수많큼 있으면 됨
             }
 
             for (int i = 0; i < GoodsShortDisplayBtnsCnt; i++)
             {
-                if (i == 0) // 첫번째 버튼은 체크
+                if (i == 0) // 첫번째 Quick버튼은 체크
                 {
-                    GoodsShortDisplayBtns.Add(new GoodsShortDisplayBtn() { BtnNum = i, BtnChecked = true });
+                    ObcMainGoodsQuickBtnList.Add(new MainGoodsQuickBtn() { InMainGoodsQuickBtnNum = i, BlMainGoodsQuickBtnChecked = true });
                 }
                 else
                 {
-                    GoodsShortDisplayBtns.Add(new GoodsShortDisplayBtn() { BtnNum = i, BtnChecked = false });
+                    ObcMainGoodsQuickBtnList.Add(new MainGoodsQuickBtn() { InMainGoodsQuickBtnNum = i, BlMainGoodsQuickBtnChecked = false });
                 }
             }
         }
         #endregion
 
-        #region KioskGoods
-        private ObservableCollection<GoodsItems> _allGoodsItems = new ObservableCollection<GoodsItems>();
-        public ObservableCollection<GoodsItems> AllGoodsItems
+        #region MainGoods
+        private ObservableCollection<MainGoods> _obcAllMainGoodsList = new ObservableCollection<MainGoods>();
+        public ObservableCollection<MainGoods> ObcAllMainGoodsList
         {
-            get { return _allGoodsItems; }
+            get { return _obcAllMainGoodsList; }
             set
             {
-                _allGoodsItems = value;
-                Notify("AllGoodsItems");
+                _obcAllMainGoodsList = value;
+                Notify("ObcAllMainGoodsList");
             }
         }
 
-        private ObservableCollection<GoodsItems> _goodsItems = new ObservableCollection<GoodsItems>();
-        public ObservableCollection<GoodsItems> GoodsItems
+        private ObservableCollection<MainGoods> _obcMainGoodsList = new ObservableCollection<MainGoods>();
+        public ObservableCollection<MainGoods> ObcMainGoodsList
         {
-            get { return _goodsItems; }
+            get { return _obcMainGoodsList; }
             set
             {
-                _goodsItems = value;
-                Notify("GoodsItems");
+                _obcMainGoodsList = value;
+                Notify("MainGoods");
             }
         }
 
-        private double _goodsItemsWidth;
-        public double GoodsItemsWidth
+        private double _dblMainGoodsW;
+        public double DblMainGoodsW
         {
-            get { return _goodsItemsWidth; }
+            get { return _dblMainGoodsW; }
             set
             {
-                _goodsItemsWidth = value;
-                Notify("GoodsItemsWidth");
+                _dblMainGoodsW = value;
+                Notify("DblMainGoodsW");
             }
         }
 
-        private double _goodsItemsHight;
-        public double GoodsItemsHight
+        private double _dblMainGoodsH;
+        public double DblMainGoodsH
         {
-            get { return _goodsItemsHight; }
+            get { return _dblMainGoodsH; }
             set
             {
-                _goodsItemsHight = value;
-                Notify("GoodsItemsHight");
+                _dblMainGoodsH = value;
+                Notify("DblMainGoodsH");
             }
         }
 
-        private int _goodsItemCurrentIndex = 0;
-        public int GoodsItemCurrentIndex
+        private int _inMainGoodsCurrentIndex = 0;
+        public int InMainGoodsCurrentIndex
         {
-            get { return _goodsItemCurrentIndex; }
+            get { return _inMainGoodsCurrentIndex; }
             set
             {
-                _goodsItemCurrentIndex = value;
-                Notify("GoodsItemCurrentIndex");
+                _inMainGoodsCurrentIndex = value;
+                Notify("InMainGoodsCurrentIndex");
             }
         }
 
-        private Command _goodsItemClick;
-        public ICommand GoodsItemClick
+        private Command _icmdMainGoodsClk;
+        public ICommand IcmdMainGoodsClk
         {
-            get { return _goodsItemClick = new Command(OnGoodsItemClick); }
+            get { return _icmdMainGoodsClk = new Command(OnIcmdMainGoodsClk); }
         }
 
         // 클릭한 상품의 데이터를 받아서 상품 담기
-        private void OnGoodsItemClick(object GoodsSelectItem)
+        private void OnIcmdMainGoodsClk(object obj)
         {
-            //var GoodsArray = GoodsSelectItem as object[];
-
             // 클릭한 상품을 클릭한 상품으로 잡기
-            ClickedGoodsItem = new GoodsItems((GoodsItems)GoodsSelectItem);
+            ClsMainGoodsSelected = new MainGoods((MainGoods)obj);
 
 
             // 클릭한 상품이 디테일 상품을 가지고 있는 경우
-            if (ClickedGoodsItem.DetailCategorys.Count > 0)
+            if (ClsMainGoodsSelected.ObcDetailCategoryList.Count > 0)
             {
-                GoodsDetailGridVisibility = true;
+                BlDetailGoodsGridVis = true;
 
                 // 클릭항 상품에 해당하는 디테일 카테고리 담기
-                GetGoodsDetailShortDisplayBtns();
+                SetDetailGoodsQuickBtns();
             }
             else // 클릭한 상품이 디테일 상품을 가지고 있지 않는 경우
             {
-                GoodsSelects.Add(ClickedGoodsItem);
+                ObcMainGoodsCartList.Add(ClsMainGoodsSelected);
             }
 
-            // 상품을 클릭한 후 담고난 뒤, 선택된 상품의 display의 true, false를 조절
-            GoodsSelectDisplay();
+            // 상품을 클릭한 후 담고난 뒤, 장바구니 상품들의 Visible의 true, false를 조절
+            CartGoodsVis();
         }
 
-        private void GoodsSelectDisplay()
+        private void CartGoodsVis()
         {
-            if (GoodsSelects.Count > StaticGoodsSelectWidthCnt)
+            if (ObcMainGoodsCartList.Count > Stc_InGoodsCartWCnt)
             {
-                // 전체 GoodsSelects의 Visible을 false로 변경
-                foreach (var item in GoodsSelects)
+                // 전체 CartGoods의 Visible을 false로 변경
+                foreach (var item in ObcMainGoodsCartList)
                 {
-                    item.GoodsDisplay = false;
+                    item.BlMainGoodsVis = false;
                 }
 
-                // GoodsSelects의 Visible을 StaticGoodsSelectWidthCnt개 단위로 true로 변경
-                for (int i = 0; i < StaticGoodsSelectWidthCnt; i++)
+                // CartGoods의 Visible을 Stc_InGoodsCartWCnt개 단위로 true로 변경
+                for (int i = 0; i < Stc_InGoodsCartWCnt; i++)
                 {
-                    GoodsSelects[GoodsSelects.Count - 1 - i].GoodsDisplay = true;
+                    ObcMainGoodsCartList[ObcMainGoodsCartList.Count - 1 - i].BlMainGoodsVis = true;
                 }
             }
 
             // 상품을 선택하면 항상 마지막 index를 가리키도록 함
-            GoodsSelectCurrentIndex = GoodsSelects.Count;
+            InMainGoodsCartCurrentIndex = ObcMainGoodsCartList.Count;
         }
 
         #endregion
 
-        #region KioskGoodsShortDisplay
-        private double _goodsSelectDisplayHight;
-        public double GoodsShortDisplayHight
+        #region MainGoodsQuickBtn
+        private double _dblMainGoodsQuickBtnH;
+        public double DblMainGoodsQuickBtnH
         {
-            get { return _goodsSelectDisplayHight; }
+            get { return _dblMainGoodsQuickBtnH; }
             set
             {
-                _goodsSelectDisplayHight = value;
-                Notify("GoodsShortDisplayHight");
+                _dblMainGoodsQuickBtnH = value;
+                Notify("DblMainGoodsQuickBtnH");
             }
         }
 
-        private ObservableCollection<GoodsShortDisplayBtn> _goodsShortDisplayBtns = new ObservableCollection<GoodsShortDisplayBtn>();
-        public ObservableCollection<GoodsShortDisplayBtn> GoodsShortDisplayBtns
+        private ObservableCollection<MainGoodsQuickBtn> _obcMainGoodsQuickBtnList = new ObservableCollection<MainGoodsQuickBtn>();
+        public ObservableCollection<MainGoodsQuickBtn> ObcMainGoodsQuickBtnList
         {
-            get { return _goodsShortDisplayBtns; }
+            get { return _obcMainGoodsQuickBtnList; }
             set
             {
-                _goodsShortDisplayBtns = value;
-                Notify("GoodsShortDisplayBtns");
+                _obcMainGoodsQuickBtnList = value;
+                Notify("ObcMainGoodsQuickBtnList");
             }
         }
 
         private Command _goodsShortDisplayBtnsClick;
-        public ICommand GoodsShortDisplayBtnsClick
+        public ICommand IcmdMainGoodsQuickBtnClk
         {
-            get { return _goodsShortDisplayBtnsClick = new Command(OnGoodsShortDisplayBtnsClick); }
+            get { return _goodsShortDisplayBtnsClick = new Command(OnIcmdMainGoodsQuickBtnClk); }
         }
 
-        private void OnGoodsShortDisplayBtnsClick(object BtnNum)
+        private void OnIcmdMainGoodsQuickBtnClk(object BtnNum)
         {
-            // 상품의 인덱스는 StaticGoodsItemsWidthCnt* StaticGoodsItemsHightCnt * 페이지로 구한후 StaticGoodsItemsWidthCnt* StaticGoodsItemsHightCnt개를 보여준다
-            GoodsItemCurrentIndex = StaticGoodsItemsWidthCnt * StaticGoodsItemsHightCnt * (int)BtnNum;
+            // 상품의 인덱스는 Stc_InMainGoodsWCnt* Stc_InMainGoodsHCnt * 페이지로 구한후 Stc_InMainGoodsWCnt* Stc_InMainGoodsHCnt개를 보여준다
+            InMainGoodsCurrentIndex = Stc_InMainGoodsWCnt * Stc_InMainGoodsHCnt * (int)BtnNum;
 
-            // 전체 GoodsItems의 Visible을 false로 변경
-            foreach (var item in GoodsItems)
+            // 전체 MainGoods의 Visible을 false로 변경
+            foreach (var item in ObcMainGoodsList)
             {
-                item.GoodsDisplay = false;
+                item.BlMainGoodsVis = false;
             }
 
-            // GoodsItems의 Visible을 StaticGoodsItemsWidthCnt* StaticGoodsItemsHightCnt개 단위로 true로 변경
-            for (int i = GoodsItemCurrentIndex; i < Math.Min(GoodsItemCurrentIndex + StaticGoodsItemsWidthCnt * StaticGoodsItemsHightCnt, GoodsItems.Count); i++)
+            // MainGoods의 Visible을 Stc_InMainGoodsWCnt* Stc_InMainGoodsHCnt개 단위로 true로 변경
+            for (int i = InMainGoodsCurrentIndex; i < Math.Min(InMainGoodsCurrentIndex + Stc_InMainGoodsWCnt * Stc_InMainGoodsHCnt, ObcMainGoodsList.Count); i++)
             {
-                GoodsItems[i].GoodsDisplay = true;
+                ObcMainGoodsList[i].BlMainGoodsVis = true;
             }
 
-            GoodsItemCurrentIndex += StaticGoodsItemsWidthCnt * StaticGoodsItemsHightCnt;
+            InMainGoodsCurrentIndex += Stc_InMainGoodsWCnt * Stc_InMainGoodsHCnt;
         }
 
-        private Command _goodsPageClickLeft;
-        public ICommand GoodsPageClickLeft
+        private Command _icmdMainGoodsPageClkL;
+        public ICommand IcmdMainGoodsPageClkL
         {
-            get { return _goodsPageClickLeft = new Command(OnGoodsPageClickLeft); }
+            get { return _icmdMainGoodsPageClkL = new Command(OnIcmdMainGoodsPageClkL); }
         }
 
-        private void OnGoodsPageClickLeft(object obj)
+        private void OnIcmdMainGoodsPageClkL(object obj)
         {
             // 첫 페이지가 아닐 경우
-            if (GoodsItemCurrentIndex > StaticGoodsItemsWidthCnt * StaticGoodsItemsHightCnt)
+            if (InMainGoodsCurrentIndex > Stc_InMainGoodsWCnt * Stc_InMainGoodsHCnt)
             {
-                // 전체 GoodsItems의 Visible을 false로 변경
-                foreach (var item in GoodsItems)
+                // 전체 MainGoods의 Visible을 false로 변경
+                foreach (var item in ObcMainGoodsList)
                 {
-                    item.GoodsDisplay = false;
+                    item.BlMainGoodsVis = false;
                 }
 
-                GoodsItemCurrentIndex -= StaticGoodsItemsWidthCnt * StaticGoodsItemsHightCnt;
+                InMainGoodsCurrentIndex -= Stc_InMainGoodsWCnt * Stc_InMainGoodsHCnt;
 
-                // GoodsItems의 Visible을 StaticGoodsItemsWidthCnt* StaticGoodsItemsHightCnt개 단위로 true로 변경
-                for (int i = GoodsItemCurrentIndex - 1; i > GoodsItemCurrentIndex - StaticGoodsItemsWidthCnt * StaticGoodsItemsHightCnt - 1; i--)
+                // MainGoods의 Visible을 Stc_InMainGoodsWCnt* Stc_InMainGoodsHCnt개 단위로 true로 변경
+                for (int i = InMainGoodsCurrentIndex - 1; i > InMainGoodsCurrentIndex - Stc_InMainGoodsWCnt * Stc_InMainGoodsHCnt - 1; i--)
                 {
-                    GoodsItems[i].GoodsDisplay = true;
+                    ObcMainGoodsList[i].BlMainGoodsVis = true;
                 }
 
-                // 상품 넘기는 버튼 클릭후에는, short버튼도 같이 변경
-                // Short버튼의 체크를 하나 왼쪽으로 옮김
+                // 상품 넘기는 버튼 클릭후에는, Quick버튼도 같이 변경
+                // Quick버튼의 체크를 하나 왼쪽으로 옮김
                 int index = 0;
-                for (int i = 0; i < GoodsShortDisplayBtns.Count; i++)
+                for (int i = 0; i < ObcMainGoodsQuickBtnList.Count; i++)
                 {
-                    if (GoodsShortDisplayBtns[i].BtnChecked == true)
+                    if (ObcMainGoodsQuickBtnList[i].BlMainGoodsQuickBtnChecked == true)
                     {
                         index = i;
                         break;
                     }
                 }
-                GoodsShortDisplayBtns[index].BtnChecked = false;
-                GoodsShortDisplayBtns[index - 1].BtnChecked = true;
+                ObcMainGoodsQuickBtnList[index].BlMainGoodsQuickBtnChecked = false;
+                ObcMainGoodsQuickBtnList[index - 1].BlMainGoodsQuickBtnChecked = true;
             }
         }
 
-        private Command _goodsPageClickRight;
-        public ICommand GoodsPageClickRight
+        private Command _icmdMainGoodsPageClkR;
+        public ICommand IcmdMainGoodsPageClkR
         {
-            get { return _goodsPageClickRight = new Command(OnGoodsPageClickRight); }
+            get { return _icmdMainGoodsPageClkR = new Command(OnIcmdMainGoodsPageClkR); }
         }
 
-        private void OnGoodsPageClickRight(object obj)
+        private void OnIcmdMainGoodsPageClkR(object obj)
         {
             // 마지막 페이지가 아닐 경우
-            if (GoodsItemCurrentIndex < GoodsItems.Count)
+            if (InMainGoodsCurrentIndex < ObcMainGoodsList.Count)
             {
-                // 전체 GoodsItems의 Visible을 false로 변경
-                foreach (var item in GoodsItems)
+                // 전체 MainGoods의 Visible을 false로 변경
+                foreach (var item in ObcMainGoodsList)
                 {
-                    item.GoodsDisplay = false;
+                    item.BlMainGoodsVis = false;
                 }
 
-                // GoodsItems의 Visible을 StaticGoodsItemsWidthCnt* StaticGoodsItemsHightCnt개 단위로 true로 변경
-                for (int i = GoodsItemCurrentIndex; i < Math.Min(GoodsItemCurrentIndex + StaticGoodsItemsWidthCnt * StaticGoodsItemsHightCnt, GoodsItems.Count); i++)
+                // MainGoods의 Visible을 Stc_InMainGoodsWCnt* Stc_InMainGoodsHCnt개 단위로 true로 변경
+                for (int i = InMainGoodsCurrentIndex; i < Math.Min(InMainGoodsCurrentIndex + Stc_InMainGoodsWCnt * Stc_InMainGoodsHCnt, ObcMainGoodsList.Count); i++)
                 {
-                    GoodsItems[i].GoodsDisplay = true;
+                    ObcMainGoodsList[i].BlMainGoodsVis = true;
                 }
 
-                GoodsItemCurrentIndex += StaticGoodsItemsWidthCnt * StaticGoodsItemsHightCnt;
+                InMainGoodsCurrentIndex += Stc_InMainGoodsWCnt * Stc_InMainGoodsHCnt;
 
-                // 상품 넘기는 버튼 클릭후에는, short버튼도 같이 변경
-                // Short버튼의 체크를 하나 오른쪽으로 옮김
+                // 상품 넘기는 버튼 클릭후에는, Quick버튼도 같이 변경
+                // Quick버튼의 체크를 하나 오른쪽으로 옮김
                 int index = 0;
-                for (int i = 0; i < GoodsShortDisplayBtns.Count; i++)
+                for (int i = 0; i < ObcMainGoodsQuickBtnList.Count; i++)
                 {
-                    if (GoodsShortDisplayBtns[i].BtnChecked == true)
+                    if (ObcMainGoodsQuickBtnList[i].BlMainGoodsQuickBtnChecked == true)
                     {
                         index = i;
                         break;
                     }
                 }
-                GoodsShortDisplayBtns[index].BtnChecked = false;
-                GoodsShortDisplayBtns[index + 1].BtnChecked = true;
+                ObcMainGoodsQuickBtnList[index].BlMainGoodsQuickBtnChecked = false;
+                ObcMainGoodsQuickBtnList[index + 1].BlMainGoodsQuickBtnChecked = true;
             }
         }
         #endregion
 
-        #region KioskGoodsSelects
-        private ObservableCollection<GoodsItems> _goodsSelects = new ObservableCollection<GoodsItems>();
-        public ObservableCollection<GoodsItems> GoodsSelects
+        #region MainGoodsCart
+        private ObservableCollection<MainGoods> _obcMainGoodsCartList = new ObservableCollection<MainGoods>();
+        public ObservableCollection<MainGoods> ObcMainGoodsCartList
         {
-            get { return _goodsSelects; }
+            get { return _obcMainGoodsCartList; }
             set
             {
-                _goodsSelects = value;
-                Notify("GoodsSelects");
+                _obcMainGoodsCartList = value;
+                Notify("ObcMainGoodsCartList");
             }
         }
 
-        private double _goodsSelectsWidth;
-        public double GoodsSelectsWidth
+        private double _dblMainGoodsCartW;
+        public double DblMainGoodsCartW
         {
-            get { return _goodsSelectsWidth; }
+            get { return _dblMainGoodsCartW; }
             set
             {
-                _goodsSelectsWidth = value;
-                Notify("GoodsSelectsWidth");
+                _dblMainGoodsCartW = value;
+                Notify("DblMainGoodsCartW");
             }
         }
 
-        private double _goodsSelectsHight;
-        public double GoodsSelectsHight
+        private double _dblMainGoodsCartH;
+        public double DblMainGoodsCartH
         {
-            get { return _goodsSelectsHight; }
+            get { return _dblMainGoodsCartH; }
             set
             {
-                _goodsSelectsHight = value;
-                Notify("GoodsSelectsHight");
+                _dblMainGoodsCartH = value;
+                Notify("DblMainGoodsCartH");
             }
         }
 
-        private int _goodsSelectCurrentIndex = 0;
-        public int GoodsSelectCurrentIndex
+        private int _inMainGoodsCartCurrentIndex = 0;
+        public int InMainGoodsCartCurrentIndex
         {
-            get { return _goodsSelectCurrentIndex; }
+            get { return _inMainGoodsCartCurrentIndex; }
             set
             {
-                _goodsSelectCurrentIndex = value;
-                Notify("GoodsSelectCurrentIndex");
+                _inMainGoodsCartCurrentIndex = value;
+                Notify("InMainGoodsCartCurrentIndex");
             }
         }
 
-        private Command _deleteGoodsSelectItems;
-        public ICommand DeleteGoodsSelectItems
+        private Command _icmdMainGoodsCartAllDelete;
+        public ICommand IcmdMainGoodsCartAllDelete
         {
-            get { return _deleteGoodsSelectItems = new Command(OnDeleteGoodsSelectItems); }
+            get { return _icmdMainGoodsCartAllDelete = new Command(OnIcmdMainGoodsCartAllDelete); }
         }
 
         // 장바구니 상품 지우기
-        private void OnDeleteGoodsSelectItems(object GoodsSelectItem)
+        private void OnIcmdMainGoodsCartAllDelete(object obj)
         {
-            GoodsSelects.Clear();
-            GoodsSelectCurrentIndex = 0;
+            ObcMainGoodsCartList.Clear();
+            InMainGoodsCartCurrentIndex = 0;
         }
 
-        private Command _goodsSelectsPageClickLeft;
-        public ICommand GoodsSelectsPageClickLeft
+        private Command _icmdMainGoodsCartPageClkL;
+        public ICommand IcmdMainGoodsCartPageClkL
         {
-            get { return _goodsSelectsPageClickLeft = new Command(OnGoodsSelectsPageClickLeft); }
+            get { return _icmdMainGoodsCartPageClkL = new Command(OnIcmdMainGoodsCartPageClkL); }
         }
 
         // 장바구니 상품 페이지 이동
-        private void OnGoodsSelectsPageClickLeft(object GoodsSelectItem)
+        private void OnIcmdMainGoodsCartPageClkL(object obj)
         {
             // 현재 index가 전체 상품의 개수보다 더 큰값을 가리키고 있다면 왼쪽으로 페이지를 이동할것이 있다는것
-            if (GoodsSelectCurrentIndex > StaticGoodsSelectWidthCnt)
+            if (InMainGoodsCartCurrentIndex > Stc_InGoodsCartWCnt)
             {
-                GoodsSelects[GoodsSelectCurrentIndex - StaticGoodsSelectWidthCnt - 1].GoodsDisplay = true;
-                GoodsSelects[GoodsSelectCurrentIndex - 1].GoodsDisplay = false;
+                ObcMainGoodsCartList[InMainGoodsCartCurrentIndex - Stc_InGoodsCartWCnt - 1].BlMainGoodsVis = true;
+                ObcMainGoodsCartList[InMainGoodsCartCurrentIndex - 1].BlMainGoodsVis = false;
 
-                GoodsSelectCurrentIndex--;
+                InMainGoodsCartCurrentIndex--;
             }
         }
 
-        private Command _goodsSelectsPageClickRight;
-        public ICommand GoodsSelectsPageClickRight
+        private Command _icmdMainGoodsCartPageClkR;
+        public ICommand IcmdMainGoodsCartPageClkR
         {
-            get { return _goodsSelectsPageClickRight = new Command(OnGoodsSelectsPageClickRight); }
+            get { return _icmdMainGoodsCartPageClkR = new Command(OnIcmdMainGoodsCartPageClkR); }
         }
 
         // 장바구니 상품 페이지 이동
-        private void OnGoodsSelectsPageClickRight(object GoodsSelectItem)
+        private void OnIcmdMainGoodsCartPageClkR(object GoodsSelectItem)
         {
-            if (GoodsSelectCurrentIndex < GoodsSelects.Count)
+            if (InMainGoodsCartCurrentIndex < ObcMainGoodsCartList.Count)
             {
-                GoodsSelects[GoodsSelectCurrentIndex].GoodsDisplay = true;
-                GoodsSelects[GoodsSelectCurrentIndex - StaticGoodsSelectWidthCnt].GoodsDisplay = false;
+                ObcMainGoodsCartList[InMainGoodsCartCurrentIndex].BlMainGoodsVis = true;
+                ObcMainGoodsCartList[InMainGoodsCartCurrentIndex - Stc_InGoodsCartWCnt].BlMainGoodsVis = false;
 
-                GoodsSelectCurrentIndex++;
+                InMainGoodsCartCurrentIndex++;
             }
         }
 
         #endregion
 
-        #region KioskGoodsDetail
-        private double _goodsDetailGridWidth;
-        public double GoodsDetailGridWidth
+        #region DetailGoods
+        private double _dblDetailGoodsGridW;
+        public double DblDetailGoodsGridW
         {
-            get { return _goodsDetailGridWidth; }
+            get { return _dblDetailGoodsGridW; }
             set
             {
-                _goodsDetailGridWidth = value;
-                Notify("GoodsDetailGridWidth");
+                _dblDetailGoodsGridW = value;
+                Notify("DblDetailGoodsGridW");
             }
         }
 
-        private double _goodsDetailGridHight;
-        public double GoodsDetailGridHight
+        private double _dblDetailGoodsGridH;
+        public double DblDetailGoodsGridH
         {
-            get { return _goodsDetailGridHight; }
+            get { return _dblDetailGoodsGridH; }
             set
             {
-                _goodsDetailGridHight = value;
-                Notify("GoodsDetailGridHight");
+                _dblDetailGoodsGridH = value;
+                Notify("DblDetailGoodsGridH");
             }
         }
 
-        private bool _goodsDetailGridVisibility = false;
-        public bool GoodsDetailGridVisibility
+        private bool _blDetailGoodsGridVis = false;
+        public bool BlDetailGoodsGridVis
         {
-            get { return _goodsDetailGridVisibility; }
+            get { return _blDetailGoodsGridVis; }
             set
             {
-                _goodsDetailGridVisibility = value;
-                Notify("GoodsDetailGridVisibility");
+                _blDetailGoodsGridVis = value;
+                Notify("BlDetailGoodsGridVis");
             }
         }
 
-        private GoodsItems _clickedGoodsItem = new GoodsItems();
-        public GoodsItems ClickedGoodsItem
+        private MainGoods _clsMainGoodsSelected = new MainGoods();
+        public MainGoods ClsMainGoodsSelected
         {
-            get { return _clickedGoodsItem; }
+            get { return _clsMainGoodsSelected; }
             set
             {
-                _clickedGoodsItem = value;
-                Notify("ClickedGoodsItem");
+                _clsMainGoodsSelected = value;
+                Notify("ClsMainGoodsSelected");
             }
         }
 
-        private double _goodsDetailCategoryWidth;
-        public double GoodsDetailCategoryWidth
+        private double _dblDetailCategoryW;
+        public double DblDetailCategoryW
         {
-            get { return _goodsDetailCategoryWidth; }
+            get { return _dblDetailCategoryW; }
             set
             {
-                _goodsDetailCategoryWidth = value;
-                Notify("GoodsDetailCategoryWidth");
+                _dblDetailCategoryW = value;
+                Notify("DblDetailCategoryW");
             }
         }
 
-        private double _goodsDetailCategoryHight;
-        public double GoodsDetailCategoryHight
+        private double _dblDetailCategoryH;
+        public double DblDetailCategoryH
         {
-            get { return _goodsDetailCategoryHight; }
+            get { return _dblDetailCategoryH; }
             set
             {
-                _goodsDetailCategoryHight = value;
-                Notify("GoodsDetailCategoryHight");
+                _dblDetailCategoryH = value;
+                Notify("DblDetailCategoryH");
             }
         }
 
-        private double _goodsDetailItemBtnWidth;
-        public double GoodsDetailItemBtnWidth
+        private double _dblDetailGoodsBtnW;
+        public double DblDetailGoodsBtnW
         {
-            get { return _goodsDetailItemBtnWidth; }
+            get { return _dblDetailGoodsBtnW; }
             set
             {
-                _goodsDetailItemBtnWidth = value;
-                Notify("GoodsDetailItemBtnWidth");
+                _dblDetailGoodsBtnW = value;
+                Notify("DblDetailGoodsBtnW");
             }
         }
 
-        private double _goodsDetailItemBtnHight;
-        public double GoodsDetailItemBtnHight
+        private double _dblDetailGoodsBtnH;
+        public double DblDetailGoodsBtnH
         {
-            get { return _goodsDetailItemBtnHight; }
+            get { return _dblDetailGoodsBtnH; }
             set
             {
-                _goodsDetailItemBtnHight = value;
-                Notify("GoodsDetailItemBtnHight");
+                _dblDetailGoodsBtnH = value;
+                Notify("DblDetailGoodsBtnH");
             }
         }
 
-        private int _goodsDetailCategoryCurrentIndex = 0;
-        public int GoodsDetailCategoryCurrentIndex
+        private int _inDetailCategoryCurrentIndex = 0;
+        public int InDetailCategoryCurrentIndex
         {
-            get { return _goodsDetailCategoryCurrentIndex; }
+            get { return _inDetailCategoryCurrentIndex; }
             set
             {
-                _goodsDetailCategoryCurrentIndex = value;
-                Notify("GoodsDetailCategoryCurrentIndex");
+                _inDetailCategoryCurrentIndex = value;
+                Notify("InDetailCategoryCurrentIndex");
             }
         }
 
-        private Command _goodsDetailItemsPageClickLeft;
-        public ICommand GoodsDetailItemsPageClickLeft
+        private Command _icmdDetailGoodsPageClkL;
+        public ICommand IcmdDetailGoodsPageClkL
         {
-            get { return _goodsDetailItemsPageClickLeft = new Command(OnGoodsDetailItemsPageClickLeft); }
+            get { return _icmdDetailGoodsPageClkL = new Command(OnIcmdDetailGoodsPageClkL); }
         }
 
-        private void OnGoodsDetailItemsPageClickLeft(object CategoryNum)
+        private void OnIcmdDetailGoodsPageClkL(object InMainCategoryNum)
         {
-            if (ClickedGoodsItem.DetailCategorys[(int)CategoryNum].GoodsDetailItemCurrentIndex <= StaticGoodsDetailItemWidthCnt)
+            if (ClsMainGoodsSelected.ObcDetailCategoryList[(int)InMainCategoryNum].InDetailGoodsCurrentIndex <= Stc_InDetailGoodsWCnt)
             {
                 return;
             }
 
-            int CurrentIndex = ClickedGoodsItem.DetailCategorys[(int)CategoryNum].GoodsDetailItemCurrentIndex;
-            ClickedGoodsItem.DetailCategorys[(int)CategoryNum].GoodsDetails[CurrentIndex - 1].GoodsDetailDisplay = false;
-            ClickedGoodsItem.DetailCategorys[(int)CategoryNum].GoodsDetails[CurrentIndex - (StaticGoodsDetailItemWidthCnt + 1)].GoodsDetailDisplay = true;
+            int CurrentIndex = ClsMainGoodsSelected.ObcDetailCategoryList[(int)InMainCategoryNum].InDetailGoodsCurrentIndex;
+            ClsMainGoodsSelected.ObcDetailCategoryList[(int)InMainCategoryNum].ObcDetailGoodsList[CurrentIndex - 1].BlDetailGoodsVis = false;
+            ClsMainGoodsSelected.ObcDetailCategoryList[(int)InMainCategoryNum].ObcDetailGoodsList[CurrentIndex - (Stc_InDetailGoodsWCnt + 1)].BlDetailGoodsVis = true;
 
-            ClickedGoodsItem.DetailCategorys[(int)CategoryNum].GoodsDetailItemCurrentIndex--;
+            ClsMainGoodsSelected.ObcDetailCategoryList[(int)InMainCategoryNum].InDetailGoodsCurrentIndex--;
         }
 
-        private Command _goodsDetailItemsPageClickRight;
-        public ICommand GoodsDetailItemsPageClickRight
+        private Command _icmdDetailGoodsPageClkR;
+        public ICommand IcmdDetailGoodsPageClkR
         {
-            get { return _goodsDetailItemsPageClickRight = new Command(OnGoodsDetailItemsPageClickRight); }
+            get { return _icmdDetailGoodsPageClkR = new Command(OnIcmdDetailGoodsPageClkR); }
         }
 
-        private void OnGoodsDetailItemsPageClickRight(object CategoryNum)
+        private void OnIcmdDetailGoodsPageClkR(object InMainCategoryNum)
         {
-            if (ClickedGoodsItem.DetailCategorys[(int)CategoryNum].GoodsDetailItemCurrentIndex == ClickedGoodsItem.DetailCategorys[(int)CategoryNum].GoodsDetails.Count)
+            if (ClsMainGoodsSelected.ObcDetailCategoryList[(int)InMainCategoryNum].InDetailGoodsCurrentIndex == ClsMainGoodsSelected.ObcDetailCategoryList[(int)InMainCategoryNum].ObcDetailGoodsList.Count)
             {
                 return;
             }
 
-            int CurrentIndex = ClickedGoodsItem.DetailCategorys[(int)CategoryNum].GoodsDetailItemCurrentIndex;
-            ClickedGoodsItem.DetailCategorys[(int)CategoryNum].GoodsDetails[CurrentIndex].GoodsDetailDisplay = true;
-            ClickedGoodsItem.DetailCategorys[(int)CategoryNum].GoodsDetails[CurrentIndex - StaticGoodsDetailItemWidthCnt].GoodsDetailDisplay = false;
+            int CurrentIndex = ClsMainGoodsSelected.ObcDetailCategoryList[(int)InMainCategoryNum].InDetailGoodsCurrentIndex;
+            ClsMainGoodsSelected.ObcDetailCategoryList[(int)InMainCategoryNum].ObcDetailGoodsList[CurrentIndex].BlDetailGoodsVis = true;
+            ClsMainGoodsSelected.ObcDetailCategoryList[(int)InMainCategoryNum].ObcDetailGoodsList[CurrentIndex - Stc_InDetailGoodsWCnt].BlDetailGoodsVis = false;
 
-            ClickedGoodsItem.DetailCategorys[(int)CategoryNum].GoodsDetailItemCurrentIndex++;
+            ClsMainGoodsSelected.ObcDetailCategoryList[(int)InMainCategoryNum].InDetailGoodsCurrentIndex++;
         }
 
 
-        private Command _goodsDetailItemClick;
-        public ICommand GoodsDetailItemClick
+        private Command _icmdDetailGoodsClk;
+        public ICommand IcmdDetailGoodsClk
         {
-            get { return _goodsDetailItemClick = new Command(OnGoodsDetailItemClick); }
+            get { return _icmdDetailGoodsClk = new Command(OnIcmdDetailGoodsClk); }
         }
 
         // 클릭한 상품의 데이터를 받아서 상품 담기
-        private void OnGoodsDetailItemClick(object GoodsDetailSelectItem)
+        private void OnIcmdDetailGoodsClk(object obj)
         {
             //// 클릭한 상품을 클릭한 상품으로 잡기
-            //ClickedGoodsItem = new GoodsItems((GoodsItems)GoodsSelectItem);
+            //ClsMainGoodsSelected = new MainGoods((MainGoods)GoodsSelectItem);
 
 
             //// 클릭한 상품이 디테일 상품을 가지고 있는 경우
-            //if (ClickedGoodsItem.DetailCategorys.Count > 0)
+            //if (ClsMainGoodsSelected.ObcDetailCategoryList.Count > 0)
             //{
-            //    GoodsDetailGridVisibility = true;
+            //    BlDetailGoodsGridVis = true;
 
             //    // 클릭항 상품에 해당하는 디테일 카테고리 담기
-            //    GetGoodsDetailShortDisplayBtns();
+            //    SetDetailGoodsQuickBtns();
             //}
             //else // 클릭한 상품이 디테일 상품을 가지고 있지 않는 경우
             //{
-            //    GoodsSelects.Add(ClickedGoodsItem);
+            //    ObcMainGoodsCartList.Add(ClsMainGoodsSelected);
             //}
 
             //// 상품을 클릭한 후 담고난 뒤, 선택된 상품의 display의 true, false를 조절
-            //GoodsSelectDisplay();
+            //CartGoodsVis();
         }
 
-        #region GoodsDetailShortDisplayBtn
+        #region DetailGoodsQuickBtn
 
-        private Command _goodsDetailCategoryPageClickLeft;
-        public ICommand GoodsDetailCategoryPageClickLeft
+        private Command _icmdDetailCategoryPageClkL;
+        public ICommand IcmdDetailCategoryPageClkL
         {
-            get { return _goodsDetailCategoryPageClickLeft = new Command(OnGoodsDetailCategoryPageClickLeft); }
+            get { return _icmdDetailCategoryPageClkL = new Command(OnIcmdDetailCategoryPageClkL); }
         }
 
-        private void OnGoodsDetailCategoryPageClickLeft(object obj)
+        private void OnIcmdDetailCategoryPageClkL(object obj)
         {
             // 첫 페이지가 아닐 경우
-            if (GoodsDetailCategoryCurrentIndex > StaticGoodsDetailCategoryHightCnt)
+            if (InDetailCategoryCurrentIndex > Stc_InDetailCategoryHCnt)
             {
                 // 전체 GoodsDetailCategory의 Visible을 false로 변경
-                foreach (var item in ClickedGoodsItem.DetailCategorys)
+                foreach (var item in ClsMainGoodsSelected.ObcDetailCategoryList)
                 {
-                    item.DetailCategoryDisplay = false;
+                    item.BlDetailCategoryVis = false;
                 }
 
-                GoodsDetailCategoryCurrentIndex -= StaticGoodsDetailCategoryHightCnt;
+                InDetailCategoryCurrentIndex -= Stc_InDetailCategoryHCnt;
 
-                // GoodsDetailCategory의 Visible을 GoodsDetailCategoryCurrentIndex개 단위로 true로 변경
-                for (int i = GoodsDetailCategoryCurrentIndex - 1; i > GoodsDetailCategoryCurrentIndex - StaticGoodsDetailCategoryHightCnt - 1; i--)
+                // GoodsDetailCategory의 Visible을 InDetailCategoryCurrentIndex개 단위로 true로 변경
+                for (int i = InDetailCategoryCurrentIndex - 1; i > InDetailCategoryCurrentIndex - Stc_InDetailCategoryHCnt - 1; i--)
                 {
-                    ClickedGoodsItem.DetailCategorys[i].DetailCategoryDisplay = true;
+                    ClsMainGoodsSelected.ObcDetailCategoryList[i].BlDetailCategoryVis = true;
                 }
 
                 // 상품디테일카테고리 넘기는 버튼 클릭후에는, short버튼도 같이 변경
                 // Short버튼의 체크를 하나 왼쪽으로 옮김
                 int index = 0;
-                for (int i = 0; i < GoodsDetailShortDisplayBtns.Count; i++)
+                for (int i = 0; i < ObcDetailGoodsQuickBtnList.Count; i++)
                 {
-                    if (GoodsDetailShortDisplayBtns[i].BtnChecked == true)
+                    if (ObcDetailGoodsQuickBtnList[i].BlDetailGoodsQuickBtnChecked == true)
                     {
                         index = i;
                         break;
                     }
                 }
-                GoodsDetailShortDisplayBtns[index].BtnChecked = false;
-                GoodsDetailShortDisplayBtns[index - 1].BtnChecked = true;
+                ObcDetailGoodsQuickBtnList[index].BlDetailGoodsQuickBtnChecked = false;
+                ObcDetailGoodsQuickBtnList[index - 1].BlDetailGoodsQuickBtnChecked = true;
             }
         }
 
-        private Command _goodsDetailCategoryPageClickRight;
-        public ICommand GoodsDetailCategoryPageClickRight
+        private Command _icmdDetailCategoryPageClkR;
+        public ICommand IcmdDetailCategoryPageClkR
         {
-            get { return _goodsDetailCategoryPageClickRight = new Command(OnGoodsDetailCategoryPageClickRight); }
+            get { return _icmdDetailCategoryPageClkR = new Command(OnIcmdDetailCategoryPageClkR); }
         }
 
-        private void OnGoodsDetailCategoryPageClickRight(object obj)
+        private void OnIcmdDetailCategoryPageClkR(object obj)
         {
             // 마지막 페이지가 아닐 경우
-            if (GoodsDetailCategoryCurrentIndex < ClickedGoodsItem.DetailCategorys.Count)
+            if (InDetailCategoryCurrentIndex < ClsMainGoodsSelected.ObcDetailCategoryList.Count)
             {
-                // 전체 ClickedGoodsItem.DetailCategorys의 Visible을 false로 변경
-                foreach (var item in ClickedGoodsItem.DetailCategorys)
+                // 전체 ClsMainGoodsSelected.ObcDetailCategoryList의 Visible을 false로 변경
+                foreach (var item in ClsMainGoodsSelected.ObcDetailCategoryList)
                 {
-                    item.DetailCategoryDisplay = false;
+                    item.BlDetailCategoryVis = false;
                 }
 
 
-                // GoodsDetailCategory의 Visible을 GoodsDetailCategoryCurrentIndex개 단위로 true로 변경
-                for (int i = GoodsDetailCategoryCurrentIndex; i < Math.Min(GoodsDetailCategoryCurrentIndex + StaticGoodsDetailCategoryHightCnt, ClickedGoodsItem.DetailCategorys.Count); i++)
+                // GoodsDetailCategory의 Visible을 InDetailCategoryCurrentIndex개 단위로 true로 변경
+                for (int i = InDetailCategoryCurrentIndex; i < Math.Min(InDetailCategoryCurrentIndex + Stc_InDetailCategoryHCnt, ClsMainGoodsSelected.ObcDetailCategoryList.Count); i++)
                 {
-                    ClickedGoodsItem.DetailCategorys[i].DetailCategoryDisplay = true;
+                    ClsMainGoodsSelected.ObcDetailCategoryList[i].BlDetailCategoryVis = true;
                 }
 
-                GoodsDetailCategoryCurrentIndex += StaticGoodsDetailCategoryHightCnt;
+                InDetailCategoryCurrentIndex += Stc_InDetailCategoryHCnt;
 
                 // 상품디테일카테고리 넘기는 버튼 클릭후에는, short버튼도 같이 변경
                 // Short버튼의 체크를 하나 오른쪽으로 옮김
                 int index = 0;
-                for (int i = 0; i < GoodsDetailShortDisplayBtns.Count; i++)
+                for (int i = 0; i < ObcDetailGoodsQuickBtnList.Count; i++)
                 {
-                    if (GoodsDetailShortDisplayBtns[i].BtnChecked == true)
+                    if (ObcDetailGoodsQuickBtnList[i].BlDetailGoodsQuickBtnChecked == true)
                     {
                         index = i;
                         break;
                     }
                 }
-                GoodsDetailShortDisplayBtns[index].BtnChecked = false;
-                GoodsDetailShortDisplayBtns[index + 1].BtnChecked = true;
+                ObcDetailGoodsQuickBtnList[index].BlDetailGoodsQuickBtnChecked = false;
+                ObcDetailGoodsQuickBtnList[index + 1].BlDetailGoodsQuickBtnChecked = true;
             }
         }
 
-        private void GetGoodsDetailShortDisplayBtns()
+        private void SetDetailGoodsQuickBtns()
         {
-            GoodsDetailShortDisplayBtns.Clear();
-            int quotient = ClickedGoodsItem.DetailCategorys.Count / StaticGoodsDetailCategoryHightCnt;  // 몫
-            int remainder = ClickedGoodsItem.DetailCategorys.Count % StaticGoodsDetailCategoryHightCnt; // 나머지
+            ObcDetailGoodsQuickBtnList.Clear();
+            int quotient = ClsMainGoodsSelected.ObcDetailCategoryList.Count / Stc_InDetailCategoryHCnt;  // 몫
+            int remainder = ClsMainGoodsSelected.ObcDetailCategoryList.Count % Stc_InDetailCategoryHCnt; // 나머지
 
-            // Short버튼 수 구하기
+            // Quick버튼 수 구하기
             int GoodsDetailShortDisplayBtnsCnt = 0;
             if (remainder > 0)
             {
-                GoodsDetailShortDisplayBtnsCnt = quotient + 1; // 나머지가 있다면 Short버튼 한개를 더 만들어야됨
+                GoodsDetailShortDisplayBtnsCnt = quotient + 1; // 나머지가 있다면 Quick버튼 한개를 더 만들어야됨
             }
             else
             {
-                GoodsDetailShortDisplayBtnsCnt = quotient; // 나머지가 없다면 Short버튼은 정확히 페이지 수많큼 있으면 됨
+                GoodsDetailShortDisplayBtnsCnt = quotient; // 나머지가 없다면 Quick버튼은 정확히 페이지 수많큼 있으면 됨
             }
 
             for (int i = 0; i < GoodsDetailShortDisplayBtnsCnt; i++)
             {
                 if (i == 0) // 첫번째 버튼은 체크
                 {
-                    GoodsDetailShortDisplayBtns.Add(new GoodsDetailShortDisplayBtn() { BtnNum = i, BtnChecked = true });
+                    ObcDetailGoodsQuickBtnList.Add(new DetailGoodsQuickBtn() { InDetailGoodsQuickBtnNum = i, BlDetailGoodsQuickBtnChecked = true });
                 }
                 else
                 {
-                    GoodsDetailShortDisplayBtns.Add(new GoodsDetailShortDisplayBtn() { BtnNum = i, BtnChecked = false });
+                    ObcDetailGoodsQuickBtnList.Add(new DetailGoodsQuickBtn() { InDetailGoodsQuickBtnNum = i, BlDetailGoodsQuickBtnChecked = false });
                 }
             }
         }
 
-        private ObservableCollection<GoodsDetailShortDisplayBtn> _goodsDetailShortDisplayBtns = new ObservableCollection<GoodsDetailShortDisplayBtn>();
-        public ObservableCollection<GoodsDetailShortDisplayBtn> GoodsDetailShortDisplayBtns
+        private ObservableCollection<DetailGoodsQuickBtn> _obcDetailGoodsQuickBtnList = new ObservableCollection<DetailGoodsQuickBtn>();
+        public ObservableCollection<DetailGoodsQuickBtn> ObcDetailGoodsQuickBtnList
         {
-            get { return _goodsDetailShortDisplayBtns; }
+            get { return _obcDetailGoodsQuickBtnList; }
             set
             {
-                _goodsDetailShortDisplayBtns = value;
-                Notify("GoodsDetailShortDisplayBtns");
+                _obcDetailGoodsQuickBtnList = value;
+                Notify("ObcDetailGoodsQuickBtnList");
             }
         }
 
-        private Command _goodsDetailShortDisplayBtnsClick;
-        public ICommand GoodsDetailShortDisplayBtnsClick
+        private Command _icmdDetailGoodsQuickBtnClk;
+        public ICommand IcmdDetailGoodsQuickBtnClk
         {
-            get { return _goodsDetailShortDisplayBtnsClick = new Command(OnGoodsDetailShortDisplayBtnsClick); }
+            get { return _icmdDetailGoodsQuickBtnClk = new Command(OnIcmdDetailGoodsQuickBtnClk); }
         }
 
-        private void OnGoodsDetailShortDisplayBtnsClick(object BtnNum)
+        private void OnIcmdDetailGoodsQuickBtnClk(object obj)
         {
-            // 상품디테일 카테고리 인덱스는 StaticGoodsDetailCategoryHightCnt * 페이지로 구한다
-            GoodsDetailCategoryCurrentIndex = StaticGoodsDetailCategoryHightCnt * (int)BtnNum;
+            // 상품디테일 카테고리 인덱스는 Stc_InDetailCategoryHCnt * 페이지로 구한다
+            InDetailCategoryCurrentIndex = Stc_InDetailCategoryHCnt * (int)obj;
 
             // 클릭한 상품의 카테고리의 Visible을 false로 변경
-            foreach (var item in ClickedGoodsItem.DetailCategorys)
+            foreach (var item in ClsMainGoodsSelected.ObcDetailCategoryList)
             {
-                item.DetailCategoryDisplay = false;
+                item.BlDetailCategoryVis = false;
             }
 
-            // ClickedGoodsItem.DetailCategorys의 Visible을 GoodsDetailCategoryCurrentIndex개 단위로 true로 변경
-            for (int i = GoodsDetailCategoryCurrentIndex; i < Math.Min(GoodsDetailCategoryCurrentIndex + StaticGoodsDetailCategoryHightCnt, ClickedGoodsItem.DetailCategorys.Count); i++)
+            // ClsMainGoodsSelected.ObcDetailCategoryList의 Visible을 InDetailCategoryCurrentIndex개 단위로 true로 변경
+            for (int i = InDetailCategoryCurrentIndex; i < Math.Min(InDetailCategoryCurrentIndex + Stc_InDetailCategoryHCnt, ClsMainGoodsSelected.ObcDetailCategoryList.Count); i++)
             {
-                ClickedGoodsItem.DetailCategorys[i].DetailCategoryDisplay = true;
+                ClsMainGoodsSelected.ObcDetailCategoryList[i].BlDetailCategoryVis = true;
             }
 
-            GoodsDetailCategoryCurrentIndex += StaticGoodsDetailCategoryHightCnt;
+            InDetailCategoryCurrentIndex += Stc_InDetailCategoryHCnt;
         }
 
         #endregion
@@ -1151,7 +1142,7 @@ namespace WPF_Kiosk
         // 펼칠 필요 X
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler? PropertyChanged;
-        protected void Notify([CallerMemberName] string propertyName = null)
+        protected void Notify([CallerMemberName] string? propertyName = null)
         {
             if (this.PropertyChanged != null)
             {

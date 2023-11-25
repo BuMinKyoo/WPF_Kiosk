@@ -11,76 +11,76 @@ namespace WPF_Kiosk.Model
 {
     public class DetailCategory : INotifyPropertyChanged
     {
-        private int _detailCategoryNum;
-        public int DetailCategoryNum
+        private int _inDetailCategoryNum;
+        public int InDetailCategoryNum
         {
-            get { return _detailCategoryNum; }
+            get { return _inDetailCategoryNum; }
             set
             {
-                if (_detailCategoryNum != value)
+                if (_inDetailCategoryNum != value)
                 {
-                    _detailCategoryNum = value;
-                    Notify("DetailCategoryNum");
+                    _inDetailCategoryNum = value;
+                    Notify("InDetailCategoryNum");
                 }
             }
         }
 
-        private string _detailCategoryName;
-        public string DetailCategoryName
+        private string _strDetailCategoryName;
+        public string StrDetailCategoryName
         {
-            get { return _detailCategoryName; }
+            get { return _strDetailCategoryName; }
             set
             {
-                if (_detailCategoryName != value)
+                if (_strDetailCategoryName != value)
                 {
-                    _detailCategoryName = value;
-                    Notify("DetailCategoryName");
+                    _strDetailCategoryName = value;
+                    Notify("StrDetailCategoryName");
                 }
             }
         }
 
-        private bool _detailCategoryDisplay = false;
-        public bool DetailCategoryDisplay
+        private bool _blDetailCategoryVis = false;
+        public bool BlDetailCategoryVis
         {
-            get { return _detailCategoryDisplay; }
+            get { return _blDetailCategoryVis; }
             set
             {
-                if (_detailCategoryDisplay != value)
+                if (_blDetailCategoryVis != value)
                 {
-                    _detailCategoryDisplay = value;
-                    Notify("DetailCategoryDisplay");
+                    _blDetailCategoryVis = value;
+                    Notify("BlDetailCategoryVis");
                 }
             }
         }
 
-        private int _goodsDetailItemCurrentIndex = 0;
-        public int GoodsDetailItemCurrentIndex
+        private int _inDetailGoodsCurrentIndex = 0;
+        public int InDetailGoodsCurrentIndex
         {
-            get { return _goodsDetailItemCurrentIndex; }
+            get { return _inDetailGoodsCurrentIndex; }
             set
             {
-                _goodsDetailItemCurrentIndex = value;
-                Notify("GoodsDetailItemCurrentIndex");
+                _inDetailGoodsCurrentIndex = value;
+                Notify("InDetailGoodsCurrentIndex");
             }
         }
 
-        private ObservableCollection<GoodsDetail> _goodsDetails = new ObservableCollection<GoodsDetail>();
-        public ObservableCollection<GoodsDetail> GoodsDetails
+        private ObservableCollection<DetailGoods> _obcDetailGoodsList = new ObservableCollection<DetailGoods>();
+        public ObservableCollection<DetailGoods> ObcDetailGoodsList
         {
-            get { return _goodsDetails; }
+            get { return _obcDetailGoodsList; }
             set
             {
-                if (_goodsDetails != value)
+                if (_obcDetailGoodsList != value)
                 {
-                    _goodsDetails = value;
-                    Notify("GoodsDetails");
+                    _obcDetailGoodsList = value;
+                    Notify("ObcDetailGoodsList");
                 }
             }
         }
 
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler? PropertyChanged;
-        protected void Notify([CallerMemberName] string propertyName = null)
+        protected void Notify([CallerMemberName] string? propertyName = null)
         {
             if (this.PropertyChanged != null)
             {

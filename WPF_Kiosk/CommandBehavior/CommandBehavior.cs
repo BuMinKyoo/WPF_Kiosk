@@ -23,7 +23,7 @@ namespace WPF_Kiosk.CommandBehavior
         typeof(CommandBehavior),
         new PropertyMetadata(OnCommandChanged));
 
-        public static ICommand GetCommand(DependencyObject d)
+        public static ICommand? GetCommand(DependencyObject d)
         {
             return d.GetValue(CommandProperty) as ICommand;
         }
@@ -54,7 +54,7 @@ namespace WPF_Kiosk.CommandBehavior
             BindEvent(d, e.NewValue as string);
         }
 
-        public static string GetEvent(DependencyObject d)
+        public static string? GetEvent(DependencyObject d)
         {
             return d.GetValue(EventProperty) as string;
         }
@@ -78,7 +78,7 @@ namespace WPF_Kiosk.CommandBehavior
             }
 
             var types = typeof(CommandBehavior).GetMethods(BindingFlags.NonPublic | BindingFlags.Instance);
-            MethodInfo method = null;
+            MethodInfo? method = null;
             foreach (var type in types)
             {
                 var attributes = type.GetCustomAttributes(true);
@@ -136,7 +136,7 @@ namespace WPF_Kiosk.CommandBehavior
         typeof(Delegate),
         typeof(CommandBehavior));
 
-        public static Delegate GetEventHandler(DependencyObject d)
+        public static Delegate? GetEventHandler(DependencyObject d)
         {
             return d.GetValue(EventHandlerProperty) as Delegate;
         }
