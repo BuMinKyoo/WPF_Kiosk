@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 
 namespace WPF_Kiosk.Model
@@ -10,6 +11,7 @@ namespace WPF_Kiosk.Model
         {
 
         }
+
         public MainGoods(MainGoods other)
         {
             StrMainGoodsName = other.StrMainGoodsName;
@@ -17,7 +19,9 @@ namespace WPF_Kiosk.Model
             InMainGoodsPrice = other.InMainGoodsPrice;
             BlMainGoodsVis = other.BlMainGoodsVis;
             InMainGoodsMainCategoryNum = other.InMainGoodsMainCategoryNum;
-            ObcDetailCategoryList = new ObservableCollection<DetailCategory>(other.ObcDetailCategoryList);
+
+            ObcDetailCategoryList = new ObservableCollection<DetailCategory>(
+        other.ObcDetailCategoryList.Select(item => new DetailCategory(item)));
         }
 
         private string _strMainGoodsName;

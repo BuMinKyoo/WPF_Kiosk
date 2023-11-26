@@ -11,6 +11,20 @@ namespace WPF_Kiosk.Model
 {
     public class DetailCategory : INotifyPropertyChanged
     {
+        public DetailCategory()
+        {
+
+        }
+
+        public DetailCategory(DetailCategory other)
+        {
+            InDetailCategoryNum = other.InDetailCategoryNum;
+            StrDetailCategoryName = other.StrDetailCategoryName;
+            BlDetailCategoryVis = other.BlDetailCategoryVis;
+            InDetailGoodsCurrentIndex = other.InDetailGoodsCurrentIndex;
+            ObcDetailGoodsList = new ObservableCollection<DetailGoods>(other.ObcDetailGoodsList.Select(item => new DetailGoods(item)));
+        }
+
         private int _inDetailCategoryNum;
         public int InDetailCategoryNum
         {

@@ -3,16 +3,13 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Media3D;
 using WPF_Kiosk.Model;
 
 namespace WPF_Kiosk
 {
-    // 메인카테고리
-    // 메인상품
-    // 디테일카테코리
-    // 디테일상품
-
     public class MainWindowViewModel : INotifyPropertyChanged
     {
         #region 전역변수
@@ -125,7 +122,6 @@ namespace WPF_Kiosk
             
             #endregion
 
-
             #region 초기에 보여지는 데이터들
             // 초기에 보여지는 카테고리 Stc_InMainCategoryWCnt개
             for (int i = 0; i < Math.Min(Stc_InMainCategoryWCnt, ObcMainCategoryList.Count); i++)
@@ -189,41 +185,20 @@ namespace WPF_Kiosk
         #region SetConponentSizeChange
         private void SetConponentSizeChange()
         {
-            // 6으로 나누는 이유는, 전체 크기가
-            //< Grid.RowDefinitions >
-            //< RowDefinition Height = "0.5*" />
-            //< RowDefinition Height = "0.3*" />
-            //< RowDefinition Height = "4*" />
-            //< RowDefinition Height = "0.3*" />
-            //< RowDefinition Height = "0.9*" />
-            //</ Grid.RowDefinitions >
-            // 합해서 6이기 때문
-
             // 카테고리 크기를 화면 비율에 따라 조절
-            DblMainCategoryW = (DblLockWinW * 0.8) / Stc_InMainCategoryWCnt; // 0.8 = 8/10
-            DblMainCategoryH = (DblLockWinH * 0.3 / 6); // Grid비율에 따라 변경 되는 값
+            DblMainCategoryW = DblLockWinW * ((double)8/10) / Stc_InMainCategoryWCnt;
 
             // 상품의 크기를 화면 비율에 따라 조절
             DblMainGoodsW = DblLockWinW / Stc_InMainGoodsWCnt;
-            DblMainGoodsH = (DblLockWinH * 4 / 6) / Stc_InMainGoodsHCnt; // Grid비율에 따라 변경 되는 값
-
-            // MainGoodsQuickBtn의 크기를 화면 비율에 따라 조절
-            DblMainGoodsQuickBtnH = DblLockWinH * 0.3 / 6;
+            DblMainGoodsH = DblLockWinH * ((double)5.5/6)*((double)4/5.5) / Stc_InMainGoodsHCnt; // Grid비율에 따라 변경 되는 값
 
             // MainGoodsCar의 크기를 화면 비율에 따라 조절
-            DblMainGoodsCartW = (DblLockWinW - (30 * 2)) * 0.6 / Stc_InGoodsCartWCnt; // 0.6 = 6/10
-            DblMainGoodsCartH = ((DblLockWinH * 0.9 / 6) - (30 * 2)) * 0.83 ;  // 0.83 = 5/6
-
-            // DetailGoods 전체 grid의 크기를 화면 비율에 따라 조절
-            DblDetailGoodsGridW = DblLockWinW * 0.8;
-            DblDetailGoodsGridH = DblLockWinH * 0.8;
+            DblMainGoodsCartW = (DblLockWinW - (30 * 2)) * ((double)6 / 10) / Stc_InGoodsCartWCnt;
 
             // DetailCategory의 각 크기를 화면 비율에 따라 조절
-            DblDetailCategoryW = DblDetailGoodsGridW;
-            DblDetailCategoryH = DblDetailGoodsGridH * (0.6 / Stc_InDetailCategoryHCnt);  // 0.6 = 12/20
+            DblDetailCategoryH = (DblLockWinH * ((double)8 / 10) - 4) * (((double)12/20) / Stc_InDetailCategoryHCnt);
 
-            DblDetailGoodsBtnW = DblDetailCategoryW * (0.8 / Stc_InDetailGoodsWCnt); // 0.8 = 8/10
-            DblDetailGoodsBtnH = DblDetailCategoryH * 0.75; // 0.75 = 3/4
+            DblDetailGoodsBtnW = DblLockWinW * ((double)8 / 10) * (((double)8/10) / Stc_InDetailGoodsWCnt);
         }
 
         private Command _icmdWindowSizeEvent;
@@ -286,6 +261,7 @@ namespace WPF_Kiosk
         private void OnIcmdLockMouseLeftUp(object obj)
         {
             BlLockVis = false;
+            BlMainDisplayVis = true;
         }
 
         // OnIcmdKioskLockMouseLeftUp과 같은 기능이지만, 버튼으로 command연결
@@ -298,6 +274,7 @@ namespace WPF_Kiosk
         private void OnIcmdLockBtnClick(object obj)
         {
             BlLockVis = false;
+            BlMainDisplayVis = true;
         }
 
         private bool _blLockVis = true;
@@ -309,6 +286,21 @@ namespace WPF_Kiosk
                 _blLockVis = value;
                 Notify("BlLockVis");
             }
+        }
+
+        #endregion
+
+        #region MainTitle
+        private Command _icmdMainTitleHomeBtnClk;
+        public ICommand IcmdMainTitleHomeBtnClk
+        {
+            get { return _icmdMainTitleHomeBtnClk = new Command(OnIcmdMainTitleHomeBtnClk); }
+        }
+
+        private void OnIcmdMainTitleHomeBtnClk(object obj)
+        {
+            BlLockVis = true;
+            ObcMainGoodsCartList.Clear();
         }
 
         #endregion
@@ -333,17 +325,6 @@ namespace WPF_Kiosk
             {
                 _dblMainCategoryW = value;
                 Notify("DblMainCategoryW");
-            }
-        }
-
-        private double _dblMainCategoryH;
-        public double DblMainCategoryH
-        {
-            get { return _dblMainCategoryH; }
-            set
-            {
-                _dblMainCategoryH = value;
-                Notify("DblMainCategoryH");
             }
         }
 
@@ -547,16 +528,16 @@ namespace WPF_Kiosk
             {
                 BlDetailGoodsGridVis = true;
 
-                // 클릭항 상품에 해당하는 디테일 카테고리 담기
+                // 클릭항 상품에 해당하는 GoodsQuickBtn 담기
                 SetDetailGoodsQuickBtns();
             }
             else // 클릭한 상품이 디테일 상품을 가지고 있지 않는 경우
             {
                 ObcMainGoodsCartList.Add(ClsMainGoodsSelected);
+                ClsMainGoodsSelected = null;
+                // 상품을 클릭한 후 담고난 뒤, 장바구니 상품들의 Visible의 true, false를 조절
+                CartGoodsVis();
             }
-
-            // 상품을 클릭한 후 담고난 뒤, 장바구니 상품들의 Visible의 true, false를 조절
-            CartGoodsVis();
         }
 
         private void CartGoodsVis()
@@ -583,16 +564,6 @@ namespace WPF_Kiosk
         #endregion
 
         #region MainGoodsQuickBtn
-        private double _dblMainGoodsQuickBtnH;
-        public double DblMainGoodsQuickBtnH
-        {
-            get { return _dblMainGoodsQuickBtnH; }
-            set
-            {
-                _dblMainGoodsQuickBtnH = value;
-                Notify("DblMainGoodsQuickBtnH");
-            }
-        }
 
         private ObservableCollection<MainGoodsQuickBtn> _obcMainGoodsQuickBtnList = new ObservableCollection<MainGoodsQuickBtn>();
         public ObservableCollection<MainGoodsQuickBtn> ObcMainGoodsQuickBtnList
@@ -737,17 +708,6 @@ namespace WPF_Kiosk
             }
         }
 
-        private double _dblMainGoodsCartH;
-        public double DblMainGoodsCartH
-        {
-            get { return _dblMainGoodsCartH; }
-            set
-            {
-                _dblMainGoodsCartH = value;
-                Notify("DblMainGoodsCartH");
-            }
-        }
-
         private int _inMainGoodsCartCurrentIndex = 0;
         public int InMainGoodsCartCurrentIndex
         {
@@ -809,30 +769,35 @@ namespace WPF_Kiosk
             }
         }
 
+        private Command _icmdMainGoodsCartGoCartConfirm;
+        public ICommand IcmdMainGoodsCartGoCartConfirm
+        {
+            get { return _icmdMainGoodsCartGoCartConfirm = new Command(OnIcmdMainGoodsCartGoCartConfirm); }
+        }
+
+        // 주문확인 페이지로 이동
+        private void OnIcmdMainGoodsCartGoCartConfirm(object obj)
+        {
+            // Main페이지 안보이게 하기
+            BlMainDisplayVis = false;
+
+            // 주문확인 페이지 보이게 하기
+            BlMainGoodsConfirmVis = true;
+        }
+
+        private bool _blMainDisplayVis = false;
+        public bool BlMainDisplayVis
+        {
+            get { return _blMainDisplayVis; }
+            set
+            {
+                _blMainDisplayVis = value;
+                Notify("BlMainDisplayVis");
+            }
+        }
         #endregion
 
         #region DetailGoods
-        private double _dblDetailGoodsGridW;
-        public double DblDetailGoodsGridW
-        {
-            get { return _dblDetailGoodsGridW; }
-            set
-            {
-                _dblDetailGoodsGridW = value;
-                Notify("DblDetailGoodsGridW");
-            }
-        }
-
-        private double _dblDetailGoodsGridH;
-        public double DblDetailGoodsGridH
-        {
-            get { return _dblDetailGoodsGridH; }
-            set
-            {
-                _dblDetailGoodsGridH = value;
-                Notify("DblDetailGoodsGridH");
-            }
-        }
 
         private bool _blDetailGoodsGridVis = false;
         public bool BlDetailGoodsGridVis
@@ -845,25 +810,14 @@ namespace WPF_Kiosk
             }
         }
 
-        private MainGoods _clsMainGoodsSelected = new MainGoods();
-        public MainGoods ClsMainGoodsSelected
+        private MainGoods? _clsMainGoodsSelected = new MainGoods();
+        public MainGoods? ClsMainGoodsSelected
         {
             get { return _clsMainGoodsSelected; }
             set
             {
                 _clsMainGoodsSelected = value;
                 Notify("ClsMainGoodsSelected");
-            }
-        }
-
-        private double _dblDetailCategoryW;
-        public double DblDetailCategoryW
-        {
-            get { return _dblDetailCategoryW; }
-            set
-            {
-                _dblDetailCategoryW = value;
-                Notify("DblDetailCategoryW");
             }
         }
 
@@ -886,17 +840,6 @@ namespace WPF_Kiosk
             {
                 _dblDetailGoodsBtnW = value;
                 Notify("DblDetailGoodsBtnW");
-            }
-        }
-
-        private double _dblDetailGoodsBtnH;
-        public double DblDetailGoodsBtnH
-        {
-            get { return _dblDetailGoodsBtnH; }
-            set
-            {
-                _dblDetailGoodsBtnH = value;
-                Notify("DblDetailGoodsBtnH");
             }
         }
 
@@ -949,37 +892,6 @@ namespace WPF_Kiosk
             ClsMainGoodsSelected.ObcDetailCategoryList[(int)InMainCategoryNum].ObcDetailGoodsList[CurrentIndex - Stc_InDetailGoodsWCnt].BlDetailGoodsVis = false;
 
             ClsMainGoodsSelected.ObcDetailCategoryList[(int)InMainCategoryNum].InDetailGoodsCurrentIndex++;
-        }
-
-
-        private Command _icmdDetailGoodsClk;
-        public ICommand IcmdDetailGoodsClk
-        {
-            get { return _icmdDetailGoodsClk = new Command(OnIcmdDetailGoodsClk); }
-        }
-
-        // 클릭한 상품의 데이터를 받아서 상품 담기
-        private void OnIcmdDetailGoodsClk(object obj)
-        {
-            //// 클릭한 상품을 클릭한 상품으로 잡기
-            //ClsMainGoodsSelected = new MainGoods((MainGoods)GoodsSelectItem);
-
-
-            //// 클릭한 상품이 디테일 상품을 가지고 있는 경우
-            //if (ClsMainGoodsSelected.ObcDetailCategoryList.Count > 0)
-            //{
-            //    BlDetailGoodsGridVis = true;
-
-            //    // 클릭항 상품에 해당하는 디테일 카테고리 담기
-            //    SetDetailGoodsQuickBtns();
-            //}
-            //else // 클릭한 상품이 디테일 상품을 가지고 있지 않는 경우
-            //{
-            //    ObcMainGoodsCartList.Add(ClsMainGoodsSelected);
-            //}
-
-            //// 상품을 클릭한 후 담고난 뒤, 선택된 상품의 display의 true, false를 조절
-            //CartGoodsVis();
         }
 
         #region DetailGoodsQuickBtn
@@ -1136,6 +1048,68 @@ namespace WPF_Kiosk
 
         #endregion
 
+        private Command _icmdDetailGoodsGridClose;
+        public ICommand IcmdDetailGoodsGridClose
+        {
+            get { return _icmdMainGoodsClk = new Command(OnIcmdDetailGoodsGridClose); }
+        }
+
+        // 상품디테일창 닫기
+        private void OnIcmdDetailGoodsGridClose(object obj)
+        {
+            BlDetailGoodsGridVis = false;
+
+            // 클릭했던 상품 초기화
+            ClsMainGoodsSelected = null;
+        }
+
+        private Command _icmdDetailGoodsSelectGoCart;
+        public ICommand IcmdDetailGoodsSelectGoCart
+        {
+            get { return _icmdDetailGoodsSelectGoCart = new Command(OnIcmdDetailGoodsSelectGoCart); }
+        }
+
+        // 선택한 상품 디테일창에서 장바구니로 이동
+        private void OnIcmdDetailGoodsSelectGoCart(object obj)
+        {
+            BlDetailGoodsGridVis = false;
+
+            // 클릭한 상품 장바구니로 이동
+            ObcMainGoodsCartList.Add(ClsMainGoodsSelected);
+
+            // 클릭했던 상품 초기화
+            ClsMainGoodsSelected = null;
+        }
+
+        // 디테일상품 클릭
+        private Command _icmdDetailGoodsClk;
+        public ICommand IcmdDetailGoodsClk
+        {
+            get { return _icmdDetailGoodsClk = new Command(OnIcmdDetailGoodsClk); }
+        }
+
+        private void OnIcmdDetailGoodsClk(object obj)
+        {
+            DetailGoods DetailGoodsSelected = (DetailGoods)obj;
+            DetailGoodsSelected.BlDetailGoodsClicked = !DetailGoodsSelected.BlDetailGoodsClicked;
+
+            // DetailGoods의 체크 제한수는 여기서 작성
+            /////////
+        }
+
+        #endregion
+
+        #region MainGoodsConfirm
+        private bool _blMainGoodsConfirmVis = false;
+        public bool BlMainGoodsConfirmVis
+        {
+            get { return _blMainGoodsConfirmVis; }
+            set
+            {
+                _blMainGoodsConfirmVis = value;
+                Notify("BlMainGoodsConfirmVis");
+            }
+        }
 
         #endregion
 

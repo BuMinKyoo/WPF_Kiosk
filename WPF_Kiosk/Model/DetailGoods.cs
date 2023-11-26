@@ -5,6 +5,22 @@ namespace WPF_Kiosk.Model
 {
     public class DetailGoods : INotifyPropertyChanged
     {
+        public DetailGoods()
+        {
+
+        }
+
+        public DetailGoods(DetailGoods other)
+        {
+            StrDetailGoodsName = other.StrDetailGoodsName;
+            InDetailGoodsDiscount = other.InDetailGoodsDiscount;
+            InDetailGoodsPrice = other.InDetailGoodsPrice;
+            InDetailGoodsNum = other.InDetailGoodsNum;
+            InDetailGoodsDetailCategoryNum = other.InDetailGoodsDetailCategoryNum;
+            BlDetailGoodsVis = other.BlDetailGoodsVis;
+            BlDetailGoodsClicked = other.BlDetailGoodsClicked;
+        }
+
         private string _strDetailGoodsName;
         public string StrDetailGoodsName
         {
@@ -89,9 +105,23 @@ namespace WPF_Kiosk.Model
             }
         }
 
+        private bool _blDetailGoodsClicked = false;
+        public bool BlDetailGoodsClicked
+        {
+            get { return _blDetailGoodsClicked; }
+            set
+            {
+                if (_blDetailGoodsClicked != value)
+                {
+                    _blDetailGoodsClicked = value;
+                    Notify("BlDetailGoodsClicked");
+                }
+            }
+        }
+
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler? PropertyChanged;
-        protected void Notify([CallerMemberName] string propertyName = null)
+        protected void Notify([CallerMemberName] string? propertyName = null)
         {
             if (this.PropertyChanged != null)
             {
