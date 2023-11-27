@@ -121,57 +121,11 @@ namespace WPF_Kiosk
             {
                 ObcAllMainGoodsList.Add(new MainGoods() { InMainGoodsMainCategoryNum = 2, StrMainGoodsName = "카테2상품" + i.ToString(), InMainGoodsDiscount = 0, InMainGoodsPrice = 1000 + 1000 * i, });
             }
-            
+
             #endregion
 
             #region 초기에 보여지는 데이터들
-            // 초기에 보여지는 카테고리 Stc_InMainCategoryWCnt개
-            for (int i = 0; i < Math.Min(Stc_InMainCategoryWCnt, ObcMainCategoryList.Count); i++)
-            {
-                ObcMainCategoryList[i].BlMainCategoryVis = true;
-            }
-            InMainCatecoryCurrentIndex = Stc_InMainCategoryWCnt;
-
-            // 초기에 보여지는 상품 Stc_InMainGoodsWCnt* Stc_InMainGoodsHCnt개(카테고리 0번)
-            foreach (var allGoodsItem in ObcAllMainGoodsList)
-            {
-                if (allGoodsItem.InMainGoodsMainCategoryNum == 0)
-                {
-                    ObcMainGoodsList.Add(allGoodsItem);
-                }
-            }
-
-            for (int i = 0; i < Math.Min(Stc_InMainGoodsWCnt * Stc_InMainGoodsHCnt, ObcMainGoodsList.Count); i++)
-            {
-                ObcMainGoodsList[i].BlMainGoodsVis = true;
-
-                for (int j = 0; j < ObcMainGoodsList[i].ObcDetailCategoryList.Count; j++)
-                {
-                    // 디테일 카테고리는 전부 돌리면서, 담아야지, 디테일 상품의 display를 전체적으로 돌릴 수 있음
-                    if (j < Stc_InDetailCategoryHCnt)
-                    {
-                        ObcMainGoodsList[i].ObcDetailCategoryList[j].BlDetailCategoryVis = true;
-                    }
-                    else
-                    {
-                        ObcMainGoodsList[i].ObcDetailCategoryList[j].BlDetailCategoryVis = false;
-                    }
-
-                    // 카데고리 디테일 n번의 디테일 개수
-                    for (int k = 0; k < Math.Min(Stc_InDetailGoodsWCnt, ObcAllMainGoodsList[i].ObcDetailCategoryList[j].ObcDetailGoodsList.Count); k++)
-                    {
-                        if (j == 4)
-                        {
-
-                        }
-                        ObcAllMainGoodsList[i].ObcDetailCategoryList[j].ObcDetailGoodsList[k].BlDetailGoodsVis = true;
-
-                        
-                    }
-                }
-            }
-            InMainGoodsCurrentIndex = Stc_InMainGoodsHCnt * Stc_InMainGoodsWCnt;
-            InDetailCategoryCurrentIndex = Stc_InDetailCategoryHCnt;
+            SetMainGoodsMainCategory();
 
             // 초기에 보여지는 Short버튼 생성
             SetMainGoodsQuickBtns();
@@ -201,6 +155,8 @@ namespace WPF_Kiosk
             DblDetailCategoryH = (DblLockWinH * ((double)8 / 10) - 4) * (((double)12/20) / Stc_InDetailCategoryHCnt);
 
             DblDetailGoodsBtnW = DblLockWinW * ((double)8 / 10) * (((double)8/10) / Stc_InDetailGoodsWCnt);
+
+            DblGoodsConfirmH = DblLockWinH * ((double)5.5/6)*((double)4/5.5)*((double)1.7/2.0) / Stc_InGoodsConfirmHCnt;
         }
 
         private Command _icmdWindowSizeEvent;
@@ -228,7 +184,6 @@ namespace WPF_Kiosk
         }
 
         #endregion
-
 
         #region Lock
         private double _dblLockWinW;
@@ -264,6 +219,9 @@ namespace WPF_Kiosk
         {
             BlLockVis = false;
             BlMainDisplayVis = true;
+
+            // 초기에 보여지는 데이터들
+            SetMainGoodsMainCategory();
         }
 
         // OnIcmdKioskLockMouseLeftUp과 같은 기능이지만, 버튼으로 command연결
@@ -277,6 +235,9 @@ namespace WPF_Kiosk
         {
             BlLockVis = false;
             BlMainDisplayVis = true;
+
+            // 초기에 보여지는 데이터들
+            SetMainGoodsMainCategory();
         }
 
         private bool _blLockVis = true;
@@ -301,8 +262,12 @@ namespace WPF_Kiosk
 
         private void OnIcmdMainTitleHomeBtnClk(object obj)
         {
-            BlLockVis = true;
             ObcMainGoodsCartList.Clear();
+
+            BlLockVis = true;
+            BlMainDisplayVis = false;
+            BlDetailGoodsGridVis = false;
+            BlGoodsConfirmVis = false;
         }
 
         #endregion
@@ -457,6 +422,56 @@ namespace WPF_Kiosk
         #endregion
 
         #region MainGoods
+        private void SetMainGoodsMainCategory()
+        {
+            // 초기에 보여지는 카테고리 Stc_InMainCategoryWCnt개
+            for (int i = 0; i < Math.Min(Stc_InMainCategoryWCnt, ObcMainCategoryList.Count); i++)
+            {
+                ObcMainCategoryList[i].BlMainCategoryVis = true;
+            }
+            InMainCatecoryCurrentIndex = Stc_InMainCategoryWCnt;
+
+            // 초기에 보여지는 상품 Stc_InMainGoodsWCnt* Stc_InMainGoodsHCnt개(카테고리 0번)
+            ObcMainGoodsList.Clear();
+            foreach (var allGoodsItem in ObcAllMainGoodsList)
+            {
+                if (allGoodsItem.InMainGoodsMainCategoryNum == 0)
+                {
+                    ObcMainGoodsList.Add(allGoodsItem);
+                }
+            }
+
+            for (int i = 0; i < Math.Min(Stc_InMainGoodsWCnt * Stc_InMainGoodsHCnt, ObcMainGoodsList.Count); i++)
+            {
+                ObcMainGoodsList[i].BlMainGoodsVis = true;
+
+                for (int j = 0; j < ObcMainGoodsList[i].ObcDetailCategoryList.Count; j++)
+                {
+                    // 디테일 카테고리는 전부 돌리면서, 담아야지, 디테일 상품의 display를 전체적으로 돌릴 수 있음
+                    if (j < Stc_InDetailCategoryHCnt)
+                    {
+                        ObcMainGoodsList[i].ObcDetailCategoryList[j].BlDetailCategoryVis = true;
+                    }
+                    else
+                    {
+                        ObcMainGoodsList[i].ObcDetailCategoryList[j].BlDetailCategoryVis = false;
+                    }
+
+                    // 카데고리 디테일 n번의 디테일 개수
+                    for (int k = 0; k < Math.Min(Stc_InDetailGoodsWCnt, ObcAllMainGoodsList[i].ObcDetailCategoryList[j].ObcDetailGoodsList.Count); k++)
+                    {
+                        if (j == 4)
+                        {
+
+                        }
+                        ObcAllMainGoodsList[i].ObcDetailCategoryList[j].ObcDetailGoodsList[k].BlDetailGoodsVis = true;
+                    }
+                }
+            }
+            InMainGoodsCurrentIndex = Stc_InMainGoodsHCnt * Stc_InMainGoodsWCnt;
+            InDetailCategoryCurrentIndex = Stc_InDetailCategoryHCnt;
+        }
+
         private ObservableCollection<MainGoods> _obcAllMainGoodsList = new ObservableCollection<MainGoods>();
         public ObservableCollection<MainGoods> ObcAllMainGoodsList
         {
@@ -538,11 +553,12 @@ namespace WPF_Kiosk
                 ObcMainGoodsCartList.Add(ClsMainGoodsSelected);
                 ClsMainGoodsSelected = null;
                 // 상품을 클릭한 후 담고난 뒤, 장바구니 상품들의 Visible의 true, false를 조절
-                CartGoodsVis();
+                // 마지막에 담긴 상품이 보이도록함
+                SetCartGoodsLastVis();
             }
         }
 
-        private void CartGoodsVis()
+        private void SetCartGoodsLastVis()
         {
             if (ObcMainGoodsCartList.Count > Stc_InGoodsCartWCnt)
             {
@@ -561,6 +577,24 @@ namespace WPF_Kiosk
 
             // 상품을 선택하면 항상 마지막 index를 가리키도록 함
             InMainGoodsCartCurrentIndex = ObcMainGoodsCartList.Count;
+        }
+
+        private void SetCartGoodsFirstVis()
+        {
+            // 전체 CartGoods의 Visible을 false로 변경
+            foreach (var item in ObcMainGoodsCartList)
+            {
+                item.BlMainGoodsVis = false;
+            }
+
+            // MainGoodsCart의 Visible을 Stc_InGoodsCartWCnt개 단위로 true로 변경
+            for (int i = 0; i < Math.Min(Stc_InGoodsCartWCnt, ObcMainGoodsCartList.Count); i++)
+            {
+                ObcMainGoodsCartList[i].BlMainGoodsVis = true;
+            }
+
+            // 상품을 선택하면 항상 처음(보이는것) index를 가리키도록 함
+            InMainGoodsCartCurrentIndex = Math.Min(Stc_InGoodsCartWCnt, ObcMainGoodsCartList.Count);
         }
 
         #endregion
@@ -788,6 +822,9 @@ namespace WPF_Kiosk
 
             // GoodsConfirmQuickBtn 담기
             SetGoodsConfirmQuickBtns();
+
+            // MainGoodsCart에 있는 Visible을 GoodsConfirmList 표현수만큼 다시 설정하기
+            SetGoodsConfirmListVis();
         }
 
         private bool _blMainDisplayVis = false;
@@ -803,7 +840,6 @@ namespace WPF_Kiosk
         #endregion
 
         #region DetailGoods
-
         private bool _blDetailGoodsGridVis = false;
         public bool BlDetailGoodsGridVis
         {
@@ -1116,6 +1152,17 @@ namespace WPF_Kiosk
             }
         }
 
+        private double _dblGoodsConfirmH;
+        public double DblGoodsConfirmH
+        {
+            get { return _dblGoodsConfirmH; }
+            set
+            {
+                _dblGoodsConfirmH = value;
+                Notify("DblGoodsConfirmH");
+            }
+        }
+
         private ObservableCollection<GoodsConfirmQuickBtn> _obcGoodsConfirmQuickBtnList = new ObservableCollection<GoodsConfirmQuickBtn>();
         public ObservableCollection<GoodsConfirmQuickBtn> ObcGoodsConfirmQuickBtnList
         {
@@ -1131,8 +1178,8 @@ namespace WPF_Kiosk
         private void SetGoodsConfirmQuickBtns()
         {
             ObcGoodsConfirmQuickBtnList.Clear();
-            int quotient = ObcGoodsConfirmQuickBtnList.Count / Stc_InGoodsConfirmHCnt;  // 몫
-            int remainder = ObcGoodsConfirmQuickBtnList.Count % Stc_InGoodsConfirmHCnt; // 나머지
+            int quotient = ObcMainGoodsCartList.Count / Stc_InGoodsConfirmHCnt;  // 몫
+            int remainder = ObcMainGoodsCartList.Count % Stc_InGoodsConfirmHCnt; // 나머지
 
             // Quick버튼 수 구하기
             int GoodsConfirmQuickBtnsCnt = 0;
@@ -1249,6 +1296,67 @@ namespace WPF_Kiosk
                 ObcGoodsConfirmQuickBtnList[index].BlGoodsConfirmQuickBtnChecked = false;
                 ObcGoodsConfirmQuickBtnList[index + 1].BlGoodsConfirmQuickBtnChecked = true;
             }
+        }
+
+        private void SetGoodsConfirmListVis()
+        {
+            // ObcMainGoodsCartList전체를 안보이게 초기화
+            foreach (var item in ObcMainGoodsCartList)
+            {
+                item.BlMainGoodsVis = false;
+            }
+
+            // ObcMainGoodsCartList의 Visible을 Stc_InGoodsConfirmHCnt개 단위로 true로 변경
+            for (int i = 0; i < Math.Min(Stc_InGoodsConfirmHCnt, ObcMainGoodsCartList.Count); i++)
+            {
+                ObcMainGoodsCartList[i].BlMainGoodsVis = true;
+            }
+            InGoodsConfirmCurrentIndex = Stc_InGoodsConfirmHCnt;
+        }
+
+        private Command _icmdGoodsConfirmQuickBtnClk;
+        public ICommand IcmdGoodsConfirmQuickBtnClk
+        {
+            get { return _icmdGoodsConfirmQuickBtnClk = new Command(OnIcmdGoodsConfirmQuickBtnClk); }
+        }
+
+        private void OnIcmdGoodsConfirmQuickBtnClk(object obj)
+        {
+            // InGoodsConfirmCurrentIndex 인덱스는 Stc_InGoodsConfirmHCnt * 페이지로 구한다
+            InGoodsConfirmCurrentIndex = Stc_InGoodsConfirmHCnt * (int)obj;
+
+            // GoodsConfirmList의 전체 Visible을 false로 변경
+            foreach (var item in ObcMainGoodsCartList)
+            {
+                item.BlMainGoodsVis = false;
+            }
+
+            // GoodsConfirmList의 Visible을 Stc_InGoodsConfirmHCnt개 단위로 true로 변경
+            for (int i = InGoodsConfirmCurrentIndex; i < Math.Min(InGoodsConfirmCurrentIndex + Stc_InGoodsConfirmHCnt, ObcMainGoodsCartList.Count); i++)
+            {
+                ObcMainGoodsCartList[i].BlMainGoodsVis = true;
+            }
+
+            InGoodsConfirmCurrentIndex += Stc_InGoodsConfirmHCnt;
+        }
+
+        private Command _icmdGoodsConfirmToMainDisplay;
+        public ICommand IcmdGoodsConfirmToMainDisplay
+        {
+            get { return _icmdGoodsConfirmToMainDisplay = new Command(OnIcmdGoodsConfirmToMainDisplay); }
+        }
+
+        private void OnIcmdGoodsConfirmToMainDisplay(object obj)
+        {
+            // GoodsConfirm화면 안보이게 하기
+            BlGoodsConfirmVis = false;
+
+            // Main화면 보이게 하기
+            BlMainDisplayVis = true;
+
+            // MainGoodsCart의 Visible을 Stc_InGoodsCartWCnt개 단위로 true로 변경
+            // 첫번째 담긴 상품이 보이도록함
+            SetCartGoodsFirstVis();
         }
         #endregion
 
