@@ -3,4 +3,5 @@
                     xmlns:WPF_Kiosk_Converter="clr-namespace:WPF_Kiosk.Converter">
     <WPF_Kiosk_Converter:VisibleConverter x:Key="VisibleConverter" />
     <WPF_Kiosk_Converter:MultiValueConverter x:Key="MultiValueConverter" />
+    <WPF_Kiosk_Converter:StarGridLengthConverter x:Key="StarGridLengthConverter"/>
 </ResourceDictionary>

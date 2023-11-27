@@ -25,7 +25,6 @@
     <Grid>
         <!--메인화면-->
         <Grid Width="{Binding DblLockWinW}" Height="{Binding DblLockWinH}" Visibility="Visible">
-
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.5*"/>
                 <RowDefinition Height="5.5*"/>
@@ -33,33 +32,7 @@
 
             <!--MainTitle-->
             <Button Grid.Row="0" Content="Home" Command="{Binding IcmdMainTitleHomeBtnClk}"/>
-
-            <!--MainGoodsConfirm-->
-            <Grid Grid.Row="1" Visibility="{Binding BlMainGoodsConfirmVis, Converter={StaticResource VisibleConverter}}">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="0.3*"/>
-                    <RowDefinition Height="4*"/>
-                    <RowDefinition Height="0.3*"/>
-                    <RowDefinition Height="0.9*"/>
-                </Grid.RowDefinitions>
-
-                <!--MainGoodsConfirmExplain-->
-                <Grid Grid.Row="0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    
-                    <TextBlock Grid.Column="0" Text="step1&#x0a;주문내역 확인" Background="Gray"/>
-                    <TextBlock Grid.Column="1" Text="step2&#x0a;결제수단 선택" Background="Gray"/>
-                    <TextBlock Grid.Column="2" Text="step3&#x0a;결제" Background="Gray"/>
-                    <TextBlock Grid.Column="3" Text="step4&#x0a;결제 완료" Background="Gray"/>
-                </Grid>
-                
-            </Grid>
-            
+         
             <!--MainDisplay-->
             <Grid Grid.Row="1"
                   Visibility="{Binding BlMainDisplayVis, Converter={StaticResource VisibleConverter}}">
@@ -322,6 +295,102 @@
                     </Button>
                 </Grid>
             </Grid>
+
+            <!--GoodsConfirm-->
+            <Grid Grid.Row="1"
+                  Visibility="{Binding BlGoodsConfirmVis, Converter={StaticResource VisibleConverter}}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.3*"/>
+                    <RowDefinition Height="4*"/>
+                    <RowDefinition Height="0.3*"/>
+                    <RowDefinition Height="0.9*"/>
+                </Grid.RowDefinitions>
+
+                <!--GoodsConfirmExplain-->
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0" Text="step1&#x0a;주문내역 확인" Background="Gray"/>
+                    <TextBlock Grid.Column="1" Text="step2&#x0a;결제수단 선택" Background="Gray"/>
+                    <TextBlock Grid.Column="2" Text="step3&#x0a;결제" Background="Gray"/>
+                    <TextBlock Grid.Column="3" Text="step4&#x0a;결제 완료" Background="Gray"/>
+                </Grid>
+
+                <!--GoodsConfirmQuickBtn-->
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+
+                    <Button Grid.Column="0" Width="70" HorizontalAlignment="Left" VerticalAlignment="Center" Content="&lt;" Command="{Binding IcmdGoodsConfirmPageClkL}" Margin="30,0,0,0"/>
+
+                    <ItemsControl Grid.Column="1" HorizontalAlignment="Center" ItemsSource="{Binding ObcGoodsConfirmQuickBtnList}">
+                        <!--템플릿 외형-->
+                        <ItemsControl.Template>
+                            <ControlTemplate TargetType="{x:Type ItemsControl}">
+                                <ItemsPresenter/>
+                            </ControlTemplate>
+                        </ItemsControl.Template>
+
+                        <!--데이터 외형-->
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Width="30" Height="30" Background="Aqua" Margin="10,0,10,0">
+                                    <RadioButton Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}, AncestorLevel=1}, Path=DataContext.IcmdGoodsConfirmQuickBtnClk}"
+CommandParameter="{Binding InDetailGoodsQuickBtnNum}"
+                     IsChecked="{Binding BlDetailGoodsQuickBtnChecked}"
+                     GroupName="GoodsDetailShortDisplay">
+                                        <RadioButton.Template>
+                                            <ControlTemplate TargetType="{x:Type RadioButton}">
+                                                <Ellipse Stroke="Black">
+                                                    <Ellipse.Style>
+                                                        <Style TargetType="Ellipse">
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding BlGoodsConfirmQuickBtnChecked}" 
+                                                 Value="False">
+                                                                    <!--데이터외형변경-->
+                                                                    <Setter Property="Fill" Value="White"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding BlGoodsConfirmQuickBtnChecked}" 
+                                                 Value="True">
+                                                                    <!--데이터외형변경-->
+                                                                    <Setter Property="Fill" Value="Gray"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Ellipse.Style>
+                                                </Ellipse>
+                                            </ControlTemplate>
+                                        </RadioButton.Template>
+                                    </RadioButton>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                        <!--패널 정렬-->
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+
+                    <Button Grid.Column="2" Width="70" HorizontalAlignment="Right" VerticalAlignment="Center" Content="&gt;" Command="{Binding IcmdGoodsConfirmPageClkR}" Margin="0, 0, 30, 0"/>
+                </Grid>
+
+                <StackPanel Grid.Row="3" Orientation="Horizontal">
+                    <Button Width="100" Height="30" Content="Prev" Command="{Binding IcmdGoodsConfirmToMainDisplay}"/>
+                    <Button Width="100" Height="30" Content="Next" Command="{Binding IcmdGoodsConfirmToPatmentSelect}"/>
+                </StackPanel>
+
+            </Grid>
         </Grid>
 
         <!--DetailCategory, DetailGoods-->
@@ -526,6 +595,7 @@
                         </ContentControl.ContentTemplate>
                     </ContentControl>
 
+                    <!--DetailGoodsQuickBtn-->
                     <Grid Grid.Row="3">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
@@ -598,7 +668,8 @@
         </Grid>
         
         <!--Lock-->
-       <Grid Width="{Binding DblLockWinW}" Height="{Binding DblLockWinH}" Background="Blue" x:Name="KioskLock" Visibility="{Binding BlLockVis, Converter={StaticResource VisibleConverter}}">
+       <Grid Width="{Binding DblLockWinW}"
+             Height="{Binding DblLockWinH}" Background="Blue" x:Name="KioskLock" Visibility="{Binding BlLockVis, Converter={StaticResource VisibleConverter}}">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseUp" SourceObject="{Binding ElementName=KioskLock}">
                     <i:InvokeCommandAction Command="{Binding IcmdLockMouseLeftUp}"/>

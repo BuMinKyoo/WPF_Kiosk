@@ -25,6 +25,8 @@ namespace WPF_Kiosk
 
         public static int Stc_InDetailGoodsWCnt = 5;
 
+        public static int Stc_InGoodsConfirmHCnt = 5;
+
         #endregion
 
         public MainWindowViewModel()
@@ -782,7 +784,10 @@ namespace WPF_Kiosk
             BlMainDisplayVis = false;
 
             // 주문확인 페이지 보이게 하기
-            BlMainGoodsConfirmVis = true;
+            BlGoodsConfirmVis = true;
+
+            // GoodsConfirmQuickBtn 담기
+            SetGoodsConfirmQuickBtns();
         }
 
         private bool _blMainDisplayVis = false;
@@ -1100,17 +1105,151 @@ namespace WPF_Kiosk
         #endregion
 
         #region MainGoodsConfirm
-        private bool _blMainGoodsConfirmVis = false;
-        public bool BlMainGoodsConfirmVis
+        private bool _blGoodsConfirmVis = false;
+        public bool BlGoodsConfirmVis
         {
-            get { return _blMainGoodsConfirmVis; }
+            get { return _blGoodsConfirmVis; }
             set
             {
-                _blMainGoodsConfirmVis = value;
-                Notify("BlMainGoodsConfirmVis");
+                _blGoodsConfirmVis = value;
+                Notify("BlGoodsConfirmVis");
             }
         }
 
+        private ObservableCollection<GoodsConfirmQuickBtn> _obcGoodsConfirmQuickBtnList = new ObservableCollection<GoodsConfirmQuickBtn>();
+        public ObservableCollection<GoodsConfirmQuickBtn> ObcGoodsConfirmQuickBtnList
+        {
+            get { return _obcGoodsConfirmQuickBtnList; }
+            set
+            {
+                _obcGoodsConfirmQuickBtnList = value;
+                Notify("ObcGoodsConfirmQuickBtnList");
+            }
+        }
+
+        // GoodsConfirm화면 오픈시, Quick상품 버튼도 다시 생성
+        private void SetGoodsConfirmQuickBtns()
+        {
+            ObcGoodsConfirmQuickBtnList.Clear();
+            int quotient = ObcGoodsConfirmQuickBtnList.Count / Stc_InGoodsConfirmHCnt;  // 몫
+            int remainder = ObcGoodsConfirmQuickBtnList.Count % Stc_InGoodsConfirmHCnt; // 나머지
+
+            // Quick버튼 수 구하기
+            int GoodsConfirmQuickBtnsCnt = 0;
+            if (remainder > 0)
+            {
+                GoodsConfirmQuickBtnsCnt = quotient + 1; // 나머지가 있다면 Quick버튼 한개를 더 만들어야됨
+            }
+            else
+            {
+                GoodsConfirmQuickBtnsCnt = quotient; // 나머지가 없다면 Quick버튼은 정확히 페이지 수많큼 있으면 됨
+            }
+
+            for (int i = 0; i < GoodsConfirmQuickBtnsCnt; i++)
+            {
+                if (i == 0) // 첫번째 Quick버튼은 체크
+                {
+                    ObcGoodsConfirmQuickBtnList.Add(new GoodsConfirmQuickBtn() { InGoodsConfirmQuickBtnNum = i, BlGoodsConfirmQuickBtnChecked = true });
+                }
+                else
+                {
+                    ObcGoodsConfirmQuickBtnList.Add(new GoodsConfirmQuickBtn() { InGoodsConfirmQuickBtnNum = i, BlGoodsConfirmQuickBtnChecked = false });
+                }
+            }
+        }
+
+        private int _inGoodsConfirmCurrentIndex = 0;
+        public int InGoodsConfirmCurrentIndex
+        {
+            get { return _inGoodsConfirmCurrentIndex; }
+            set
+            {
+                _inGoodsConfirmCurrentIndex = value;
+                Notify("InGoodsConfirmCurrentIndex");
+            }
+        }
+
+        private Command _icmdGoodsConfirmPageClkL;
+        public ICommand IcmdGoodsConfirmPageClkL
+        {
+            get { return _icmdGoodsConfirmPageClkL = new Command(OnIcmdGoodsConfirmPageClkL); }
+        }
+
+        private void OnIcmdGoodsConfirmPageClkL(object obj)
+        {
+            // 첫 페이지가 아닐 경우
+            if (InGoodsConfirmCurrentIndex > Stc_InGoodsConfirmHCnt)
+            {
+                // 전체 MainGoodsCartList의 Visible을 false로 변경
+                foreach (var item in ObcMainGoodsCartList)
+                {
+                    item.BlMainGoodsVis = false;
+                }
+
+                InGoodsConfirmCurrentIndex -= Stc_InGoodsConfirmHCnt;
+
+                // MainGoodsCartList의 Visible을 Stc_InGoodsConfirmHCnt개 단위로 true로 변경
+                for (int i = InGoodsConfirmCurrentIndex - 1; i > InGoodsConfirmCurrentIndex - Stc_InGoodsConfirmHCnt - 1; i--)
+                {
+                    ObcMainGoodsCartList[i].BlMainGoodsVis = true;
+                }
+
+                // 상품 넘기는 버튼 클릭후에는, Quick버튼도 같이 변경
+                // Quick버튼의 체크를 하나 왼쪽으로 옮김
+                int index = 0;
+                for (int i = 0; i < ObcGoodsConfirmQuickBtnList.Count; i++)
+                {
+                    if (ObcGoodsConfirmQuickBtnList[i].BlGoodsConfirmQuickBtnChecked == true)
+                    {
+                        index = i;
+                        break;
+                    }
+                }
+                ObcGoodsConfirmQuickBtnList[index].BlGoodsConfirmQuickBtnChecked = false;
+                ObcGoodsConfirmQuickBtnList[index - 1].BlGoodsConfirmQuickBtnChecked = true;
+            }
+        }
+
+        private Command _icmdGoodsConfirmPageClkR;
+        public ICommand IcmdGoodsConfirmPageClkR
+        {
+            get { return _icmdGoodsConfirmPageClkR = new Command(OnIcmdGoodsConfirmPageClkR); }
+        }
+
+        private void OnIcmdGoodsConfirmPageClkR(object obj)
+        {
+            // 마지막 페이지가 아닐 경우
+            if (InGoodsConfirmCurrentIndex < ObcMainGoodsCartList.Count)
+            {
+                // 전체 MainGoodsCartList의 Visible을 false로 변경
+                foreach (var item in ObcMainGoodsCartList)
+                {
+                    item.BlMainGoodsVis = false;
+                }
+
+                // MainGoodsCartList의 Visible을 Stc_InGoodsConfirmHCnt개 단위로 true로 변경
+                for (int i = InGoodsConfirmCurrentIndex; i < Math.Min(InGoodsConfirmCurrentIndex + Stc_InGoodsConfirmHCnt, ObcMainGoodsCartList.Count); i++)
+                {
+                    ObcMainGoodsCartList[i].BlMainGoodsVis = true;
+                }
+
+                InGoodsConfirmCurrentIndex += Stc_InGoodsConfirmHCnt;
+
+                // 상품 넘기는 버튼 클릭후에는, Quick버튼도 같이 변경
+                // Quick버튼의 체크를 하나 오른쪽으로 옮김
+                int index = 0;
+                for (int i = 0; i < ObcGoodsConfirmQuickBtnList.Count; i++)
+                {
+                    if (ObcGoodsConfirmQuickBtnList[i].BlGoodsConfirmQuickBtnChecked == true)
+                    {
+                        index = i;
+                        break;
+                    }
+                }
+                ObcGoodsConfirmQuickBtnList[index].BlGoodsConfirmQuickBtnChecked = false;
+                ObcGoodsConfirmQuickBtnList[index + 1].BlGoodsConfirmQuickBtnChecked = true;
+            }
+        }
         #endregion
 
         // 펼칠 필요 X
