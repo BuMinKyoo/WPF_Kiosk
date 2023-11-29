@@ -1,7 +1,17 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:WPF_Kiosk_Converter="clr-namespace:WPF_Kiosk.Converter">
+                    xmlns:WPF_Kiosk_Converter="clr-namespace:WPF_Kiosk.Converter"
+                    xmlns:WPF_Kiosk_GridSizeConverter="clr-namespace:WPF_Kiosk.Converter.GirdSizeConverter"
+                    >
     <WPF_Kiosk_Converter:VisibleConverter x:Key="VisibleConverter" />
     <WPF_Kiosk_Converter:MultiValueConverter x:Key="MultiValueConverter" />
     <WPF_Kiosk_Converter:StarGridLengthConverter x:Key="StarGridLengthConverter"/>
+    <WPF_Kiosk_GridSizeConverter:DetailCategoryHDivideConverter x:Key="DetailCategoryHDivideConverter"/>
+    <WPF_Kiosk_GridSizeConverter:DetailGoodsWDivideConverter x:Key="DetailGoodsWDivideConverter"/>
+    <WPF_Kiosk_GridSizeConverter:GoodsCartWDivideConverter x:Key="GoodsCartWDivideConverter"/>
+    <WPF_Kiosk_GridSizeConverter:GoodsConfirmHDivideConverter x:Key="GoodsConfirmHDivideConverter"/>
+    <WPF_Kiosk_GridSizeConverter:MainCategoryWDivideConverter x:Key="MainCategoryWDivideConverter"/>
+    <WPF_Kiosk_GridSizeConverter:MainGoodsHDivideConverter x:Key="MainGoodsHDivideConverter"/>
+    <WPF_Kiosk_GridSizeConverter:MainGoodsWDivideConverter x:Key="MainGoodsWDivideConverter"/>
+
 </ResourceDictionary>

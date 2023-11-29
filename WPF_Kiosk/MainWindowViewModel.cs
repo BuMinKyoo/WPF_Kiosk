@@ -37,8 +37,6 @@ namespace WPF_Kiosk
             DblLockWinW = SystemParameters.PrimaryScreenWidth;
             DblLockWinH = SystemParameters.PrimaryScreenHeight;
 
-            SetConponentSizeChange();
-
             #endregion
 
             #region 테스트 담기
@@ -138,26 +136,7 @@ namespace WPF_Kiosk
         }
 
         // 컴포넌트 들의 모든 사이즈 조절
-        #region SetConponentSizeChange
-        private void SetConponentSizeChange()
-        {
-            // 카테고리 크기를 화면 비율에 따라 조절
-            DblMainCategoryW = DblLockWinW * ((double)8/10) / Stc_InMainCategoryWCnt;
-
-            // 상품의 크기를 화면 비율에 따라 조절
-            DblMainGoodsW = DblLockWinW / Stc_InMainGoodsWCnt;
-            DblMainGoodsH = DblLockWinH * ((double)5.5/6)*((double)4/5.5) / Stc_InMainGoodsHCnt; // Grid비율에 따라 변경 되는 값
-
-            // MainGoodsCar의 크기를 화면 비율에 따라 조절
-            DblMainGoodsCartW = (DblLockWinW - (30 * 2)) * ((double)6 / 10) / Stc_InGoodsCartWCnt;
-
-            // DetailCategory의 각 크기를 화면 비율에 따라 조절
-            DblDetailCategoryH = (DblLockWinH * ((double)8 / 10) - 4) * (((double)12/20) / Stc_InDetailCategoryHCnt);
-
-            DblDetailGoodsBtnW = DblLockWinW * ((double)8 / 10) * (((double)8/10) / Stc_InDetailGoodsWCnt);
-
-            DblGoodsConfirmH = DblLockWinH * ((double)5.5/6)*((double)4/5.5)*((double)1.7/2.0) / Stc_InGoodsConfirmHCnt;
-        }
+        #region OnIcmdWindowSizeEvent
 
         private Command _icmdWindowSizeEvent;
         public ICommand IcmdWindowSizeEvent
@@ -173,14 +152,9 @@ namespace WPF_Kiosk
                 return;
             }
 
-            #region Size
             // 윈도우 화면을 가져와서 비율에 따라 크기를 조절
             DblLockWinW = arg.NewSize.Width;
             DblLockWinH = arg.NewSize.Height;
-
-            SetConponentSizeChange();
-
-            #endregion
         }
 
         #endregion
@@ -284,16 +258,6 @@ namespace WPF_Kiosk
             }
         }
 
-        private double _dblMainCategoryW;
-        public double DblMainCategoryW
-        {
-            get { return _dblMainCategoryW; }
-            set
-            {
-                _dblMainCategoryW = value;
-                Notify("DblMainCategoryW");
-            }
-        }
 
         private int _inMainCatecoryCurrentIndex = 0;
         public int InMainCatecoryCurrentIndex
@@ -491,28 +455,6 @@ namespace WPF_Kiosk
             {
                 _obcMainGoodsList = value;
                 Notify("MainGoods");
-            }
-        }
-
-        private double _dblMainGoodsW;
-        public double DblMainGoodsW
-        {
-            get { return _dblMainGoodsW; }
-            set
-            {
-                _dblMainGoodsW = value;
-                Notify("DblMainGoodsW");
-            }
-        }
-
-        private double _dblMainGoodsH;
-        public double DblMainGoodsH
-        {
-            get { return _dblMainGoodsH; }
-            set
-            {
-                _dblMainGoodsH = value;
-                Notify("DblMainGoodsH");
             }
         }
 
@@ -733,17 +675,6 @@ namespace WPF_Kiosk
             }
         }
 
-        private double _dblMainGoodsCartW;
-        public double DblMainGoodsCartW
-        {
-            get { return _dblMainGoodsCartW; }
-            set
-            {
-                _dblMainGoodsCartW = value;
-                Notify("DblMainGoodsCartW");
-            }
-        }
-
         private int _inMainGoodsCartCurrentIndex = 0;
         public int InMainGoodsCartCurrentIndex
         {
@@ -859,28 +790,6 @@ namespace WPF_Kiosk
             {
                 _clsMainGoodsSelected = value;
                 Notify("ClsMainGoodsSelected");
-            }
-        }
-
-        private double _dblDetailCategoryH;
-        public double DblDetailCategoryH
-        {
-            get { return _dblDetailCategoryH; }
-            set
-            {
-                _dblDetailCategoryH = value;
-                Notify("DblDetailCategoryH");
-            }
-        }
-
-        private double _dblDetailGoodsBtnW;
-        public double DblDetailGoodsBtnW
-        {
-            get { return _dblDetailGoodsBtnW; }
-            set
-            {
-                _dblDetailGoodsBtnW = value;
-                Notify("DblDetailGoodsBtnW");
             }
         }
 
@@ -1149,17 +1058,6 @@ namespace WPF_Kiosk
             {
                 _blGoodsConfirmVis = value;
                 Notify("BlGoodsConfirmVis");
-            }
-        }
-
-        private double _dblGoodsConfirmH;
-        public double DblGoodsConfirmH
-        {
-            get { return _dblGoodsConfirmH; }
-            set
-            {
-                _dblGoodsConfirmH = value;
-                Notify("DblGoodsConfirmH");
             }
         }
 
