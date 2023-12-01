@@ -1,0 +1,86 @@
+﻿<UserControl x:Class="WPF_Kiosk.View.DetailCategoryAndGoodsDisplayV.DetailCategoryListDisplayV.DetailGoodsListDisplay"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WPF_Kiosk.View.DetailCategoryAndGoodsDisplayV.DetailCategoryListDisplayV"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Name="DetailGoodsListGrid">
+        <ItemsControl ItemsSource="{Binding ObcDetailGoodsList}">
+            <!--템플릿 외형-->
+            <ItemsControl.Template>
+                <ControlTemplate TargetType="{x:Type ItemsControl}">
+                    <ItemsPresenter/>
+                </ControlTemplate>
+            </ItemsControl.Template>
+            <!--트리거-->
+            <ItemsControl.ItemContainerStyle>
+                <Style>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding BlDetailGoodsVis}" 
+                                     Value="True">
+                            <Setter Property="FrameworkElement.Visibility" 
+                                    Value="Visible"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding BlDetailGoodsVis}" 
+                                     Value="False">
+                            <Setter Property="FrameworkElement.Visibility"
+                                    Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+            <!--데이터 외형-->
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+
+                    <!--상품 디테일 카테고리 아이템 버튼-->
+                    <Button Width="{Binding ActualWidth, ElementName=DetailGoodsListGrid, Converter={StaticResource DetailGoodsWDivideConverter}}"
+                            Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}, AncestorLevel=1}, Path=DataContext.IcmdDetailGoodsClk}"
+                            CommandParameter="{Binding}">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Style.Triggers>
+                                    <DataTrigger 
+                                        Binding="{Binding BlDetailGoodsClicked}" 
+                                        Value="True">
+                                        <Setter 
+                                            Property="Background" 
+                                            Value="Gray"/>
+                                    </DataTrigger>
+                                    <DataTrigger 
+                                        Binding="{Binding BlDetailGoodsClicked}" 
+                                        Value="False">
+                                        <Setter 
+                                            Property="Background"
+                                            Value="White"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <StackPanel Background="Salmon">
+                            <TextBlock Text="{Binding StrDetailGoodsName}" 
+                                       HorizontalAlignment="Center"/>
+                            <TextBlock Text="{Binding InDetailGoodsDiscount}" 
+                                       HorizontalAlignment="Center"/>
+                            <TextBlock Text="{Binding InDetailGoodsPrice}" 
+                                       HorizontalAlignment="Center"/>
+                            <TextBlock Text="{Binding InDetailGoodsNum}" 
+                                       HorizontalAlignment="Center"/>
+                            <TextBlock Text="{Binding InDetailGoodsDetailCategoryNum}"
+                                       HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+            <!--패널 정렬-->
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+    </Grid>
+</UserControl>

@@ -1,0 +1,49 @@
+﻿<UserControl x:Class="WPF_Kiosk.View.GoodsConfirmDisplay"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:localV="clr-namespace:WPF_Kiosk.View.GoodsConfirmDisplayV"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid 
+                  Visibility="{Binding BlGoodsConfirmVis, Converter={StaticResource VisibleConverter}}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.3*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="0.3*"/>
+            <RowDefinition Height="0.9*"/>
+        </Grid.RowDefinitions>
+
+        <!--GoodsConfirmExplain-->
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0" Text="step1&#x0a;주문내역 확인" Background="Gray"/>
+            <TextBlock Grid.Column="1" Text="step2&#x0a;결제수단 선택" Background="Gray"/>
+            <TextBlock Grid.Column="2" Text="step3&#x0a;결제" Background="Gray"/>
+            <TextBlock Grid.Column="3" Text="step4&#x0a;결제 완료" Background="Gray"/>
+        </Grid>
+
+        <!--GoodsConfirmList-->
+        <localV:GoodsConfirmListDisplay Grid.Row="1"/>
+
+        <!--GoodsConfirmQuickBtn-->
+        <localV:GoodsConfirmQuickBtnDisplay Grid.Row="2"/>
+
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0" Width="100" Content="Prev" Command="{Binding IcmdGoodsConfirmToMainDisplay}"/>
+            <Button Grid.Column="1" Width="100" Content="Next" Command="{Binding IcmdGoodsConfirmToPatmentSelect}"/>
+        </Grid>
+    </Grid>
+</UserControl>
