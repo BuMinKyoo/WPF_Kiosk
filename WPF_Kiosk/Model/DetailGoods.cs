@@ -30,7 +30,7 @@ namespace WPF_Kiosk.Model
                 if (_strDetailGoodsName != value)
                 {
                     _strDetailGoodsName = value;
-                    Notify("StrDetailGoodsName");
+                    Notify();
                 }
             }
         }
@@ -43,7 +43,7 @@ namespace WPF_Kiosk.Model
                 if (_inDetailGoodsDiscount != value)
                 {
                     _inDetailGoodsDiscount = value;
-                    Notify("InDetailGoodsDiscount");
+                    Notify();
                 }
             }
         }
@@ -57,7 +57,7 @@ namespace WPF_Kiosk.Model
                 if (_inDetailGoodsPrice != value)
                 {
                     _inDetailGoodsPrice = value;
-                    Notify("InDetailGoodsPrice");
+                    Notify();
                 }
             }
         }
@@ -71,7 +71,7 @@ namespace WPF_Kiosk.Model
                 if (_inDetailGoodsNum != value)
                 {
                     _inDetailGoodsNum = value;
-                    Notify("InDetailGoodsNum");
+                    Notify();
                 }
             }
         }
@@ -86,7 +86,7 @@ namespace WPF_Kiosk.Model
                 if (_inDetailGoodsDetailCategoryNum != value)
                 {
                     _inDetailGoodsDetailCategoryNum = value;
-                    Notify("InDetailGoodsDetailCategoryNum");
+                    Notify();
                 }
             }
         }
@@ -100,7 +100,7 @@ namespace WPF_Kiosk.Model
                 if (_blDetailGoodsVis != value)
                 {
                     _blDetailGoodsVis = value;
-                    Notify("BlDetailGoodsVis");
+                    Notify();
                 }
             }
         }
@@ -114,7 +114,7 @@ namespace WPF_Kiosk.Model
                 if (_blDetailGoodsClicked != value)
                 {
                     _blDetailGoodsClicked = value;
-                    Notify("BlDetailGoodsClicked");
+                    Notify();
                 }
             }
         }

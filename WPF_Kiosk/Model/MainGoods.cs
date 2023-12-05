@@ -33,7 +33,7 @@ namespace WPF_Kiosk.Model
                 if (_strMainGoodsName != value)
                 {
                     _strMainGoodsName = value;
-                    Notify("StrMainGoodsName");
+                    Notify();
                 }
             }
         }
@@ -46,7 +46,7 @@ namespace WPF_Kiosk.Model
                 if (_inMainGoodsDiscount != value)
                 {
                     _inMainGoodsDiscount = value;
-                    Notify("InMainGoodsDiscount");
+                    Notify();
                 }
             }
         }
@@ -60,7 +60,7 @@ namespace WPF_Kiosk.Model
                 if (_inMainGoodsPrice != value)
                 {
                     _inMainGoodsPrice = value;
-                    Notify("InMainGoodsPrice");
+                    Notify();
                 }
             }
         }
@@ -74,7 +74,7 @@ namespace WPF_Kiosk.Model
                 if (_blMainGoodsVis != value)
                 {
                     _blMainGoodsVis = value;
-                    Notify("BlMainGoodsVis");
+                    Notify();
                 }
             }
         }
@@ -88,7 +88,7 @@ namespace WPF_Kiosk.Model
                 if (_inMainGoodsMainCategoryNum != value)
                 {
                     _inMainGoodsMainCategoryNum = value;
-                    Notify("InMainGoodsMainCategoryNum");
+                    Notify();
                 }
             }
         }
@@ -102,7 +102,7 @@ namespace WPF_Kiosk.Model
                 if (_obcDetailCategoryList != value)
                 {
                     _obcDetailCategoryList = value;
-                    Notify("ObcDetailCategoryList");
+                    Notify();
                 }
             }
         }

@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Media3D;
+using System.Windows.Threading;
 using WPF_Kiosk.Model;
 
 namespace WPF_Kiosk
@@ -133,6 +135,10 @@ namespace WPF_Kiosk
 
             #endregion
 
+
+
+            DpctAdminManager.Interval = TimeSpan.FromSeconds(5);
+            DpctAdminManager.Tick += DpctAdminManager_Tick;
         }
 
         // 컴포넌트 들의 모든 사이즈 조절
@@ -167,7 +173,7 @@ namespace WPF_Kiosk
             set
             {
                 _dblLockWinW = value;
-                Notify("DblLockWinW");
+                Notify();
             }
         }
 
@@ -178,7 +184,7 @@ namespace WPF_Kiosk
             set
             {
                 _dblLockWinH = value;
-                Notify("DblLockWinH");
+                Notify();
             }
         }
 
@@ -221,7 +227,7 @@ namespace WPF_Kiosk
             set
             {
                 _blLockVis = value;
-                Notify("BlLockVis");
+                Notify();
             }
         }
 
@@ -254,7 +260,7 @@ namespace WPF_Kiosk
             set
             {
                 _obcMainCategoryList = value;
-                Notify("ObcMainCategoryList");
+                Notify();
             }
         }
 
@@ -266,7 +272,7 @@ namespace WPF_Kiosk
             set
             {
                 _inMainCatecoryCurrentIndex = value;
-                Notify("InMainCatecoryCurrentIndex");
+                Notify();
             }
         }
 
@@ -443,7 +449,7 @@ namespace WPF_Kiosk
             set
             {
                 _obcAllMainGoodsList = value;
-                Notify("ObcAllMainGoodsList");
+                Notify();
             }
         }
 
@@ -454,7 +460,7 @@ namespace WPF_Kiosk
             set
             {
                 _obcMainGoodsList = value;
-                Notify("MainGoods");
+                Notify();
             }
         }
 
@@ -465,7 +471,7 @@ namespace WPF_Kiosk
             set
             {
                 _inMainGoodsCurrentIndex = value;
-                Notify("InMainGoodsCurrentIndex");
+                Notify();
             }
         }
 
@@ -550,7 +556,7 @@ namespace WPF_Kiosk
             set
             {
                 _obcMainGoodsQuickBtnList = value;
-                Notify("ObcMainGoodsQuickBtnList");
+                Notify();
             }
         }
 
@@ -671,7 +677,7 @@ namespace WPF_Kiosk
             set
             {
                 _obcMainGoodsCartList = value;
-                Notify("ObcMainGoodsCartList");
+                Notify();
             }
         }
 
@@ -682,7 +688,7 @@ namespace WPF_Kiosk
             set
             {
                 _inMainGoodsCartCurrentIndex = value;
-                Notify("InMainGoodsCartCurrentIndex");
+                Notify();
             }
         }
 
@@ -765,7 +771,7 @@ namespace WPF_Kiosk
             set
             {
                 _blMainDisplayVis = value;
-                Notify("BlMainDisplayVis");
+                Notify();
             }
         }
         #endregion
@@ -778,7 +784,7 @@ namespace WPF_Kiosk
             set
             {
                 _blDetailGoodsGridVis = value;
-                Notify("BlDetailGoodsGridVis");
+                Notify();
             }
         }
 
@@ -789,7 +795,7 @@ namespace WPF_Kiosk
             set
             {
                 _clsMainGoodsSelected = value;
-                Notify("ClsMainGoodsSelected");
+                Notify();
             }
         }
 
@@ -800,7 +806,7 @@ namespace WPF_Kiosk
             set
             {
                 _inDetailCategoryCurrentIndex = value;
-                Notify("InDetailCategoryCurrentIndex");
+                Notify();
             }
         }
 
@@ -966,7 +972,7 @@ namespace WPF_Kiosk
             set
             {
                 _obcDetailGoodsQuickBtnList = value;
-                Notify("ObcDetailGoodsQuickBtnList");
+                Notify();
             }
         }
 
@@ -1057,7 +1063,7 @@ namespace WPF_Kiosk
             set
             {
                 _blGoodsConfirmVis = value;
-                Notify("BlGoodsConfirmVis");
+                Notify();
             }
         }
 
@@ -1068,7 +1074,7 @@ namespace WPF_Kiosk
             set
             {
                 _obcGoodsConfirmQuickBtnList = value;
-                Notify("ObcGoodsConfirmQuickBtnList");
+                Notify();
             }
         }
 
@@ -1110,7 +1116,7 @@ namespace WPF_Kiosk
             set
             {
                 _inGoodsConfirmCurrentIndex = value;
-                Notify("InGoodsConfirmCurrentIndex");
+                Notify();
             }
         }
 
@@ -1256,6 +1262,90 @@ namespace WPF_Kiosk
             // 첫번째 담긴 상품이 보이도록함
             SetCartGoodsFirstVis();
         }
+        #endregion
+
+        #region AdminManager
+        private DispatcherTimer DpctAdminManager = new DispatcherTimer();
+        private int _inClickCount = 0;
+        public int InClickCount
+        {
+            get { return _inClickCount; }
+            set
+            {
+                _inClickCount = value;
+                Notify();
+            }
+        }
+
+        private Command _icmdWindowGoAdminManager;
+        public ICommand IcmdWindowGoAdminManager
+        {
+            get { return _icmdWindowGoAdminManager = new Command(OnIcmdWindowGoAdminManager); }
+        }
+
+        private async void OnIcmdWindowGoAdminManager(object obj)
+        {
+            // 한번이라도 클릭했다면, 타이머를 바로 다시 발동시키지 않기 위함
+            if (InClickCount == 0)
+            {
+                DpctAdminManager.Start();
+            }
+
+            InClickCount++;
+
+            // 지정된 횟수가 초과 했다면 관리자 화면으로 이동
+            if (InClickCount >= 3)
+            {
+                DpctAdminManager.Stop();
+                BlAdminManagerVis = true;
+                InClickCount = 0;
+
+                // 통신하여 아이디 비밀번호 가져오기
+                // Get방식
+                try
+                {
+                    // HttpClient 인스턴스 생성
+                    using (HttpClient client = new HttpClient())
+                    {
+                        // GET 요청 보내기
+                        HttpResponseMessage response = await client.GetAsync("http://220.118.53.92:5001/IDPW");
+
+                        // 응답 확인
+                        if (response.IsSuccessStatusCode)
+                        {
+                            string content = await response.Content.ReadAsStringAsync();
+                        }
+                        else
+                        {
+                            MessageBox.Show($"HTTP 오류 코드: {response.StatusCode}", "오류", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"오류 발생: {ex.Message}", "오류", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
+        private void DpctAdminManager_Tick(object? sender, EventArgs e)
+        {
+            InClickCount = 0;
+            DpctAdminManager.Stop();
+        }
+
+
+        private bool _blAdminManagerVis = false;
+        public bool BlAdminManagerVis
+        {
+            get { return _blAdminManagerVis; }
+            set
+            {
+                _blAdminManagerVis = value;
+                Notify();
+            }
+        }
+
         #endregion
 
         // 펼칠 필요 X

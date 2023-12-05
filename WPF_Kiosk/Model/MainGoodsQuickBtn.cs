@@ -14,7 +14,7 @@ namespace WPF_Kiosk.Model
                 if (_inMainGoodsQuickBtnNum != value)
                 {
                     _inMainGoodsQuickBtnNum = value;
-                    Notify("InMainGoodsQuickBtnNum");
+                    Notify();
                 }
             }
         }
@@ -28,7 +28,7 @@ namespace WPF_Kiosk.Model
                 if (_blMainGoodsQuickBtnChecked != value)
                 {
                     _blMainGoodsQuickBtnChecked = value;
-                    Notify("BlMainGoodsQuickBtnChecked");
+                    Notify();
                 }
             }
         }

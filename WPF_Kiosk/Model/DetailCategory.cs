@@ -34,7 +34,7 @@ namespace WPF_Kiosk.Model
                 if (_inDetailCategoryNum != value)
                 {
                     _inDetailCategoryNum = value;
-                    Notify("InDetailCategoryNum");
+                    Notify();
                 }
             }
         }
@@ -48,7 +48,7 @@ namespace WPF_Kiosk.Model
                 if (_strDetailCategoryName != value)
                 {
                     _strDetailCategoryName = value;
-                    Notify("StrDetailCategoryName");
+                    Notify();
                 }
             }
         }
@@ -62,7 +62,7 @@ namespace WPF_Kiosk.Model
                 if (_blDetailCategoryVis != value)
                 {
                     _blDetailCategoryVis = value;
-                    Notify("BlDetailCategoryVis");
+                    Notify();
                 }
             }
         }
@@ -74,7 +74,7 @@ namespace WPF_Kiosk.Model
             set
             {
                 _inDetailGoodsCurrentIndex = value;
-                Notify("InDetailGoodsCurrentIndex");
+                Notify();
             }
         }
 
@@ -87,7 +87,7 @@ namespace WPF_Kiosk.Model
                 if (_obcDetailGoodsList != value)
                 {
                     _obcDetailGoodsList = value;
-                    Notify("ObcDetailGoodsList");
+                    Notify();
                 }
             }
         }

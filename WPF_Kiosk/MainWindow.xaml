@@ -6,6 +6,7 @@
         xmlns:WPF_Kiosk="clr-namespace:WPF_Kiosk"
         xmlns:WPF_Kiosk_Behavior="clr-namespace:WPF_Kiosk.CommandBehavior"
         xmlns:WPF_Kiosk_View="clr-namespace:WPF_Kiosk.View"
+        xmlns:i ="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         SizeToContent="WidthAndHeight"
         WindowStartupLocation="Manual"
@@ -31,7 +32,24 @@
             </Grid.RowDefinitions>
 
             <!--MainTitle-->
-            <Button Grid.Row="0" Content="Home" Command="{Binding IcmdMainTitleHomeBtnClk}"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="0" Content="Home" Command="{Binding IcmdMainTitleHomeBtnClk}"/>
+
+                <Grid Grid.Column="1" x:Name="AdminManagerPwBox" Background="#00000000">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseUp"
+                            SourceObject="{Binding ElementName=AdminManagerPwBox}">
+                            <i:InvokeCommandAction Command="{Binding IcmdWindowGoAdminManager}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Grid>
+            </Grid>
          
             <!--MainDisplay-->
             <WPF_Kiosk_View:MainDisplay Grid.Row="1"/>
@@ -45,5 +63,8 @@
 
         <!--Lock-->
         <WPF_Kiosk_View:LockDiplay/>
+
+        <!--AdminManager-->
+        <WPF_Kiosk_View:AdminManagerDisplay/>
     </Grid>
 </Window>

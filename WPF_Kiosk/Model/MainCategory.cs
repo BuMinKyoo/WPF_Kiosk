@@ -14,7 +14,7 @@ namespace WPF_Kiosk.Model
                 if (_inMainCategoryNum != value)
                 {
                     _inMainCategoryNum = value;
-                    Notify("InMainCategoryNum");
+                    Notify();
                 }
             }
         }
@@ -28,7 +28,7 @@ namespace WPF_Kiosk.Model
                 if (_strMainCategoryName != value)
                 {
                     _strMainCategoryName = value;
-                    Notify("StrMainCategoryName");
+                    Notify();
                 }
             }
         }
@@ -42,7 +42,7 @@ namespace WPF_Kiosk.Model
                 if (_blMainCategoryVis != value)
                 {
                     _blMainCategoryVis = value;
-                    Notify("BlMainCategoryVis");
+                    Notify();
                 }
             }
         }
