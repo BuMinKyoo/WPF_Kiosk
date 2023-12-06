@@ -9,7 +9,7 @@
         xmlns:i ="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         SizeToContent="WidthAndHeight"
-        WindowStartupLocation="Manual"
+        WindowStartupLocation="CenterScreen"
         Left="0" Top="0"
         WindowStyle="None" AllowsTransparency="True"
         WPF_Kiosk_Behavior:CommandBehavior.Event="SizeChanged"
@@ -21,50 +21,59 @@
         <WPF_Kiosk:MainWindowViewModel/>
     </Window.DataContext>
 
+    <!--키오스크 화면-->
     <Grid>
-        <!--메인화면-->
-        <Grid
+        <Grid 
+            Visibility="{Binding BlKioskVis, Converter={StaticResource VisibleConverter}}">
+            <!--메인화면-->
+            <Grid
             Width="{Binding DblLockWinW}"
-            Height="{Binding DblLockWinH}" Visibility="Visible">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="0.5*"/>
-                <RowDefinition Height="5.5*"/>
-            </Grid.RowDefinitions>
+            Height="{Binding DblLockWinH}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="5.5*"/>
+                </Grid.RowDefinitions>
 
-            <!--MainTitle-->
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
+                <!--MainTitle-->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
 
-                <Button Grid.Column="0" Content="Home" Command="{Binding IcmdMainTitleHomeBtnClk}"/>
+                    <Button Grid.Column="0" Content="Home" Command="{Binding IcmdMainTitleHomeBtnClk}"/>
 
-                <Grid Grid.Column="1" x:Name="AdminManagerPwBox" Background="#00000000">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="MouseUp"
+                    <Grid Grid.Column="1" x:Name="AdminManagerPwBox" Background="#00000000">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseUp"
                             SourceObject="{Binding ElementName=AdminManagerPwBox}">
-                            <i:InvokeCommandAction Command="{Binding IcmdWindowGoAdminManager}"/>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
+                                <i:InvokeCommandAction Command="{Binding IcmdWindowGoAdminManager}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Grid>
                 </Grid>
-            </Grid>
-         
-            <!--MainDisplay-->
-            <WPF_Kiosk_View:MainDisplay Grid.Row="1"/>
 
-            <!--GoodsConfirm-->
-            <WPF_Kiosk_View:GoodsConfirmDisplay Grid.Row="1"/>
+                <!--MainDisplay-->
+                <WPF_Kiosk_View:MainDisplay Grid.Row="1"/>
+
+                <!--GoodsConfirm-->
+                <WPF_Kiosk_View:GoodsConfirmDisplay Grid.Row="1"/>
+            </Grid>
+
+            <!--DetailCategoryAndGoods-->
+            <WPF_Kiosk_View:DetailCategoryAndGoodsDisplay/>
+
+            <!--Lock-->
+            <WPF_Kiosk_View:LockDiplay/>
+
+            <!--AdminManager-->
+            <WPF_Kiosk_View:AdminManagerDisplay/>
         </Grid>
 
-        <!--DetailCategoryAndGoods-->
-        <WPF_Kiosk_View:DetailCategoryAndGoodsDisplay/>
-
-        <!--Lock-->
-        <WPF_Kiosk_View:LockDiplay/>
-
-        <!--AdminManager-->
-        <WPF_Kiosk_View:AdminManagerDisplay/>
+        <Grid>
+            <WPF_Kiosk_View:LoginDisplay Visibility="{Binding BlLoginPageVis, Converter={StaticResource VisibleConverter}}"/>
+        </Grid>
     </Grid>
+
 </Window>

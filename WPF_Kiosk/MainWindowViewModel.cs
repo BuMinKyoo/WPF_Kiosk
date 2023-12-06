@@ -39,10 +39,12 @@ namespace WPF_Kiosk
             DblLockWinW = SystemParameters.PrimaryScreenWidth;
             DblLockWinH = SystemParameters.PrimaryScreenHeight;
 
+            DblLoginPageWinW = DblLockWinW * 0.7;
+            DblLoginPageWinH = DblLockWinH * 0.3;
             #endregion
 
             #region 테스트 담기
-            
+
             // 카테고리 담기
             for (int i = 0; i < 12; i++)
             {
@@ -135,8 +137,6 @@ namespace WPF_Kiosk
 
             #endregion
 
-
-
             DpctAdminManager.Interval = TimeSpan.FromSeconds(5);
             DpctAdminManager.Tick += DpctAdminManager_Tick;
         }
@@ -164,6 +164,21 @@ namespace WPF_Kiosk
         }
 
         #endregion
+
+
+        #region 메인화면
+        private bool _blKioskVis = false;
+        public bool BlKioskVis
+        {
+            get { return _blKioskVis; }
+            set
+            {
+                _blKioskVis = value;
+                Notify();
+            }
+        }
+        #endregion
+
 
         #region Lock
         private double _dblLockWinW;
@@ -1342,6 +1357,54 @@ namespace WPF_Kiosk
             set
             {
                 _blAdminManagerVis = value;
+                Notify();
+            }
+        }
+
+        #endregion
+
+        #region LoginPage
+        private double _dblLoginPageWinW;
+        public double DblLoginPageWinW
+        {
+            get { return _dblLoginPageWinW; }
+            set
+            {
+                _dblLoginPageWinW = value;
+                Notify();
+            }
+        }
+
+        private double _dblLoginPageWinH;
+        public double DblLoginPageWinH
+        {
+            get { return _dblLoginPageWinH; }
+            set
+            {
+                _dblLoginPageWinH = value;
+                Notify();
+            }
+        }
+
+        private Command _icmdLoginPageGoLock;
+        public ICommand IcmdLoginPageGoLock
+        {
+            get { return _icmdLoginPageGoLock = new Command(OnIcmdLoginPageGoLock); }
+        }
+
+        private async void OnIcmdLoginPageGoLock(object obj)
+        {
+            BlKioskVis = true;
+            BlLoginPageVis = false;
+        }
+
+        private bool _blLoginPageVis = true;
+        public bool BlLoginPageVis
+        {
+            get { return _blLoginPageVis; }
+            set
+            {
+                _blLoginPageVis = value;
                 Notify();
             }
         }
