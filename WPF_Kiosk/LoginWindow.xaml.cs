@@ -10,17 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace WPF_Kiosk.View
+namespace WPF_Kiosk
 {
     /// <summary>
-    /// LoginDisplay.xaml에 대한 상호 작용 논리
+    /// LoginWindow.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class LoginDisplay : UserControl
+    public partial class LoginWindow : Window
     {
-        public LoginDisplay()
+        public LoginWindow()
         {
             InitializeComponent();
         }

@@ -38,9 +38,6 @@ namespace WPF_Kiosk
             // 윈도우 화면을 가져와서 비율에 따라 크기를 조절
             DblLockWinW = SystemParameters.PrimaryScreenWidth;
             DblLockWinH = SystemParameters.PrimaryScreenHeight;
-
-            DblLoginPageWinW = DblLockWinW * 0.7;
-            DblLoginPageWinH = DblLockWinH * 0.3;
             #endregion
 
             #region 테스트 담기
@@ -163,20 +160,6 @@ namespace WPF_Kiosk
             DblLockWinH = arg.NewSize.Height;
         }
 
-        #endregion
-
-
-        #region 메인화면
-        private bool _blKioskVis = false;
-        public bool BlKioskVis
-        {
-            get { return _blKioskVis; }
-            set
-            {
-                _blKioskVis = value;
-                Notify();
-            }
-        }
         #endregion
 
 
@@ -1357,54 +1340,6 @@ namespace WPF_Kiosk
             set
             {
                 _blAdminManagerVis = value;
-                Notify();
-            }
-        }
-
-        #endregion
-
-        #region LoginPage
-        private double _dblLoginPageWinW;
-        public double DblLoginPageWinW
-        {
-            get { return _dblLoginPageWinW; }
-            set
-            {
-                _dblLoginPageWinW = value;
-                Notify();
-            }
-        }
-
-        private double _dblLoginPageWinH;
-        public double DblLoginPageWinH
-        {
-            get { return _dblLoginPageWinH; }
-            set
-            {
-                _dblLoginPageWinH = value;
-                Notify();
-            }
-        }
-
-        private Command _icmdLoginPageGoLock;
-        public ICommand IcmdLoginPageGoLock
-        {
-            get { return _icmdLoginPageGoLock = new Command(OnIcmdLoginPageGoLock); }
-        }
-
-        private async void OnIcmdLoginPageGoLock(object obj)
-        {
-            BlKioskVis = true;
-            BlLoginPageVis = false;
-        }
-
-        private bool _blLoginPageVis = true;
-        public bool BlLoginPageVis
-        {
-            get { return _blLoginPageVis; }
-            set
-            {
-                _blLoginPageVis = value;
                 Notify();
             }
         }
