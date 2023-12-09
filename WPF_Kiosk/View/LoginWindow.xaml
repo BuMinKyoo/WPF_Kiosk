@@ -1,9 +1,9 @@
-﻿<Window x:Class="WPF_Kiosk.LoginWindow"
+﻿<Window x:Class="WPF_Kiosk.View.LoginWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:WPF_Kiosk="clr-namespace:WPF_Kiosk"
+        xmlns:WPF_KioskVM="clr-namespace:WPF_Kiosk.ViewModel"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None" AllowsTransparency="True"
         SizeToContent="WidthAndHeight"
@@ -11,7 +11,7 @@
         Title="LoginWindow">
 
     <Window.DataContext>
-        <WPF_Kiosk:LoginWindowViewModel/>
+        <WPF_KioskVM:LoginWindowViewModel/>
     </Window.DataContext>
     
     <Grid Width="{Binding DblLoginPageWinW}" Height="{Binding DblLoginPageWinH}" Background="Wheat">

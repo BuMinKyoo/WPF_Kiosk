@@ -1,0 +1,23 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:WPF_Kiosk_ViewModel="clr-namespace:WPF_Kiosk.ViewModel"
+                    xmlns:WPF_Kiosk_View="clr-namespace:WPF_Kiosk.View"
+                    >
+
+    <DataTemplate DataType="{x:Type WPF_Kiosk_ViewModel:MainDisplayViewModel}">
+        <WPF_Kiosk_View:MainDisplay/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type WPF_Kiosk_ViewModel:LockDiplayViewModel}">
+        <WPF_Kiosk_View:LockDiplay/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type WPF_Kiosk_ViewModel:GoodsConfirmDisplayViewModel}">
+        <WPF_Kiosk_View:GoodsConfirmDisplay/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type WPF_Kiosk_ViewModel:DetailCategoryAndGoodsDisplayViewModel}">
+        <WPF_Kiosk_View:DetailCategoryAndGoodsDisplay/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type WPF_Kiosk_ViewModel:AdminManagerDisplayViewModel}">
+        <WPF_Kiosk_View:AdminManagerDisplay/>
+    </DataTemplate>
+
+</ResourceDictionary>

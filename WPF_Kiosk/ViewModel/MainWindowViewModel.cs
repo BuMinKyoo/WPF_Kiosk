@@ -4,13 +4,11 @@ using System.ComponentModel;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media.Media3D;
 using System.Windows.Threading;
 using WPF_Kiosk.Model;
 
-namespace WPF_Kiosk
+namespace WPF_Kiosk.ViewModel
 {
     public class MainWindowViewModel : INotifyPropertyChanged
     {
@@ -39,6 +37,13 @@ namespace WPF_Kiosk
             DblLockWinW = SystemParameters.PrimaryScreenWidth;
             DblLockWinH = SystemParameters.PrimaryScreenHeight;
             #endregion
+
+            ObjMainDisplayViewModel = App.Current.Services.GetService(typeof(MainDisplayViewModel))!;
+            ObjLockDiplayViewModel = App.Current.Services.GetService(typeof(LockDiplayViewModel))!;
+            ObjGoodsConfirmDisplayViewModel = App.Current.Services.GetService(typeof(GoodsConfirmDisplayViewModel))!;
+            ObjDetailCategoryAndGoodsDisplayViewModel = App.Current.Services.GetService(typeof(DetailCategoryAndGoodsDisplayViewModel))!;
+            ObjAdminManagerDisplayViewModel = App.Current.Services.GetService(typeof(AdminManagerDisplayViewModel))!;
+
 
             #region 테스트 담기
 
@@ -161,6 +166,65 @@ namespace WPF_Kiosk
         }
 
         #endregion
+
+        #region DisplayViewModels
+        private object _objMainDisplayViewModel;
+        public object ObjMainDisplayViewModel
+        {
+            get { return _objMainDisplayViewModel; }
+            set
+            {
+                _objMainDisplayViewModel = value;
+                Notify();
+            }
+        }
+
+        private object _objLockDiplayViewModel;
+        public object ObjLockDiplayViewModel
+        {
+            get { return _objLockDiplayViewModel; }
+            set
+            {
+                _objLockDiplayViewModel = value;
+                Notify();
+            }
+        }
+
+        private object _objGoodsConfirmDisplayViewModel;
+        public object ObjGoodsConfirmDisplayViewModel
+        {
+            get { return _objGoodsConfirmDisplayViewModel; }
+            set
+            {
+                _objGoodsConfirmDisplayViewModel = value;
+                Notify();
+            }
+        }
+
+        private object _objDetailCategoryAndGoodsDisplayViewModel;
+        public object ObjDetailCategoryAndGoodsDisplayViewModel
+        {
+            get { return _objDetailCategoryAndGoodsDisplayViewModel; }
+            set
+            {
+                _objDetailCategoryAndGoodsDisplayViewModel = value;
+                Notify();
+            }
+        }
+
+        private object _objAdminManagerDisplayViewModel;
+        public object ObjAdminManagerDisplayViewModel
+        {
+            get { return _objAdminManagerDisplayViewModel; }
+            set
+            {
+                _objAdminManagerDisplayViewModel = value;
+                Notify();
+            }
+        }
+
+        #endregion
+
 
 
         #region Lock

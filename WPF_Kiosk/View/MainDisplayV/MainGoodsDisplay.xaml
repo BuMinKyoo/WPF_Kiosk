@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:WPF_Kiosk.View.MainDisplayV"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
     <Grid x:Name="MainGoodsListGrid">
         <ItemsControl ItemsSource="{Binding ObcMainGoodsList}">
             <!--템플릿 외형-->

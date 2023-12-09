@@ -6,6 +6,7 @@
              xmlns:localV="clr-namespace:WPF_Kiosk.View.DetailCategoryAndGoodsDisplayV"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
     <Grid Width="{Binding DblLockWinW}"
               Height="{Binding DblLockWinH}"
               Background="#80000000"

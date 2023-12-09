@@ -6,6 +6,8 @@
              xmlns:localV="clr-namespace:WPF_Kiosk.View.DetailCategoryAndGoodsDisplayV.DetailCategoryListDisplayV"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
+
     <Grid Name="DetailCategoryListGrid">
         <ContentControl  Content="{Binding ClsMainGoodsSelected}">
             <!--템플릿 외형-->

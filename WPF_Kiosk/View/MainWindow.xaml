@@ -1,9 +1,8 @@
-﻿<Window x:Class="WPF_Kiosk.MainWindow"
+﻿<Window x:Class="WPF_Kiosk.View.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:WPF_Kiosk="clr-namespace:WPF_Kiosk"
         xmlns:WPF_Kiosk_Behavior="clr-namespace:WPF_Kiosk.CommandBehavior"
         xmlns:WPF_Kiosk_View="clr-namespace:WPF_Kiosk.View"
         xmlns:i ="http://schemas.microsoft.com/xaml/behaviors"
@@ -15,12 +14,9 @@
         WPF_Kiosk_Behavior:CommandBehavior.Event="SizeChanged"
         WPF_Kiosk_Behavior:CommandBehavior.Command="{Binding IcmdWindowSizeEvent}"
         >
+
     <!--WindowStyle="None" AllowsTransparency="True"-->
     
-    <Window.DataContext>
-        <WPF_Kiosk:MainWindowViewModel/>
-    </Window.DataContext>
-
     <!--키오스크 화면-->
     <Grid>
         <!--메인화면-->
@@ -63,10 +59,10 @@
         <WPF_Kiosk_View:DetailCategoryAndGoodsDisplay/>
 
         <!--Lock-->
-        <WPF_Kiosk_View:LockDiplay/>
+        <ContentControl Content="{Binding ObjLockDiplayViewModel}"/>
 
         <!--AdminManager-->
-        <WPF_Kiosk_View:AdminManagerDisplay/>
+        <!--<WPF_Kiosk_View:AdminManagerDisplay/>-->
     </Grid>
 
 </Window>

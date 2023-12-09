@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows.Data;
+using WPF_Kiosk.ViewModel;
+
 
 namespace WPF_Kiosk.Converter.GirdSizeConverter
 {
