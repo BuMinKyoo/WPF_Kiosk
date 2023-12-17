@@ -3,12 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:localV="clr-namespace:WPF_Kiosk.View.GoodsConfirmDisplayV"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
-    <Grid 
-                  Visibility="{Binding BlGoodsConfirmVis, Converter={StaticResource VisibleConverter}}">
+    <Grid Visibility="{Binding BlGoodsConfirmVis, Converter={StaticResource VisibleConverter}}">
         <Grid.RowDefinitions>
             <RowDefinition Height="0.3*"/>
             <RowDefinition Height="4*"/>
@@ -32,10 +30,171 @@
         </Grid>
 
         <!--GoodsConfirmList-->
-        <localV:GoodsConfirmListDisplay Grid.Row="1"/>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.1*"/>
+                <ColumnDefinition Width="1.8*"/>
+                <ColumnDefinition Width="0.1*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.1*"/>
+                <RowDefinition Height="1.7*"/>
+                <RowDefinition Height="0.2*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="1" Grid.Column="1" x:Name="GoodsConfirmListGrid">
+                <ItemsControl 
+                    ItemsSource="{Binding ObcMainGoodsCartList}">
+                    <!--템플릿 외형-->
+                    <ItemsControl.Template>
+                        <ControlTemplate TargetType="{x:Type ItemsControl}">
+                            <ItemsPresenter/>
+                        </ControlTemplate>
+                    </ItemsControl.Template>
+                    <!--트리거-->
+                    <ItemsControl.ItemContainerStyle>
+                        <Style>
+                            <Style.Triggers>
+                                <DataTrigger
+                                Binding="{Binding BlMainGoodsVis}" 
+                                Value="True">
+                                    <Setter
+                                    Property="FrameworkElement.Visibility"
+                                    Value="Visible"/>
+                                </DataTrigger>
+                                <DataTrigger
+                                Binding="{Binding BlMainGoodsVis}" 
+                                Value="False">
+                                    <Setter 
+                                    Property="FrameworkElement.Visibility" 
+                                    Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ItemsControl.ItemContainerStyle>
+                    <!--데이터 외형-->
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Height="{Binding ActualWidth, ElementName=GoodsConfirmListGrid, Converter={StaticResource GoodsConfirmHDivideConverter}}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.7*"/>
+                                    <ColumnDefinition Width="1.3*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <Rectangle Grid.Column="0" Grid.Row="0" 
+                                       Grid.RowSpan="2" Fill="Black" 
+                                       Margin="0, 0, 10, 10"/>
+                                <TextBlock Grid.Column="1" Grid.Row="0" 
+                                       Text="{Binding StrMainGoodsName}" 
+                                       VerticalAlignment="Center"/>
+                                <StackPanel Grid.Column="1" Grid.Row="1" 
+                                        Orientation="Horizontal" 
+                                        VerticalAlignment="Center">
+                                    <Button Content="-"/>
+                                    <TextBlock Text="Num" Margin="5"/>
+                                    <Button Content="+"/>
+                                </StackPanel>
+                                <Button Grid.Column="2" Grid.Row="0" 
+                                    Content="X"/>
+                                <TextBlock Grid.Column="2" Grid.Row="1" 
+                                       Text="Total Price" 
+                                       TextAlignment="Right"/>
+                                <TextBlock Grid.Column="0" Grid.ColumnSpan="3" 
+                                       Grid.Row="2" Text="option detail" 
+                                       Background="Gray"
+                                       Margin="0, 0, 0, 10"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <!--패널 정렬-->
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </Grid>
+
+        </Grid>
 
         <!--GoodsConfirmQuickBtn-->
-        <localV:GoodsConfirmQuickBtnDisplay Grid.Row="2"/>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.1*" />
+                <ColumnDefinition Width="1.8*" />
+                <ColumnDefinition Width="0.1*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+
+                <Button Grid.Column="0" Width="70" HorizontalAlignment="Left" Content="&lt;" Command="{Binding IcmdGoodsConfirmPageClkL}"/>
+
+                <ItemsControl Grid.Column="1" HorizontalAlignment="Center" ItemsSource="{Binding ObcGoodsConfirmQuickBtnList}">
+                    <!--템플릿 외형-->
+                    <ItemsControl.Template>
+                        <ControlTemplate TargetType="{x:Type ItemsControl}">
+                            <ItemsPresenter/>
+                        </ControlTemplate>
+                    </ItemsControl.Template>
+
+                    <!--데이터 외형-->
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Width="30" Height="30" Background="Aqua" Margin="10,0,10,0">
+                                <RadioButton
+                            Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}, AncestorLevel=1}, Path=DataContext.IcmdGoodsConfirmQuickBtnClk}"
+                            CommandParameter="{Binding InGoodsConfirmQuickBtnNum}"
+                            IsChecked="{Binding BlGoodsConfirmQuickBtnChecked}"
+                            GroupName="GoodsDetailShortDisplay">
+                                    <RadioButton.Template>
+                                        <ControlTemplate TargetType="{x:Type RadioButton}">
+                                            <Ellipse Stroke="Black">
+                                                <Ellipse.Style>
+                                                    <Style TargetType="Ellipse">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding BlGoodsConfirmQuickBtnChecked}" 
+                                             Value="False">
+                                                                <!--데이터외형변경-->
+                                                                <Setter Property="Fill" Value="White"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding BlGoodsConfirmQuickBtnChecked}" 
+                                             Value="True">
+                                                                <!--데이터외형변경-->
+                                                                <Setter Property="Fill" Value="Gray"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Ellipse.Style>
+                                            </Ellipse>
+                                        </ControlTemplate>
+                                    </RadioButton.Template>
+                                </RadioButton>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <!--패널 정렬-->
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+
+                <Button Grid.Column="2" Width="70" HorizontalAlignment="Right" Content="&gt;" Command="{Binding IcmdGoodsConfirmPageClkR}"/>
+            </Grid>
+        </Grid>
 
         <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>

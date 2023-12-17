@@ -7,8 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
-    <Grid Width="{Binding DblLockWinW}"
-          Height="{Binding DblLockWinH}"
+    <Grid
           Background="Blue"
           x:Name="KioskLock"
           Visibility="{Binding BlLockVis, Converter={StaticResource VisibleConverter}}">

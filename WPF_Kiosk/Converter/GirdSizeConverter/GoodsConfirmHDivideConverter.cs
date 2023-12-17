@@ -12,7 +12,7 @@ namespace WPF_Kiosk.Converter.GirdSizeConverter
         {
             if (value is double doubleValue)
             {
-                return doubleValue / MainWindowViewModel.Stc_InGoodsConfirmHCnt;
+                return doubleValue / StaticValue.Stc_InGoodsConfirmHCnt;
             }
             return value;
         }

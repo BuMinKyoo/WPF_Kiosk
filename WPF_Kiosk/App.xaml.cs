@@ -29,8 +29,6 @@ namespace WPF_Kiosk
             // 해당 서비스가 싱글턴으로 동작하도록 지정한다.
             // 애플리케이션이 실행되는 동안 한 번만 생성되고, 이후 모든 요청에 대해 동일한 인스턴스가 사용되도록 한다
 
-            // Stores
-
             // ViewModels
             services.AddSingleton<MainWindowViewModel>();
             services.AddSingleton<MainDisplayViewModel>();

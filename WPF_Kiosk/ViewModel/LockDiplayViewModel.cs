@@ -1,6 +1,6 @@
-﻿using System.ComponentModel;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Windows;
 using System.Windows.Input;
 
 namespace WPF_Kiosk.ViewModel
@@ -9,30 +9,14 @@ namespace WPF_Kiosk.ViewModel
     {
         public LockDiplayViewModel()
         {
-            // 윈도우 화면을 가져와서 비율에 따라 크기를 조절
-            DblLockWinW = SystemParameters.PrimaryScreenWidth;
-            DblLockWinH = SystemParameters.PrimaryScreenHeight;
+            WeakReferenceMessenger.Default.Register<CustomMessage>(this, ReceiveMessage);
         }
 
-        private double _dblLockWinW;
-        public double DblLockWinW
+        private void ReceiveMessage(object recipient, CustomMessage message)
         {
-            get { return _dblLockWinW; }
-            set
+            if (message.EventName == "LockDiplayViewModel-BlLockVis")
             {
-                _dblLockWinW = value;
-                Notify();
-            }
-        }
-
-        private double _dblLockWinH;
-        public double DblLockWinH
-        {
-            get { return _dblLockWinH; }
-            set
-            {
-                _dblLockWinH = value;
-                Notify();
+                BlLockVis = (bool)message.Message;
             }
         }
 
@@ -46,10 +30,7 @@ namespace WPF_Kiosk.ViewModel
         private void OnIcmdLockMouseLeftUp(object obj)
         {
             BlLockVis = false;
-            //BlMainDisplayVis = true;
-
-            // 초기에 보여지는 데이터들
-            //SetMainGoodsMainCategory();
+            WeakReferenceMessenger.Default.Send(new CustomMessage("MainDisplayViewModel-BlMainDisplayVis", true));
         }
 
         // OnIcmdKioskLockMouseLeftUp과 같은 기능이지만, 버튼으로 command연결
@@ -62,10 +43,7 @@ namespace WPF_Kiosk.ViewModel
         private void OnIcmdLockBtnClick(object obj)
         {
             BlLockVis = false;
-            //BlMainDisplayVis = true;
-
-            // 초기에 보여지는 데이터들
-            //SetMainGoodsMainCategory();
+            WeakReferenceMessenger.Default.Send(new CustomMessage("MainDisplayViewModel-BlMainDisplayVis", true));
         }
 
         private bool _blLockVis = true;

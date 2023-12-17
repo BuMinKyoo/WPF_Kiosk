@@ -42,7 +42,7 @@ namespace WPF_Kiosk.ViewModel
             get { return _icmdLoginPageGoLock = new Command(OnIcmdLoginPageGoLock); }
         }
 
-        private async void OnIcmdLoginPageGoLock(object obj)
+        private void OnIcmdLoginPageGoLock(object obj)
         {
             MainWindow mainWindow = new MainWindow();
             mainWindow.ShowDialog();

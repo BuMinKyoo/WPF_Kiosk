@@ -4,7 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:WPF_Kiosk_Behavior="clr-namespace:WPF_Kiosk.CommandBehavior"
-        xmlns:WPF_Kiosk_View="clr-namespace:WPF_Kiosk.View"
         xmlns:i ="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         SizeToContent="WidthAndHeight"
@@ -14,15 +13,14 @@
         WPF_Kiosk_Behavior:CommandBehavior.Event="SizeChanged"
         WPF_Kiosk_Behavior:CommandBehavior.Command="{Binding IcmdWindowSizeEvent}"
         >
-
     <!--WindowStyle="None" AllowsTransparency="True"-->
     
     <!--키오스크 화면-->
     <Grid>
         <!--메인화면-->
         <Grid
-        Width="{Binding DblLockWinW}"
-        Height="{Binding DblLockWinH}">
+        Width="{Binding DblMainWinW}"
+        Height="{Binding DblMainWinH}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.5*"/>
                 <RowDefinition Height="5.5*"/>
@@ -36,9 +34,11 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <Button Grid.Column="0" Content="Home" Command="{Binding IcmdMainTitleHomeBtnClk}"/>
+                <Button Grid.Column="0"
+                        Content="Home" Command="{Binding IcmdMainTitleHomeBtnClk}"/>
 
-                <Grid Grid.Column="1" x:Name="AdminManagerPwBox" Background="#00000000">
+                <Grid Grid.Column="1"
+                      x:Name="AdminManagerPwBox" Background="#00000000">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseUp"
                         SourceObject="{Binding ElementName=AdminManagerPwBox}">
@@ -49,20 +49,28 @@
             </Grid>
 
             <!--MainDisplay-->
-            <WPF_Kiosk_View:MainDisplay Grid.Row="1"/>
+            <ContentControl Grid.Row="1"
+                            Content="{Binding ObjMainDisplayViewModel}" />
 
             <!--GoodsConfirm-->
-            <WPF_Kiosk_View:GoodsConfirmDisplay Grid.Row="1"/>
+            <ContentControl Grid.Row="1"
+                            Content="{Binding ObjGoodsConfirmDisplayViewModel}" />
         </Grid>
 
         <!--DetailCategoryAndGoods-->
-        <WPF_Kiosk_View:DetailCategoryAndGoodsDisplay/>
+        <ContentControl Width="{Binding DblMainWinW}"
+                        Height="{Binding DblMainWinH}"
+                        Content="{Binding ObjDetailCategoryAndGoodsDisplayViewModel}" />
 
         <!--Lock-->
-        <ContentControl Content="{Binding ObjLockDiplayViewModel}"/>
+        <ContentControl Width="{Binding DblMainWinW}"
+                        Height="{Binding DblMainWinH}"
+                        Content="{Binding ObjLockDiplayViewModel}" />
 
         <!--AdminManager-->
-        <!--<WPF_Kiosk_View:AdminManagerDisplay/>-->
+        <ContentControl Width="{Binding DblMainWinW}"
+                        Height="{Binding DblMainWinH}"
+                        Content="{Binding ObjAdminManagerDisplayViewModel}" />
     </Grid>
 
 </Window>

@@ -3,12 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:localV="clr-namespace:WPF_Kiosk.View.DetailCategoryAndGoodsDisplayV"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
-    <Grid Width="{Binding DblLockWinW}"
-              Height="{Binding DblLockWinH}"
+    <Grid
               Background="#80000000"
               Visibility="{Binding BlDetailGoodsGridVis, Converter={StaticResource VisibleConverter}}">
         <Grid>
@@ -57,10 +55,233 @@
                 <Line Grid.Row="1"  X1="0" Y1="0" X2="1080" Y2="0" Stroke="Black" StrokeThickness="2" Margin="20"/>
 
                 <!--상품 디테일 전체-->
-                <localV:DetailCategoryListDisplay Grid.Row="2"/>
+                <Grid Name="DetailCategoryListGrid" Grid.Row="2">
+                    <ContentControl  Content="{Binding ClsMainGoodsSelected}">
+                        <!--템플릿 외형-->
+                        <ContentControl.Template>
+                            <ControlTemplate TargetType="{x:Type ContentControl}">
+                                <ContentPresenter ContentSource="Content"/>
+                            </ControlTemplate>
+                        </ContentControl.Template>
+                        <!--데이터 외형-->
+                        <ContentControl.ContentTemplate>
+                            <DataTemplate>
+
+                                <!--상품 디테일 카테고리-->
+                                <ItemsControl ItemsSource="{Binding ObcDetailCategoryList}">
+                                    <!--템플릿 외형-->
+                                    <ItemsControl.Template>
+                                        <ControlTemplate TargetType="{x:Type ItemsControl}">
+                                            <ItemsPresenter/>
+                                        </ControlTemplate>
+                                    </ItemsControl.Template>
+                                    <!--트리거-->
+                                    <ItemsControl.ItemContainerStyle>
+                                        <Style>
+                                            <Style.Triggers>
+                                                <DataTrigger
+                                    Binding="{Binding BlDetailCategoryVis}"
+                                    Value="True">
+                                                    <Setter
+                                        Property="FrameworkElement.Visibility"
+                                        Value="Visible"/>
+                                                </DataTrigger>
+                                                <DataTrigger
+                                    Binding="{Binding BlDetailCategoryVis}"
+                                    Value="False">
+                                                    <Setter
+                                        Property="FrameworkElement.Visibility"
+                                        Value="Collapsed"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </ItemsControl.ItemContainerStyle>
+                                    <!--데이터 외형-->
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+
+                                            <Grid
+          Height="{Binding ActualHeight, ElementName=DetailCategoryListGrid, Converter={StaticResource DetailCategoryHDivideConverter}}">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="3*"/>
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="8*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <TextBlock Grid.Row="0"
+                                           Grid.ColumnSpan="3" Text="{Binding StrDetailCategoryName}"
+                                           VerticalAlignment="Bottom"/>
+                                                <Button Grid.Row="1"
+                                        Grid.Column="0"
+                                        Content="&lt;"
+                                        Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}, AncestorLevel=1}, Path=DataContext.IcmdDetailGoodsPageClkL}"
+                                        CommandParameter="{Binding InDetailCategoryNum}"/>
+
+                                                <!--상품 디테일 카테고리 아이템-->
+                                                <Grid Name="DetailGoodsListGrid" Grid.Row="1" Grid.Column="1">
+                                                    <ItemsControl ItemsSource="{Binding ObcDetailGoodsList}">
+                                                        <!--템플릿 외형-->
+                                                        <ItemsControl.Template>
+                                                            <ControlTemplate TargetType="{x:Type ItemsControl}">
+                                                                <ItemsPresenter/>
+                                                            </ControlTemplate>
+                                                        </ItemsControl.Template>
+                                                        <!--트리거-->
+                                                        <ItemsControl.ItemContainerStyle>
+                                                            <Style>
+                                                                <Style.Triggers>
+                                                                    <DataTrigger Binding="{Binding BlDetailGoodsVis}" 
+                                 Value="True">
+                                                                        <Setter Property="FrameworkElement.Visibility" 
+                                Value="Visible"/>
+                                                                    </DataTrigger>
+                                                                    <DataTrigger Binding="{Binding BlDetailGoodsVis}" 
+                                 Value="False">
+                                                                        <Setter Property="FrameworkElement.Visibility"
+                                Value="Collapsed"/>
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </ItemsControl.ItemContainerStyle>
+                                                        <!--데이터 외형-->
+                                                        <ItemsControl.ItemTemplate>
+                                                            <DataTemplate>
+
+                                                                <!--상품 디테일 카테고리 아이템 버튼-->
+                                                                <Button Width="{Binding ActualWidth, ElementName=DetailGoodsListGrid, Converter={StaticResource DetailGoodsWDivideConverter}}"
+                        Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}, AncestorLevel=1}, Path=DataContext.IcmdDetailGoodsClk}"
+                        CommandParameter="{Binding}">
+                                                                    <Button.Style>
+                                                                        <Style TargetType="Button">
+                                                                            <Style.Triggers>
+                                                                                <DataTrigger 
+                                    Binding="{Binding BlDetailGoodsClicked}" 
+                                    Value="True">
+                                                                                    <Setter 
+                                        Property="Background" 
+                                        Value="Gray"/>
+                                                                                </DataTrigger>
+                                                                                <DataTrigger 
+                                    Binding="{Binding BlDetailGoodsClicked}" 
+                                    Value="False">
+                                                                                    <Setter 
+                                        Property="Background"
+                                        Value="White"/>
+                                                                                </DataTrigger>
+                                                                            </Style.Triggers>
+                                                                        </Style>
+                                                                    </Button.Style>
+                                                                    <StackPanel Background="Salmon">
+                                                                        <TextBlock Text="{Binding StrDetailGoodsName}" 
+                                   HorizontalAlignment="Center"/>
+                                                                        <TextBlock Text="{Binding InDetailGoodsDiscount}" 
+                                   HorizontalAlignment="Center"/>
+                                                                        <TextBlock Text="{Binding InDetailGoodsPrice}" 
+                                   HorizontalAlignment="Center"/>
+                                                                        <TextBlock Text="{Binding InDetailGoodsNum}" 
+                                   HorizontalAlignment="Center"/>
+                                                                        <TextBlock Text="{Binding InDetailGoodsDetailCategoryNum}"
+                                   HorizontalAlignment="Center"/>
+                                                                    </StackPanel>
+                                                                </Button>
+
+                                                            </DataTemplate>
+                                                        </ItemsControl.ItemTemplate>
+                                                        <!--패널 정렬-->
+                                                        <ItemsControl.ItemsPanel>
+                                                            <ItemsPanelTemplate>
+                                                                <StackPanel Orientation="Horizontal"/>
+                                                            </ItemsPanelTemplate>
+                                                        </ItemsControl.ItemsPanel>
+                                                    </ItemsControl>
+                                                </Grid>
+
+
+                                                <Button Grid.Row="1" Grid.Column="2" Content="&gt;" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}, AncestorLevel=1}, Path=DataContext.IcmdDetailGoodsPageClkR}"
+                 CommandParameter="{Binding InDetailCategoryNum}"/>
+                                            </Grid>
+
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                    <!--패널 정렬-->
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <StackPanel/>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                </ItemsControl>
+
+                            </DataTemplate>
+                        </ContentControl.ContentTemplate>
+                    </ContentControl>
+                </Grid>
 
                 <!--DetailGoodsQuickBtn-->
-                <localV:DetailGoodsQuickBtnDisplay Grid.Row="3"/>
+                <Grid Grid.Row="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Button Grid.Column="0" Width="70" HorizontalAlignment="Left" VerticalAlignment="Center" Content="&lt;" Command="{Binding IcmdDetailCategoryPageClkL}" Margin="30,0,0,0"/>
+
+                    <ItemsControl Grid.Column="1" HorizontalAlignment="Center" ItemsSource="{Binding ObcDetailGoodsQuickBtnList}">
+                        <!--템플릿 외형-->
+                        <ItemsControl.Template>
+                            <ControlTemplate TargetType="{x:Type ItemsControl}">
+                                <ItemsPresenter/>
+                            </ControlTemplate>
+                        </ItemsControl.Template>
+
+                        <!--데이터 외형-->
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Width="30" Height="30" Background="Aqua" Margin="10,0,10,0">
+                                    <RadioButton Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}, AncestorLevel=1}, Path=DataContext.IcmdDetailGoodsQuickBtnClk}"
+CommandParameter="{Binding InDetailGoodsQuickBtnNum}"
+                     IsChecked="{Binding BlDetailGoodsQuickBtnChecked}"
+                     GroupName="GoodsDetailShortDisplay">
+                                        <RadioButton.Template>
+                                            <ControlTemplate TargetType="{x:Type RadioButton}">
+                                                <Ellipse Stroke="Black">
+                                                    <Ellipse.Style>
+                                                        <Style TargetType="Ellipse">
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding BlDetailGoodsQuickBtnChecked}" 
+                                                 Value="False">
+                                                                    <!--데이터외형변경-->
+                                                                    <Setter Property="Fill" Value="White"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding BlDetailGoodsQuickBtnChecked}" 
+                                                 Value="True">
+                                                                    <!--데이터외형변경-->
+                                                                    <Setter Property="Fill" Value="Gray"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Ellipse.Style>
+                                                </Ellipse>
+                                            </ControlTemplate>
+                                        </RadioButton.Template>
+                                    </RadioButton>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                        <!--패널 정렬-->
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+
+                    <Button Grid.Column="2" Width="70" HorizontalAlignment="Right" VerticalAlignment="Center" Content="&gt;" Command="{Binding IcmdDetailCategoryPageClkR}" Margin="0, 0, 30, 0"/>
+                </Grid>
 
                 <StackPanel Grid.Row="4" Orientation="Horizontal">
                     <Button Width="100" Height="30" Content="Close" Command="{Binding IcmdDetailGoodsGridClose}"/>
