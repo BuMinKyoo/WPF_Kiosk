@@ -15,5 +15,8 @@
         public static int Stc_InDetailGoodsWCnt = 5;
 
         public static int Stc_InGoodsConfirmHCnt = 5;
+
+        public static double Stc_DblLoginWindowRatioW = 0.7;
+        public static double Stc_DblLoginWindowRatioH = 0.3;
     }
 }

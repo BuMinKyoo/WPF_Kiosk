@@ -4,7 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:WPF_KioskVM="clr-namespace:WPF_Kiosk.ViewModel"
-        WindowStartupLocation="CenterScreen"
         WindowStyle="None" AllowsTransparency="True"
         SizeToContent="WidthAndHeight"
         mc:Ignorable="d"
@@ -41,7 +40,8 @@
             <TextBox Grid.Row="3"/>
             <TextBox Grid.Row="4"/>
             <CheckBox Grid.Row="5" Content="자동 로그인"/>
-            <Button Grid.Row="6" Content="로그인" Command="{Binding IcmdLoginPageGoLock}"/>
+            <Button Grid.Row="6" x:Name="BtnLogin" Content="로그인" Command="{Binding IcmdLoginPageGoLock}"
+                    CommandParameter="{Binding ElementName=BtnLogin}"/>
             <Button Grid.Row="7" Content="키보드 ON"/>
         </Grid>
     </Grid>

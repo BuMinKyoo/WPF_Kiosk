@@ -35,13 +35,15 @@
                 </Grid.ColumnDefinitions>
 
                 <Button Grid.Column="0"
-                        Content="Home" Command="{Binding IcmdMainTitleHomeBtnClk}"/>
+                        Content="Home"
+                        Command="{Binding IcmdMainTitleHomeBtnClk}"/>
 
                 <Grid Grid.Column="1"
-                      x:Name="AdminManagerPwBox" Background="#00000000">
+                      x:Name="AdminManagerPwBox"
+                      Background="#00000000">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseUp"
-                        SourceObject="{Binding ElementName=AdminManagerPwBox}">
+                                        SourceObject="{Binding ElementName=AdminManagerPwBox}">
                             <i:InvokeCommandAction Command="{Binding IcmdWindowGoAdminManager}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>

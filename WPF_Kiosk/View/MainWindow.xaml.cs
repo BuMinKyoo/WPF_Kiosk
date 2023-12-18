@@ -22,6 +22,14 @@ namespace WPF_Kiosk.View
     {
         public MainWindow()
         {
+            // LoginWindow를 실행하고, 윈도우를 화면의 중앙에 맞춤
+            LoginWindow loginWindow = new LoginWindow();
+            loginWindow.WindowStartupLocation = WindowStartupLocation.Manual;
+            loginWindow.Left = SystemParameters.PrimaryScreenWidth / 2 - (SystemParameters.PrimaryScreenWidth * StaticValue.Stc_DblLoginWindowRatioW) / 2;
+            loginWindow.Top = SystemParameters.PrimaryScreenHeight / 2 - (SystemParameters.PrimaryScreenHeight * StaticValue.Stc_DblLoginWindowRatioH) / 2;
+
+            loginWindow.ShowDialog();
+
             InitializeComponent();
         }
     }

@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
+using WPF_Kiosk.View;
 
 namespace WPF_Kiosk.ViewModel
 {
