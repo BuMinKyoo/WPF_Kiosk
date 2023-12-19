@@ -7,13 +7,14 @@
         WindowStyle="None" AllowsTransparency="True"
         SizeToContent="WidthAndHeight"
         mc:Ignorable="d"
-        Title="LoginWindow">
+        Title="LoginWindow"
+        Style="{StaticResource DefaultStyle}">
 
     <Window.DataContext>
         <WPF_KioskVM:LoginWindowViewModel/>
     </Window.DataContext>
-    
-    <Grid Width="{Binding DblLoginPageWinW}" Height="{Binding DblLoginPageWinH}" Background="Wheat">
+
+    <Grid Width="{Binding DblLoginPageWinW}" Height="{Binding DblLoginPageWinH}" Background="#FFF">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
@@ -24,25 +25,186 @@
 
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="1.5*"/>
                 <RowDefinition Height="3*"/>
                 <RowDefinition Height="3*"/>
+                <RowDefinition Height="12*"/>
                 <RowDefinition Height="2*"/>
-                <RowDefinition Height="2*"/>
-                <RowDefinition Height="2*"/>
-                <RowDefinition Height="2*"/>
-                <RowDefinition Height="4*"/>
             </Grid.RowDefinitions>
 
-            <Button Grid.Row="0" Content="X"/>
-            <Grid Grid.Row="1"/>
-            <TextBlock Grid.Row="2" Text="KIOSK LOGIN"/>
-            <TextBox Grid.Row="3"/>
-            <TextBox Grid.Row="4"/>
-            <CheckBox Grid.Row="5" Content="자동 로그인"/>
-            <Button Grid.Row="6" x:Name="BtnLogin" Content="로그인" Command="{Binding IcmdLoginPageGoLock}"
-                    CommandParameter="{Binding ElementName=BtnLogin}"/>
-            <Button Grid.Row="7" Content="키보드 ON"/>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="7*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="1" Grid.Row="0" 
+                        Margin="4"
+                        Background="Transparent"
+                        BorderBrush="Transparent">
+                    <Button.Content>
+                        <Viewbox Width="auto" Height="auto">
+                            <Canvas Width="24" Height="24">
+                                <Path Fill="#000000" Data="M2,2 L22,22 M2,22 L22,2" StrokeThickness="1" Stroke="#000000" />
+                            </Canvas>
+                        </Viewbox>
+                    </Button.Content>
+                </Button>
+            </Grid>
+
+            
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="1.5*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+
+                <Image Grid.Column="1" Source="pack://siteoforigin:,,,/LoginWindow_Logo.jpg"/>
+            </Grid>
+        
+            <TextBlock Grid.Row="2"
+                       Text="KIOSK LOGIN" 
+                       FontSize="24"
+                       FontWeight="Bold"
+                       Foreground="#6700CD"
+                       HorizontalAlignment="Center"
+                       Margin="0,15,0,0"/>
+
+            <Grid Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="0.7*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <TextBox Grid.Column="1" Grid.Row="0"
+                         Margin="0,4,0,4"
+                         x:Name="TbID"
+                         BorderBrush="#BABABA"
+                         FontSize="16"
+                         VerticalContentAlignment="Center"
+                         Padding="4,0,0,0"
+                         >
+                    <TextBox.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="4"/>
+                        </Style>
+                    </TextBox.Resources>
+                </TextBox>
+                <TextBlock Grid.Column="1" Grid.Row="0"
+                           Text="ID"
+                           Foreground="#A8A8A8"            
+                           VerticalAlignment="Center"
+                           FontSize="16"
+                           Margin="5,0,0,0"
+                           IsHitTestVisible="False">
+                    <TextBlock.Style>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=TbID, Path=Text}" Value="">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+
+                <TextBox Grid.Column="1" Grid.Row="1"
+                         x:Name="TbPW"
+                         Margin="0,4,0,4"
+                         Background="#FFF"
+                         FontSize="16"
+                         VerticalContentAlignment="Center"
+                         Padding="4,0,0,0"
+                         BorderBrush="#BABABA">
+                    <TextBox.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="4"/>
+                        </Style>
+                    </TextBox.Resources>
+                </TextBox>
+                <TextBlock Grid.Column="1" Grid.Row="1"
+                           Text="PW"
+                           Foreground="#A8A8A8"            
+                           VerticalAlignment="Center"
+                           FontSize="16"
+                           Margin="5,0,0,0"
+                           IsHitTestVisible="False"
+                           >
+                    <TextBlock.Style>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=TbPW, Path=Text}" Value="">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+
+                <CheckBox Grid.Column="1" Grid.Row="2"
+                          Margin="0,4,0,0"
+                          FontSize="12"
+                          Foreground="#ADADAD" 
+                          HorizontalAlignment="Left" 
+                          VerticalAlignment="Top">
+                    <CheckBox.Content>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="자동 로그인" VerticalAlignment="Center" Margin="0,2,0,0"/>
+                        </StackPanel>
+                    </CheckBox.Content>
+                </CheckBox>
+
+                <Button Grid.Column="1" Grid.Row="3"
+                        x:Name="BtnLogin"
+                        Content="로그인"
+                        Foreground="#FFF"
+                        FontSize="18"
+                        Background="#6700CD"
+                        Margin="0,0,0,5"
+                        Command="{Binding IcmdLoginPageGoLock}"
+                        CommandParameter="{Binding ElementName=BtnLogin}">
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="4"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+                
+                <Button Grid.Column="1" Grid.Row="4"
+                        Margin="0,5,0,0"
+                        Background="#FFF"
+                        Foreground="#6700CD"
+                        FontSize="18"
+                        BorderBrush="#6700CD">
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="4"/>
+                        </Style>
+                    </Button.Resources>
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <Viewbox Width="auto" Height="auto">
+                                <Canvas Width="24" Height="24">
+                                    <Path Fill="#6700CD" Data="M19,10H17V8H19M19,13H17V11H19M16,10H14V8H16M16,13H14V11H16M16,17H8V15H16M7,10H5V8H7M7,13H5V11H7M8,11H10V13H8M8,8H10V10H8M11,11H13V13H11M11,8H13V10H11M20,5H4C2.89,5 2,5.89 2,7V17A2,2 0 0,0 4,19H20A2,2 0 0,0 22,17V7C22,5.89 21.1,5 20,5Z" />
+                                </Canvas>
+                            </Viewbox>
+                            <TextBlock Text="키보드 ON" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+            </Grid>
         </Grid>
     </Grid>
 </Window>

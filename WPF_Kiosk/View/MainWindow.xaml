@@ -12,6 +12,7 @@
         WindowStyle="None" AllowsTransparency="True"
         WPF_Kiosk_Behavior:CommandBehavior.Event="SizeChanged"
         WPF_Kiosk_Behavior:CommandBehavior.Command="{Binding IcmdWindowSizeEvent}"
+        Style="{StaticResource DefaultStyle}"
         >
     <!--WindowStyle="None" AllowsTransparency="True"-->
     
