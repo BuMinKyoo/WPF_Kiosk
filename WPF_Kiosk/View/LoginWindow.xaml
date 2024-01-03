@@ -21,7 +21,7 @@
         </Grid.ColumnDefinitions>
 
         <!--Picture-->
-        <Grid Grid.Column="0"/>
+        <Image Grid.Column="0" Source="{Binding StrLeftImgPath}"/>
 
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
@@ -61,7 +61,7 @@
                     <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
 
-                <Image Grid.Column="1" Source="pack://siteoforigin:,,,/LoginWindow_Logo.jpg"/>
+                <Image Grid.Column="1" Source="{Binding StrLogoImgPath}"/>
             </Grid>
         
             <TextBlock Grid.Row="2"

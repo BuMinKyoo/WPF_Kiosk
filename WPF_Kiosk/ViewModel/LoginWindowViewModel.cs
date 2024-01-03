@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
@@ -13,12 +15,18 @@ namespace WPF_Kiosk.ViewModel
         private double _dblLoginPageWinH;
         private Command _icmdLoginPageGoLock;
         private bool _blLoginPageVis = true;
+        public string _strLogoImgPath = "";
+        public string _strLeftImgPath = "";
 
         public LoginWindowViewModel()
         {
             // LoginWindow를 비율에 따라 크기를 조절
             _dblLoginPageWinW = SystemParameters.PrimaryScreenWidth * StaticValue.Stc_DblLoginWindowRatioW;
             _dblLoginPageWinH = SystemParameters.PrimaryScreenHeight * StaticValue.Stc_DblLoginWindowRatioH;
+
+            // Logo 이미지 경로 설정
+            StrLogoImgPath = StaticValue.Stc_StrAppStartPath + StaticValue.Stc_StrImgPath +  "LoginWindow_Logo.jpg";
+            StrLeftImgPath = StaticValue.Stc_StrAppStartPath + StaticValue.Stc_StrImgPath + "LoginWindow_Left.jpg";
         }
 
         #region properties
@@ -48,6 +56,26 @@ namespace WPF_Kiosk.ViewModel
             set
             {
                 _blLoginPageVis = value;
+                Notify();
+            }
+        }
+
+        public string StrLogoImgPath
+        {
+            get { return _strLogoImgPath; }
+            set
+            {
+                _strLogoImgPath = value;
+                Notify();
+            }
+        }
+
+        public string StrLeftImgPath
+        {
+            get { return _strLeftImgPath; }
+            set
+            {
+                _strLeftImgPath = value;
                 Notify();
             }
         }

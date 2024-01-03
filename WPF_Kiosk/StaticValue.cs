@@ -1,4 +1,6 @@
-﻿namespace WPF_Kiosk
+﻿using System;
+
+namespace WPF_Kiosk
 {
     public class StaticValue
     {
@@ -17,6 +19,9 @@
         public static int Stc_InGoodsConfirmHCnt = 5;
 
         public static double Stc_DblLoginWindowRatioW = 0.7;
-        public static double Stc_DblLoginWindowRatioH = 0.3;
+        public static double Stc_DblLoginWindowRatioH = 0.28;
+
+        public static string Stc_StrAppStartPath = AppDomain.CurrentDomain.BaseDirectory;
+        public static string Stc_StrImgPath = "Img//";
     }
 }
